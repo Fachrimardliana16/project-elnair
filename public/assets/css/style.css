@@ -69,9 +69,21 @@ nav.scrolled {
 }
 
 .nav-content {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
+    width: 100%;
+}
+
+.nav-links {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+}
+
+.nav-cta {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .brand-logo {
@@ -83,11 +95,6 @@ nav.scrolled {
     filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
 }
 
-.nav-links {
-    display: flex;
-    gap: 3rem;
-    align-items: center;
-}
 
 .nav-links a {
     text-decoration: none;
