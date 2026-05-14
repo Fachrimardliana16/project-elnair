@@ -19,21 +19,23 @@ jobs:
           php-version: '8.4'
           extensions: mbstring, xml, dom, curl, zip, gd, mysqlnd, bcmath, soap, intl
 
-      - name: Install Composer Dependencies
-        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs   # ← Tambahkan --ignore-platform-reqs
+      - name: Install Composer
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs
 
-      - name: Deploy via FTPS
+      # Deploy Project Root (semua file kecuali public)
+      - name: Deploy Laravel Root
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/elnair/ 
-          local-dir: ./ 
+          server-dir: /elnair/
+          local-dir: ./
           protocol: ftps
           port: 21
-          dangerous-clean-slate: true        # Membersihkan folder sebelum upload
+          dangerous-clean-slate: true
           exclude: |
+            public/**
             **/.git*
             **/.env
             **/node_modules/**
@@ -42,3 +44,16 @@ jobs:
             **/storage/framework/views/*
             **/storage/logs/*
             .github
+
+      # Deploy Public Folder
+      - name: Deploy Public Folder
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/elnair/
+          local-dir: ./public
+          protocol: ftps
+          port: 21
+          dangerous-clean-slate: true
