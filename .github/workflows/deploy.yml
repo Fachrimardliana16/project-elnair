@@ -22,7 +22,6 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs
 
-      # Deploy project Laravel ke folder di luar public_html
       - name: Deploy Laravel Project
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -32,7 +31,7 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./
-          server-dir: elnair/
+          server-dir: ./
           dangerous-clean-slate: true
           exclude: |
             public/**
@@ -47,7 +46,6 @@ jobs:
             .gitignore
             README.md
 
-      # Deploy isi folder public ke public_html/elnair
       - name: Deploy Public Folder
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -57,5 +55,5 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./public/
-          server-dir: public_html/elnair/
+          server-dir: ../public_html/elnair/
           dangerous-clean-slate: true
