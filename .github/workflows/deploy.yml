@@ -20,6 +20,8 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /public_html/elnair/   
+          protocol: ftps          # ← Tambahkan ini
+          port: 21                # ← Tambahkan ini
           exclude: |
             **/.git*
             **/.env
