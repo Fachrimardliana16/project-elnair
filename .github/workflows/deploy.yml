@@ -1,9 +1,9 @@
-name: Deploy to cPanel
+name: Deploy Laravel to cPanel
 
 on:
   push:
     branches:
-      - main        
+      - main
 
 jobs:
   deploy:
@@ -13,17 +13,30 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Deploy via FTP
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/elnair/   
+          server-dir: /public_html/elnair/
+          local-dir: ./
+          protocol: ftps
+          port: 21
           exclude: |
             **/.git*
             **/.env
             **/node_modules/**
-            **/vendor/**
-            **/storage/framework/*
+            **/storage/framework/cache/*
+            **/storage/framework/sessions/*
+            **/storage/framework/views/*
             **/storage/logs/*
+            .github
