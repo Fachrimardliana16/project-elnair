@@ -28,10 +28,11 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/elnair/
-          local-dir: ./
+          server-dir: /public_html/elnair/ 
+          local-dir: ./ 
           protocol: ftps
           port: 21
+          dangerous-clean-slate: true        # Membersihkan folder sebelum upload
           exclude: |
             **/.git*
             **/.env
