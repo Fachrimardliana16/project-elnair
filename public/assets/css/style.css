@@ -87,12 +87,29 @@ nav.scrolled {
 }
 
 .brand-logo {
-    height: 110px; /* Even larger logo */
+    height: 110px;
     width: auto;
     position: relative;
-    top: 10px; /* Hangs down slightly for 'Wah' effect */
+    top: 10px;
     transition: var(--transition-elite);
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+    filter: drop-shadow(0 8px 25px rgba(0,0,0,0.2)) brightness(1.05);
+}
+
+.logo {
+    position: relative;
+    z-index: 1;
+}
+
+/* Subtle aura to make logo pop on busy backgrounds */
+.logo::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(220, 208, 192, 0.15) 0%, rgba(220, 208, 192, 0) 70%);
+    z-index: -1;
+    pointer-events: none;
 }
 
 
