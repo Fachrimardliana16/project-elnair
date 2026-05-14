@@ -22,14 +22,14 @@ jobs:
       - name: Install Composer
         run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist --ignore-platform-reqs
 
-      # Deploy Project Root (semua file kecuali public)
+      # Deploy Laravel Root (Project Utama)
       - name: Deploy Laravel Root
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /elnair/
+          server-dir: /home/chim6544/elnair/     # ← Pakai path lengkap
           local-dir: ./
           protocol: ftps
           port: 21
@@ -52,8 +52,8 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/elnair/
-          local-dir: ./public
+          server-dir: /home/chim6544/public_html/elnair/   # ← Path lengkap
+          local-dir: ./public/
           protocol: ftps
           port: 21
           dangerous-clean-slate: true
