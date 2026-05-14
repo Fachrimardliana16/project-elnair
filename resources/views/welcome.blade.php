@@ -22,10 +22,8 @@
                 </picture>
             </div>
             <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#why-us">Experience</a>
-                <a href="#paket">Packages</a>
-                <a href="#testimoni">Stories</a>
+                <a href="#paket">Haji</a>
+                <a href="#paket">Umroh</a>
                 <a href="https://wa.me/{{ $settings['wa_number'] ?? '' }}" class="btn btn-gold" style="padding: 0.8rem 2rem; font-size: 0.7rem;">Book Now</a>
             </div>
         </div>
