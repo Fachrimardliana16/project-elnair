@@ -9,11 +9,30 @@ if ($token !== 'ISI_TOKEN_BARU_DI_SINI') {
     exit('Forbidden');
 }
 
-$projectPath = '/home/USERNAME/elnair'; // ganti dengan root Laravel asli
+// Otomatis mencari path project Laravel
+// Jika deploy-runner.php ada di public_html/elnair/
+// Maka project root kemungkinan ada 2 level di atasnya (FTP Root)
+$possiblePaths = [
+    realpath(__DIR__ . '/../..'), // 2 level up
+    realpath(__DIR__ . '/..'),    // 1 level up
+    '/home/chim6544/elnair',      // Fallback manual (ganti USERNAME)
+];
 
-if (!is_dir($projectPath)) {
+$projectPath = null;
+foreach ($possiblePaths as $path) {
+    if ($path && is_dir($path) && file_exists($path . '/artisan')) {
+        $projectPath = $path;
+        break;
+    }
+}
+
+if (!$projectPath) {
     http_response_code(500);
-    exit('Project path not found: ' . $projectPath);
+    echo "DEBUG INFO:\n";
+    echo "Current Dir: " . __DIR__ . "\n";
+    echo "Possible paths tried:\n";
+    print_r($possiblePaths);
+    exit('Error: Laravel project root not found. Please set $projectPath manually in deploy-runner.php');
 }
 
 chdir($projectPath);
@@ -45,36 +64,39 @@ if ($envContent === false) {
 
 if (strpos($envContent, 'APP_KEY=') === false || preg_match('/^APP_KEY=\s*$/m', $envContent)) {
     echo "APP_KEY missing, generating...\n";
-    passthru('php artisan key:generate --force 2>&1', $keyExitCode);
+    $php = PHP_BINARY;
+    passthru("$php artisan key:generate --force 2>&1", $keyExitCode);
     echo "key:generate exit code: " . $keyExitCode . "\n";
 
     if ($keyExitCode !== 0) {
         http_response_code(500);
-        exit("Failed to generate APP_KEY");
+        exit("Failed to generate APP_KEY. Check if 'php' command is available and has correct permissions.");
     }
 } else {
     echo "APP_KEY already exists, skipping key generation\n";
 }
 
 echo "Running migrations...\n";
-passthru('php artisan migrate --force 2>&1', $migrateExitCode);
+$php = PHP_BINARY;
+passthru("$php artisan migrate --force 2>&1", $migrateExitCode);
 echo "migrate exit code: " . $migrateExitCode . "\n";
 
 if ($migrateExitCode !== 0) {
     http_response_code(500);
-    exit("Migration failed");
+    exit("Migration failed. Check database credentials in .env and ensure the database exists.");
 }
 
 echo "Caching config...\n";
-passthru('php artisan config:cache 2>&1', $configExitCode);
+$php = PHP_BINARY;
+passthru("$php artisan config:cache 2>&1", $configExitCode);
 echo "config:cache exit code: " . $configExitCode . "\n";
 
 echo "Caching routes...\n";
-passthru('php artisan route:cache 2>&1', $routeExitCode);
+passthru("$php artisan route:cache 2>&1", $routeExitCode);
 echo "route:cache exit code: " . $routeExitCode . "\n";
 
 echo "Caching views...\n";
-passthru('php artisan view:cache 2>&1', $viewExitCode);
+passthru("$php artisan view:cache 2>&1", $viewExitCode);
 echo "view:cache exit code: " . $viewExitCode . "\n";
 
 echo "\nDeployment tasks completed.\n";
