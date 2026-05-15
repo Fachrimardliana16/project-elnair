@@ -4,7 +4,7 @@
 @section('content')
 <div class="admin-card">
     <div style="text-align: right; margin-bottom: 1rem;">
-        <button class="btn-admin"><i class="fas fa-plus"></i> Add Testimonial</button>
+        <a href="{{ route('admin.testimonials.create') }}" class="btn-admin"><i class="fas fa-plus"></i> Add Testimonial</a>
     </div>
     <table>
         <thead>
@@ -16,7 +16,16 @@
                     <td>{{ $item->name }}</td>
                     <td>{{ $item->role_label }}</td>
                     <td>{{ Str::limit($item->quote, 50) }}</td>
-                    <td><div style="display: flex; gap: 0.5rem;"><i class="fas fa-edit"></i> <i class="fas fa-trash"></i></div></td>
+                    <td>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <a href="{{ route('admin.testimonials.edit', $item->id) }}" style="color: #4a90e2;"><i class="fas fa-edit"></i></a>
+                            <form action="{{ route('admin.testimonials.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="background: none; border: none; color: #e74c3c; cursor: pointer; padding: 0;"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
             @empty
                 <tr><td colspan="4" style="text-align: center; color: #888;">No testimonials found.</td></tr>

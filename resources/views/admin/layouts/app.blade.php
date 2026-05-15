@@ -31,16 +31,7 @@
             transition: all 0.3s;
         }
 
-        .sidebar-header {
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
 
-        .sidebar-logo {
-            height: 50px;
-            width: auto;
-        }
 
         .sidebar-menu {
             padding: 1.5rem 0;
@@ -181,28 +172,92 @@
 <body>
 
     <aside class="sidebar">
-        <div class="sidebar-header">
-            <h3 style="font-family: 'Playfair Display', serif; color: var(--brand-gold);">ELNAIR</h3>
+        <div class="sidebar-header" style="padding: 2rem 1.2rem; text-align: center;">
+            <div style="background: white; border-radius: 12px; height: 90px; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                <img src="{{ asset('assets/img/logo-full.png') }}" alt="Logo" style="width: 170px; height: auto; flex-shrink: 0; margin-top: 40px;">
+            </div>
         </div>
         <ul class="sidebar-menu">
             <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}"><i class="fas fa-chart-line"></i> Dashboard</a>
             </li>
+            
+            @can('manage_hero')
             <li class="{{ Request::is('admin/hero') ? 'active' : '' }}">
                 <a href="{{ route('admin.hero') }}"><i class="fas fa-desktop"></i> Hero Content</a>
             </li>
+            @endcan
+
+            @can('manage_features')
             <li class="{{ Request::is('admin/features*') ? 'active' : '' }}">
                 <a href="{{ route('admin.features.index') }}"><i class="fas fa-star"></i> Why Choose Us</a>
             </li>
+            @endcan
+
+            @can('manage_packages')
             <li class="{{ Request::is('admin/packages*') ? 'active' : '' }}">
                 <a href="{{ route('admin.packages.index') }}"><i class="fas fa-kaaba"></i> Packages</a>
             </li>
+            @endcan
+
+            @can('manage_testimonials')
             <li class="{{ Request::is('admin/testimonials*') ? 'active' : '' }}">
                 <a href="{{ route('admin.testimonials.index') }}"><i class="fas fa-comment-dots"></i> Testimonials</a>
             </li>
+            @endcan
+            
+            @if(auth()->user()->canAny(['manage_users', 'manage_roles', 'manage_gallery', 'manage_articles', 'manage_ads', 'manage_landing_pages', 'view_logs']))
+            <li class="menu-divider" style="padding: 1rem 2rem 0.5rem; font-size: 0.7rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 1px;">Management</li>
+            @endif
+            
+            @can('manage_users')
+            <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">
+                <a href="{{ route('admin.users.index') }}"><i class="fas fa-users"></i> Users</a>
+            </li>
+            @endcan
+
+            @can('manage_roles')
+            <li class="{{ Request::is('admin/roles*') ? 'active' : '' }}">
+                <a href="{{ route('admin.roles.index') }}"><i class="fas fa-user-shield"></i> Roles & Permissions</a>
+            </li>
+            @endcan
+
+            @can('manage_gallery')
+            <li class="{{ Request::is('admin/gallery*') ? 'active' : '' }}">
+                <a href="{{ route('admin.gallery.index') }}"><i class="fas fa-images"></i> Gallery</a>
+            </li>
+            @endcan
+
+            @can('manage_articles')
+            <li class="{{ Request::is('admin/articles*') ? 'active' : '' }}">
+                <a href="{{ route('admin.articles.index') }}"><i class="fas fa-newspaper"></i> Articles</a>
+            </li>
+            @endcan
+
+            @can('manage_ads')
+            <li class="{{ Request::is('admin/ads*') ? 'active' : '' }}">
+                <a href="{{ route('admin.ads.index') }}"><i class="fas fa-ad"></i> Marketing Ads</a>
+            </li>
+            @endcan
+
+            @can('manage_landing_pages')
+            <li class="{{ Request::is('admin/landing-pages*') ? 'active' : '' }}">
+                <a href="{{ route('admin.landing-pages.index') }}"><i class="fas fa-pager"></i> Landing Pages</a>
+            </li>
+            @endcan
+
+            @can('view_logs')
+            <li class="{{ Request::is('admin/logs*') ? 'active' : '' }}">
+                <a href="{{ route('admin.logs') }}"><i class="fas fa-exclamation-triangle"></i> Error Logs</a>
+            </li>
+            @endcan
+
+            @can('manage_settings')
             <li class="{{ Request::is('admin/settings') ? 'active' : '' }}">
                 <a href="{{ route('admin.settings') }}"><i class="fas fa-cog"></i> Website Settings</a>
             </li>
+            @endcan
+
             <li>
                 <a href="/" target="_blank"><i class="fas fa-external-link-alt"></i> View Website</a>
             </li>
@@ -224,15 +279,65 @@
         </header>
 
         <div class="content-body">
-            @if(session('success'))
-                <div style="background: #d4edda; color: #155724; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             @yield('content')
         </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Success Notifications
+        @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: "{{ session('success') }}",
+                confirmButtonColor: '#0D4C54',
+                timer: 3000,
+                timerProgressBar: true
+            });
+        @endif
+
+        // Error Notifications
+        @if(session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: "{{ session('error') }}",
+                confirmButtonColor: '#0D4C54'
+            });
+        @endif
+
+        // Validation Errors
+        @if($errors->any())
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                html: '<ul style="text-align: left; font-size: 0.9rem; color: #666;">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
+                confirmButtonColor: '#0D4C54'
+            });
+        @endif
+
+        // Global Delete Confirmation
+        document.querySelectorAll('form[onsubmit*="confirm"]').forEach(form => {
+            form.removeAttribute('onsubmit');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#0D4C54',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>

@@ -22,6 +22,10 @@
             <input type="file" name="avatar" class="form-control">
         </div>
         <div class="form-group">
+            <label>Thumbnail (Preview)</label>
+            <input type="file" name="thumbnail" class="form-control">
+        </div>
+        <div class="form-group">
             <label>Video URL (Optional)</label>
             <input type="url" name="video_url" class="form-control" placeholder="https://youtube.com/...">
         </div>

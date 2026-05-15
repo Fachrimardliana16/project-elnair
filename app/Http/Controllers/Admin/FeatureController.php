@@ -33,6 +33,25 @@ class FeatureController extends Controller
         return redirect()->route('admin.features.index')->with('success', 'Feature added!');
     }
 
+    public function edit(Feature $feature)
+    {
+        return view('admin.features.edit', compact('feature'));
+    }
+
+    public function update(Request $request, Feature $feature)
+    {
+        $data = $request->validate([
+            'icon' => 'required|string',
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'order' => 'nullable|integer',
+        ]);
+
+        $feature->update($data);
+
+        return redirect()->route('admin.features.index')->with('success', 'Feature updated!');
+    }
+
     public function destroy(Feature $feature)
     {
         $feature->delete();

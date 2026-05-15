@@ -15,7 +15,7 @@ class AdminMiddleware
             return redirect()->route('admin.login');
         }
 
-        if (Auth::user()->role !== 'admin') {
+        if (!$request->user()->hasAnyRole(['superadmin', 'admin', 'marketing'])) {
             return redirect('/')->with('error', 'Unauthorized access.');
         }
 

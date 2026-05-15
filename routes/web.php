@@ -8,6 +8,13 @@ use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\MarketingAdController;
+use App\Http\Controllers\Admin\LandingPageController;
+use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 
 Route::get('/', function () {
     $hero = \App\Models\HeroSetting::first();
@@ -16,7 +23,7 @@ Route::get('/', function () {
     $testimonials = \App\Models\Testimonial::all();
     $settings = \App\Models\SiteSetting::pluck('value', 'key')->toArray();
 
-    return view('welcome', compact('hero', 'features', 'packages', 'testimonials', 'settings'));
+    return view('landing.index', compact('hero', 'features', 'packages', 'testimonials', 'settings'));
 });
 
 Route::get('/admin', function () {
@@ -39,6 +46,15 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('features', FeatureController::class)->names('features');
         Route::resource('packages', PackageController::class)->names('packages');
         Route::resource('testimonials', TestimonialController::class)->names('testimonials');
+
+        Route::resource('users', UserController::class)->names('users');
+        Route::resource('roles', RoleController::class)->names('roles');
+        Route::resource('gallery', GalleryController::class)->names('gallery');
+        Route::resource('articles', ArticleController::class)->names('articles');
+        Route::resource('ads', MarketingAdController::class)->names('ads');
+        Route::resource('landing-pages', LandingPageController::class)->names('landing-pages');
+
+        Route::get('/logs', [LogViewerController::class, 'index'])->name('logs');
 
         Route::get('/settings', [SiteSettingController::class, 'index'])->name('settings');
         Route::post('/settings', [SiteSettingController::class, 'update'])->name('settings.update');

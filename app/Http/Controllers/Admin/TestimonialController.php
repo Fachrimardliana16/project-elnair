@@ -43,6 +43,35 @@ class TestimonialController extends Controller
         return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial added!');
     }
 
+    public function edit(Testimonial $testimonial)
+    {
+        return view('admin.testimonials.edit', compact('testimonial'));
+    }
+
+    public function update(Request $request, Testimonial $testimonial)
+    {
+        $data = $request->validate([
+            'name' => 'required|string',
+            'role_label' => 'required|string',
+            'quote' => 'required|string',
+            'avatar' => 'nullable|image|max:1024',
+            'thumbnail' => 'nullable|image|max:1024',
+            'video_url' => 'nullable|url',
+        ]);
+
+        if ($request->hasFile('avatar')) {
+            $data['avatar'] = $request->file('avatar')->store('assets/img', 'public_root');
+        }
+
+        if ($request->hasFile('thumbnail')) {
+            $data['thumbnail'] = $request->file('thumbnail')->store('assets/img', 'public_root');
+        }
+
+        $testimonial->update($data);
+
+        return redirect()->route('admin.testimonials.index')->with('success', 'Testimonial updated!');
+    }
+
     public function destroy(Testimonial $testimonial)
     {
         $testimonial->delete();

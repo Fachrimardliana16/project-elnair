@@ -4,7 +4,7 @@
 @section('content')
 <div class="admin-card">
     <div style="text-align: right; margin-bottom: 1rem;">
-        <button class="btn-admin"><i class="fas fa-plus"></i> Add Feature</button>
+        <a href="{{ route('admin.features.create') }}" class="btn-admin"><i class="fas fa-plus"></i> Add Feature</a>
     </div>
     <table>
         <thead>
@@ -16,7 +16,16 @@
                     <td><i class="{{ $item->icon }}"></i></td>
                     <td>{{ $item->title }}</td>
                     <td>{{ $item->order }}</td>
-                    <td><div style="display: flex; gap: 0.5rem;"><i class="fas fa-edit"></i> <i class="fas fa-trash"></i></div></td>
+                    <td>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <a href="{{ route('admin.features.edit', $item->id) }}" style="color: #4a90e2;"><i class="fas fa-edit"></i></a>
+                            <form action="{{ route('admin.features.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="background: none; border: none; color: #e74c3c; cursor: pointer; padding: 0;"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
             @empty
                 <tr><td colspan="4" style="text-align: center; color: #888;">No features found.</td></tr>
