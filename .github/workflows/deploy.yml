@@ -68,6 +68,10 @@ jobs:
           exclude: |
             **/.DS_Store
 
-      - name: Run Laravel migrate on server
+      - name: Run Laravel server commands
         run: |
+          if [ -z "${{ secrets.DEPLOY_RUNNER_URL }}" ]; then
+            echo "DEPLOY_RUNNER_URL is empty or not set"
+            exit 1
+          fi
           curl --fail "${{ secrets.DEPLOY_RUNNER_URL }}"
