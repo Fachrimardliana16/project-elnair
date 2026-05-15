@@ -57,3 +57,5 @@ jobs:
           port: 21
           local-dir: ./public/
           server-dir: ../public_html/elnair/
+          exclude: |
+            **/.DS_Store
