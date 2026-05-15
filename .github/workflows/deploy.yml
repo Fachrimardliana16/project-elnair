@@ -32,7 +32,6 @@ jobs:
           port: 21
           local-dir: ./
           server-dir: ./
-          dangerous-clean-slate: true
           exclude: |
             public/**
             **/.git*
@@ -56,4 +55,3 @@ jobs:
           port: 21
           local-dir: ./public/
           server-dir: ../public_html/elnair/
-          dangerous-clean-slate: true
