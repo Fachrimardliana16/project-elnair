@@ -70,4 +70,4 @@ jobs:
 
       - name: Run Laravel migrate on server
         run: |
-          curl --fail "https://elnair.chillfile.my.id/deploy-runner.php?token=elnair_2026_token_rahasia_123"
+          curl --fail "${{ secrets.DEPLOY_RUNNER_URL }}"
