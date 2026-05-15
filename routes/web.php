@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\MarketingAdController;
 use App\Http\Controllers\Admin\LandingPageController;
+use App\Http\Controllers\PublicLandingPageController;
 use Rap2hpoutre\LaravelLogViewer\LogViewerController;
 
 Route::get('/', function () {
@@ -25,6 +26,8 @@ Route::get('/', function () {
 
     return view('landing.index', compact('hero', 'features', 'packages', 'testimonials', 'settings'));
 });
+
+Route::get('/p/{slug}', [PublicLandingPageController::class, 'show'])->name('landing.page');
 
 Route::get('/admin', function () {
     return redirect()->route('admin.dashboard');

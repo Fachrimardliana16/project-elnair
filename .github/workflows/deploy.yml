@@ -33,16 +33,18 @@ jobs:
           local-dir: ./
           server-dir: ./
           exclude: |
-            public/**
+            **/.git/**
             **/.git*
-            **/.env
             **/node_modules/**
-            **/storage/framework/cache/*
-            **/storage/framework/sessions/*
-            **/storage/framework/views/*
-            **/storage/logs/*
-            .github/**
-            .gitignore
+            **/.github/**
+            **/.env
+            **/.env.*
+            **/public/**
+            **/storage/logs/**
+            **/storage/framework/cache/**
+            **/storage/framework/sessions/**
+            **/storage/framework/views/**
+            .editorconfig
             README.md
 
       - name: Deploy Public Folder

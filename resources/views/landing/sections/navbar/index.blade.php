@@ -8,8 +8,8 @@
             </picture>
         </div>
         <div class="nav-links">
-            <a href="#paket">Haji</a>
-            <a href="#paket">Umroh</a>
+            <a href="{{ route('landing.page', 'haji') }}">Haji</a>
+            <a href="{{ route('landing.page', 'umroh') }}">Umroh</a>
         </div>
         <div class="nav-cta">
             <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
