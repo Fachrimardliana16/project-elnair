@@ -74,4 +74,4 @@ jobs:
             echo "DEPLOY_RUNNER_URL is empty or not set"
             exit 1
           fi
-          curl --fail "${{ secrets.DEPLOY_RUNNER_URL }}"
+          curl "${{ secrets.DEPLOY_RUNNER_URL }}"

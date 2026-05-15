@@ -5,9 +5,14 @@ error_reporting(E_ALL);
 
 $token = $_GET['token'] ?? '';
 if ($token !== 'ISI_TOKEN_BARU_DI_SINI') {
+    echo "PHP Version: " . PHP_VERSION . "\n";
+    echo "Error: Token mismatch.\n";
     http_response_code(403);
     exit('Forbidden');
 }
+
+echo "Starting Deployment Runner...\n";
+echo "PHP Version: " . PHP_VERSION . "\n";
 
 // Otomatis mencari path project Laravel
 // Jika deploy-runner.php ada di public_html/elnair/
