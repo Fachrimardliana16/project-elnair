@@ -9,7 +9,7 @@
         <a href="{{ route('admin.users.create') }}" class="btn-admin"><i class="fas fa-plus"></i> Add New User</a>
     </div>
 
-    <div style="overflow-x: auto;">
+    <div class="table-responsive">
         <table>
             <thead>
                 <tr>

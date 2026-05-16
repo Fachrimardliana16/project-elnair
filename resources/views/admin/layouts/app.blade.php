@@ -183,11 +183,88 @@
         table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
         th { text-align: left; padding: 1rem; border-bottom: 2px solid #eee; font-size: 0.9rem; color: #888; }
         td { padding: 1rem; border-bottom: 1px solid #eee; font-size: 0.95rem; }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Mobile Responsive Adjustments */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--brand-dark);
+            cursor: pointer;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: block; }
+            
+            .sidebar {
+                left: calc(var(--sidebar-width) * -1);
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0 !important;
+            }
+
+            header {
+                padding: 0 1rem;
+            }
+
+            .content-body {
+                padding: 1rem;
+            }
+
+            .admin-card {
+                padding: 1.2rem;
+            }
+
+            .header-title h2 {
+                font-size: 1rem;
+            }
+
+            .user-menu span {
+                display: none;
+            }
+        }
+
+        /* iPhone SE Specific Fixes */
+        @media (max-width: 375px) {
+            .sidebar-header img {
+                width: 140px !important;
+            }
+            .btn-admin {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <aside class="sidebar">
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
         <div class="sidebar-header" style="padding: 2rem 1.2rem; text-align: center;">
             <div style="background: white; border-radius: 12px; height: 90px; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
                 <img src="{{ asset('assets/img/logo-full.png') }}" alt="Logo" style="width: 170px; height: auto; flex-shrink: 0; margin-top: 40px;">
@@ -282,8 +359,13 @@
 
     <main class="main-content">
         <header>
-            <div class="header-title">
-                <h2>@yield('page_title', 'Dashboard')</h2>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-title">
+                    <h2>@yield('page_title', 'Dashboard')</h2>
+                </div>
             </div>
             <div class="user-menu">
                 <span style="font-size: 0.9rem; font-weight: 600;">{{ Auth::user()->name }}</span>
@@ -353,6 +435,25 @@
                 });
             });
         });
+
+        // Sidebar Toggle Logic
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+
+        if(menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+        }
+
+        if(overlay) {
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        }
     </script>
 
 </body>
