@@ -25,9 +25,18 @@ class LandingPageController extends Controller
         $data = $request->validate([
             'title' => 'required|string',
             'content' => 'nullable|string',
+            'custom_wa_number' => 'nullable|string',
+            'custom_wa_message' => 'nullable|string',
+            'hero_image' => 'nullable|image|max:2048',
+            'meta_title' => 'nullable|string',
+            'meta_description' => 'nullable|string',
         ]);
 
         $data['slug'] = Str::slug($data['title']);
+        
+        if ($request->hasFile('hero_image')) {
+            $data['hero_image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('hero_image'), 'assets/img/landing');
+        }
 
         LandingPage::create($data);
 
@@ -44,9 +53,18 @@ class LandingPageController extends Controller
         $data = $request->validate([
             'title' => 'required|string',
             'content' => 'nullable|string',
+            'custom_wa_number' => 'nullable|string',
+            'custom_wa_message' => 'nullable|string',
+            'hero_image' => 'nullable|image|max:2048',
+            'meta_title' => 'nullable|string',
+            'meta_description' => 'nullable|string',
         ]);
 
         $data['slug'] = Str::slug($data['title']);
+
+        if ($request->hasFile('hero_image')) {
+            $data['hero_image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('hero_image'), 'assets/img/landing');
+        }
 
         $landingPage->update($data);
 

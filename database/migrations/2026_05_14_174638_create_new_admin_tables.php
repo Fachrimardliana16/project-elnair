@@ -44,6 +44,11 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('content')->nullable();
+            $table->string('custom_wa_number')->nullable();
+            $table->text('custom_wa_message')->nullable();
+            $table->string('hero_image')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->text('meta_description')->nullable();
             $table->timestamps();
         });
     }

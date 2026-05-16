@@ -25,7 +25,7 @@
                 <td><code>/{{ $page->slug }}</code></td>
                 <td>
                     <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <input type="text" value="{{ url('/' . $page->slug) }}?utm_source=ads" class="form-control" style="font-size: 0.75rem; padding: 0.3rem;" readonly>
+                        <input type="text" value="{{ route('landing.page', $page->slug) }}" class="form-control" style="font-size: 0.75rem; padding: 0.3rem;" readonly>
                         <button onclick="copyToClipboard(this)" style="background: none; border: none; cursor: pointer; color: var(--brand-gold);"><i class="fas fa-copy"></i></button>
                     </div>
                 </td>

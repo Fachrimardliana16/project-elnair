@@ -33,7 +33,7 @@ class ArticleController extends Controller
         $data['author_id'] = auth()->id();
 
         if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('assets/img/articles', 'public_root');
+            $data['thumbnail'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('thumbnail'), 'assets/img/articles');
         }
 
         Article::create($data);
@@ -58,7 +58,7 @@ class ArticleController extends Controller
         $data['slug'] = Str::slug($data['title']);
 
         if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('assets/img/articles', 'public_root');
+            $data['thumbnail'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('thumbnail'), 'assets/img/articles');
         }
 
         $article->update($data);

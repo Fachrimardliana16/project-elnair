@@ -46,6 +46,36 @@
                     <label>Office Address</label>
                     <textarea name="address" class="form-control" rows="3">{{ $settings['address'] ?? '' }}</textarea>
                 </div>
+                <div class="form-group">
+                    <label>Google Maps Embed URL (Iframe Src)</label>
+                    <input type="text" name="google_maps_url" class="form-control" value="{{ $settings['google_maps_url'] ?? '' }}" placeholder="https://www.google.com/maps/embed?pb=...">
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem; border-top: 1px solid #eee; padding-top: 2rem;">
+            <h3 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--brand-dark);">Marketing & SEO</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <div class="form-group">
+                        <label>Google Analytics / Tag Manager Script</label>
+                        <textarea name="google_analytics" class="form-control" rows="5" placeholder="<!-- Paste your GA script here -->">{{ $settings['google_analytics'] ?? '' }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Facebook Pixel Script</label>
+                        <textarea name="facebook_pixel" class="form-control" rows="5" placeholder="<!-- Paste your FB Pixel script here -->">{{ $settings['facebook_pixel'] ?? '' }}</textarea>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label>SEO Meta Keywords (Separated by commas)</label>
+                        <input type="text" name="meta_keywords" class="form-control" value="{{ $settings['meta_keywords'] ?? '' }}" placeholder="umrah, travel, haji, jakarta">
+                    </div>
+                    <div class="form-group">
+                        <label>SEO Meta Description</label>
+                        <textarea name="meta_description" class="form-control" rows="4" placeholder="Brief description of your website for Google search results...">{{ $settings['meta_description'] ?? '' }}</textarea>
+                    </div>
+                </div>
             </div>
         </div>
         <div style="margin-top: 1rem; text-align: right;">

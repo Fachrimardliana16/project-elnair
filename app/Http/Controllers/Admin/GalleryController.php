@@ -28,7 +28,7 @@ class GalleryController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('assets/img/gallery', 'public_root');
+            $data['image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/gallery');
         }
 
         Gallery::create($data);
@@ -50,7 +50,7 @@ class GalleryController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('assets/img/gallery', 'public_root');
+            $data['image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/gallery');
         }
 
         $gallery->update($data);

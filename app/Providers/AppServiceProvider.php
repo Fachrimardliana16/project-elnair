@@ -22,5 +22,9 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
             return $user->hasRole('superadmin') ? true : null;
         });
+
+        \Illuminate\Support\Facades\View::composer('*', function ($view) {
+            $view->with('settings', \App\Models\SiteSetting::pluck('value', 'key')->toArray());
+        });
     }
 }

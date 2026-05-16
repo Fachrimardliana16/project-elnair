@@ -31,11 +31,11 @@ class TestimonialController extends Controller
         ]);
 
         if ($request->hasFile('avatar')) {
-            $data['avatar'] = $request->file('avatar')->store('assets/img', 'public_root');
+            $data['avatar'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('avatar'), 'assets/img/testimonials');
         }
 
         if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('assets/img', 'public_root');
+            $data['thumbnail'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('thumbnail'), 'assets/img/testimonials');
         }
 
         Testimonial::create($data);
@@ -60,11 +60,11 @@ class TestimonialController extends Controller
         ]);
 
         if ($request->hasFile('avatar')) {
-            $data['avatar'] = $request->file('avatar')->store('assets/img', 'public_root');
+            $data['avatar'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('avatar'), 'assets/img/testimonials');
         }
 
         if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('assets/img', 'public_root');
+            $data['thumbnail'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('thumbnail'), 'assets/img/testimonials');
         }
 
         $testimonial->update($data);

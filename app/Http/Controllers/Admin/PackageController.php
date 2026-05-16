@@ -31,8 +31,7 @@ class PackageController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('assets/img', 'public_root');
-            $data['image'] = $path;
+            $data['image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/packages');
         }
 
         $data['is_active'] = $request->has('is_active');
@@ -59,8 +58,7 @@ class PackageController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('assets/img', 'public_root');
-            $data['image'] = $path;
+            $data['image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/packages');
         }
 
         $data['is_active'] = $request->has('is_active');

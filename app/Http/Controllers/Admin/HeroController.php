@@ -30,8 +30,7 @@ class HeroController extends Controller
         ]);
 
         if ($request->hasFile('background_image')) {
-            $path = $request->file('background_image')->store('assets/img', 'public_root');
-            $data['background_image'] = $path;
+            $data['background_image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('background_image'), 'assets/img');
         }
 
         $hero->fill($data);

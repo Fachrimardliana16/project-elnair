@@ -19,13 +19,11 @@ class SiteSettingController extends Controller
         $data = $request->except('_token');
 
         if ($request->hasFile('logo')) {
-            $path = $request->file('logo')->store('assets/img', 'public_root');
-            $data['logo'] = $path;
+            $data['logo'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('logo'), 'assets/img');
         }
 
         if ($request->hasFile('favicon')) {
-            $path = $request->file('favicon')->store('', 'public_root');
-            $data['favicon'] = $path;
+            $data['favicon'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('favicon'), 'assets/img');
         }
 
         foreach ($data as $key => $value) {

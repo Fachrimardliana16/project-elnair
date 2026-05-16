@@ -14,8 +14,9 @@ use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\MarketingAdController;
 use App\Http\Controllers\Admin\LandingPageController;
-use App\Http\Controllers\PublicLandingPageController;
-use Rap2hpoutre\LaravelLogViewer\LogViewerController;
+use App\Http\Controllers\SitemapController;
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 Route::get('/', function () {
     $hero = \App\Models\HeroSetting::first();
