@@ -25,7 +25,34 @@ Route::get('/', function () {
     $testimonials = \App\Models\Testimonial::all();
     $settings = \App\Models\SiteSetting::pluck('value', 'key')->toArray();
 
-    return view('landing.index', compact('hero', 'features', 'packages', 'testimonials', 'settings'));
+    // Generate SEO Schema Server-Side to avoid Blade Parse Errors
+    $schemaElements = [];
+    foreach ($packages as $index => $pkg) {
+        $schemaElements[] = [
+            "@type" => "ListItem",
+            "position" => $index + 1,
+            "item" => [
+                "@type" => "Product",
+                "name" => $pkg->title,
+                "image" => asset($pkg->image),
+                "description" => \Illuminate\Support\Str::limit(strip_tags($pkg->description), 160),
+                "offers" => [
+                    "@type" => "Offer",
+                    "priceCurrency" => "IDR",
+                    "price" => preg_replace('/[^0-9]/', '', $pkg->price_value),
+                    "availability" => "https://schema.org/InStock",
+                    "url" => url('/') . "#paket"
+                ]
+            ]
+        ];
+    }
+    $packageSchema = json_encode([
+        "@context" => "https://schema.org",
+        "@type" => "ItemList",
+        "itemListElement" => $schemaElements
+    ]);
+
+    return view('landing.index', compact('hero', 'features', 'packages', 'testimonials', 'settings', 'packageSchema'));
 });
 
 Route::get('/p/{slug}', [PublicLandingPageController::class, 'show'])->name('landing.page');

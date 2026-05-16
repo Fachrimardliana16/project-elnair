@@ -7,4 +7,9 @@
     @include('landing.sections.testimonials.index')
     @include('landing.sections.location.index')
     @include('landing.sections.cta.index')
+
+    <!-- SEO Schema.org (JSON-LD) -->
+    <script type="application/ld+json">
+    {!! $packageSchema !!}
+    </script>
 @endsection

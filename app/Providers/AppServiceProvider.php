@@ -24,7 +24,23 @@ class AppServiceProvider extends ServiceProvider
         });
 
         \Illuminate\Support\Facades\View::composer('*', function ($view) {
-            $view->with('settings', \App\Models\SiteSetting::pluck('value', 'key')->toArray());
+            $settings = \App\Models\SiteSetting::pluck('value', 'key')->toArray();
+            
+            // Generate Organization Schema Server-Side for absolute stability
+            $orgSchema = json_encode([
+                "@context" => "https://schema.org",
+                "@type" => "Organization",
+                "name" => $settings['site_name'] ?? 'Elnair Travel',
+                "url" => url('/'),
+                "logo" => asset($settings['logo'] ?? 'assets/img/logo-full.png'),
+                "sameAs" => [
+                    $settings['facebook_url'] ?? '',
+                    $settings['instagram_url'] ?? ''
+                ]
+            ]);
+
+            $view->with('settings', $settings);
+            $view->with('orgSchema', $orgSchema);
         });
     }
 }
