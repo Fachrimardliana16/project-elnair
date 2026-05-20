@@ -9,6 +9,8 @@ use App\Models\HeroSetting;
 use App\Models\Feature;
 use App\Models\Package;
 use App\Models\Testimonial;
+use App\Models\Article;
+use App\Models\DepartureSchedule;
 use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
@@ -22,6 +24,7 @@ class AdminSeeder extends Seeder
         Feature::truncate();
         Package::truncate();
         Testimonial::truncate();
+        DepartureSchedule::truncate();
 
         // Admin User
         User::create([
@@ -78,6 +81,7 @@ class AdminSeeder extends Seeder
         $packages = [
             [
                 'title' => 'Haji Furoda Luxury',
+                'slug' => 'haji-furoda-luxury',
                 'price_label' => 'IDR',
                 'price_value' => '350jt',
                 'description' => 'Haji tanpa antri dengan fasilitas tenda AC di Arafah dan hotel bintang 5 di Makkah.',
@@ -85,6 +89,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'title' => 'Umrah VIP Direct',
+                'slug' => 'umrah-vip-direct',
                 'price_label' => 'IDR',
                 'price_value' => '45jt',
                 'description' => 'Penerbangan langsung Jakarta - Madinah dengan kenyamanan kelas utama selama perjalanan.',
@@ -92,6 +97,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'title' => 'Umrah Plus Turki',
+                'slug' => 'umrah-plus-turki',
                 'price_label' => 'IDR',
                 'price_value' => '55jt',
                 'description' => 'Ibadah umrah sekaligus menikmati keindahan sejarah Islam di Istanbul dan Cappadocia.',
@@ -101,6 +107,57 @@ class AdminSeeder extends Seeder
 
         foreach ($packages as $p) {
             Package::create($p);
+        }
+
+        // Departure Schedules
+        $hajiPkg = Package::where('slug', 'haji-furoda-luxury')->first();
+        $umrahVipPkg = Package::where('slug', 'umrah-vip-direct')->first();
+        $umrahTurkiPkg = Package::where('slug', 'umrah-plus-turki')->first();
+
+        if ($hajiPkg) {
+            DepartureSchedule::create([
+                'package_id' => $hajiPkg->id,
+                'departure_date' => now()->addMonths(2)->setDate(now()->year, 6, 15),
+                'available_seats' => 5,
+                'status' => 'Tersedia',
+                'is_active' => true,
+            ]);
+        }
+
+        if ($umrahVipPkg) {
+            DepartureSchedule::create([
+                'package_id' => $umrahVipPkg->id,
+                'departure_date' => now()->addMonths(1),
+                'available_seats' => 12,
+                'status' => 'Tersedia',
+                'is_active' => true,
+            ]);
+            
+            DepartureSchedule::create([
+                'package_id' => $umrahVipPkg->id,
+                'departure_date' => now()->addMonths(3),
+                'available_seats' => 2,
+                'status' => 'Hampir Penuh',
+                'is_active' => true,
+            ]);
+        }
+
+        if ($umrahTurkiPkg) {
+            DepartureSchedule::create([
+                'package_id' => $umrahTurkiPkg->id,
+                'departure_date' => now()->addMonths(2),
+                'available_seats' => 0,
+                'status' => 'Penuh',
+                'is_active' => true,
+            ]);
+            
+            DepartureSchedule::create([
+                'package_id' => $umrahTurkiPkg->id,
+                'departure_date' => now()->addMonths(4),
+                'available_seats' => 25,
+                'status' => 'Tersedia',
+                'is_active' => true,
+            ]);
         }
 
         // Testimonials
@@ -130,6 +187,64 @@ class AdminSeeder extends Seeder
 
         foreach ($testimonials as $t) {
             Testimonial::create($t);
+        }
+
+        // Dummy Articles & Kajian
+        Article::truncate();
+        $admin = User::where('role', 'admin')->first();
+        $articles = [
+            [
+                'title' => 'Panduan Lengkap Tata Cara Umrah Sesuai Sunnah',
+                'slug' => 'panduan-lengkap-tata-cara-umrah-sesuai-sunnah',
+                'content' => '<h2>Panduan Umrah Sesuai Petunjuk Rasulullah SAW</h2><p>Melaksanakan ibadah umrah merupakan dambaan setiap Muslim. Agar ibadah kita diterima oleh Allah SWT, sangat penting untuk memahami tata cara pelaksanaannya yang sesuai dengan tuntunan sunnah Rasulullah SAW.</p><h3>1. Ihram dari Miqat</h3><p>Perjalanan ibadah dimulai dengan memakai pakaian ihram dan berniat untuk umrah dari batas tempat yang ditentukan (Miqat). Sebelum berniat, jamaah disunnahkan untuk mandi, memotong kuku, dan merapikan janggut.</p><h3>2. Tawaf mengelilingi Ka\'bah</h3><p>Tawaf adalah mengelilingi Ka\'bah sebanyak 7 kali putaran, dimulai dan diakhiri di sudut Hajar Aswad. Selama tawaf, jamaah dianjurkan memperbanyak doa dan dzikir.</p><h3>3. Sa\'i antara Shafa dan Marwah</h3><p>Berjalan kaki (dan berlari-lari kecil bagi laki-laki di batas lampu hijau) antara bukit Shafa dan Marwah sebanyak 7 kali perjalanan.</p><h3>4. Tahallul (Memotong Rambut)</h3><p>Mengakhiri ibadah umrah dengan mencukur atau memotong sebagian rambut kepala. Bagi laki-laki, mencukur gundul lebih utama.</p>',
+                'thumbnail' => 'https://images.unsplash.com/photo-1591604021695-0c69b7c05981?auto=format&fit=crop&q=80&w=800',
+                'author_id' => $admin->id,
+                'status' => 'published',
+            ],
+            [
+                'title' => 'Keutamaan Haji Furoda: Ibadah Tanpa Waktu Tunggu',
+                'slug' => 'keutamaan-haji-furoda-ibadah-tanpa-waktu-tunggu',
+                'content' => '<h2>Mengenal Haji Furoda dan Fasilitas Eksklusifnya</h2><p>Haji Furoda adalah program ibadah haji yang menggunakan visa undangan resmi (Mujamalah) dari pemerintah Kerajaan Arab Saudi. Keunggulan utamanya adalah jamaah dapat langsung berangkat pada tahun yang sama tanpa perlu mengantre bertahun-tahun seperti program reguler atau haji khusus (Plus).</p><h3>Legalitas dan Kenyamanan</h3><p>Elnair Travel memastikan seluruh aspek legalitas visa Furoda terverifikasi secara resmi melalui e-Hajj Arab Saudi. Didukung dengan akomodasi hotel bintang 5 di Makkah dan Madinah, serta tenda AC eksklusif di Arafah dan Mina untuk menjamin kekhusyukan ibadah Anda.</p>',
+                'thumbnail' => 'https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&q=80&w=800',
+                'author_id' => $admin->id,
+                'status' => 'published',
+            ],
+            [
+                'title' => 'Kajian: Menggapai Haji Mabrur dan Menjaga Kemabrurannya',
+                'slug' => 'kajian-menggapai-haji-mabrur-dan-menjaga-kemabrurannya',
+                'content' => '<h2>Kajian Ilmiah bersama Asatidz Pembimbing Elnair</h2><p>Haji mabrur tidak ada balasan lain baginya kecuali Surga. Namun, apa esensi sejati dari kemabruran tersebut? Dalam kajian subuh yang diselenggarakan di Makkah, Ustadz Pembimbing Elnair menjelaskan beberapa tanda haji mabrur:</p><ul><li>Adanya perubahan perilaku ke arah yang lebih baik setelah kembali dari Tanah Suci.</li><li>Meningkatnya kepedulian sosial terhadap sesama (It\'amuth Tha\'am).</li><li>Lisannya semakin terjaga dan santun dalam bertutur kata (Thiyabul Kalam).</li></ul><p>Semoga Allah senantiasa membimbing kita untuk terus istiqamah menjaga kualitas ibadah pasca berhaji.</p>',
+                'thumbnail' => 'https://images.unsplash.com/photo-1564121211835-e88c852648ab?auto=format&fit=crop&q=80&w=800',
+                'author_id' => $admin->id,
+                'status' => 'published',
+            ],
+            [
+                'title' => 'Persiapan Fisik dan Mental Sebelum Keberangkatan Umrah Premium',
+                'slug' => 'persiapan-fisik-dan-mental-sebelum-keberangkatan-umrah-premium',
+                'content' => '<h2>Tips Penting Sebelum Menuju Dua Kota Suci</h2><p>Perjalanan ibadah Umrah memerlukan ketahanan fisik yang prima karena aktivitas Tawaf, Sa\'i, dan perjalanan antar kota suci menuntut energi yang cukup besar. Berikut beberapa persiapan penting bagi calon jamaah Elnair:</p><h3>1. Latihan Jalan Kaki</h3><p>Membiasakan jalan kaki ringan 15-30 menit setiap hari minimal dua minggu sebelum keberangkatan.</p><h3>2. Menjaga Pola Makan dan Hidrasi</h3><p>Perbanyak konsumsi air putih dan suplemen vitamin jika diperlukan.</p><h3>3. Persiapan Kejiwaan</h3><p>Perbanyak istighfar, bertaubat, dan meluruskan niat semata-mata mengharap ridha Allah SWT, bebas dari kesibukan duniawi.</p>',
+                'thumbnail' => 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800',
+                'author_id' => $admin->id,
+                'status' => 'published',
+            ],
+            [
+                'title' => 'Tips Memilih Travel Umrah Berizin Resmi Kemenag',
+                'slug' => 'tips-memilih-travel-umrah-berizin-resmi-kemenag',
+                'content' => '<h2>Hindari Penipuan, Utamakan Legalitas dan Rekam Jejak</h2><p>Maraknya kasus penipuan berkedok umrah murah menuntut kita untuk ekstra waspada. Pastikan Anda memilih penyelenggara yang memiliki izin resmi Penyelenggara Perjalanan Ibadah Umrah (PPIU) dari Kementerian Agama RI.</p><h3>Rumus 5 Pasti Umrah:</h3><ul><li>Pasti Travelnya Berizin</li><li>Pasti Jadwalnya (Tiket PP jelas)</li><li>Pasti Terbangnya (Maskapai terpercaya)</li><li>Pasti Hotelnya (Akomodasi jelas)</li><li>Pasti Visanya (Legalitas visa terjamin)</li></ul><p>Elnair Travel bangga menjadi salah satu biro perjalanan dengan komitmen 100% amanah, resmi, dan transparan.</p>',
+                'thumbnail' => 'https://images.unsplash.com/photo-1609599006353-e629f1d40968?auto=format&fit=crop&q=80&w=800',
+                'author_id' => $admin->id,
+                'status' => 'published',
+            ],
+            [
+                'title' => 'Kajian Parenting Islami: Membawa Anak Kecil Saat Ibadah Umrah',
+                'slug' => 'kajian-parenting-islami-membawa-anak-kecil-saat-ibadah-umrah',
+                'content' => '<h2>Menanamkan Rasa Cinta Masjidil Haram Sejak Dini</h2><p>Membawa buah hati tercinta ke Tanah Suci adalah pengalaman berharga yang dapat membekas indah di memori mereka. Ustadzah pendamping Elnair membagikan kiat agar ibadah tetap nyaman:</p><ul><li>Pilihlah paket Umrah VIP/Premium dengan hotel dekat pelataran agar mobilitas anak tidak melelahkan.</li><li>Siapkan mainan edukatif tanpa suara untuk menyibukkan anak di dalam masjid.</li><li>Ajarkan doa-doa pendek secara perlahan selama tawaf dan sa\'i.</li></ul><p>Jadikan perjalanan ini sebagai sarana tarbiyah (pendidikan) terbaik bagi putra-putri kita.</p>',
+                'thumbnail' => 'https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&q=80&w=800',
+                'author_id' => $admin->id,
+                'status' => 'published',
+            ],
+        ];
+
+        foreach ($articles as $art) {
+            Article::create($art);
         }
     }
 }

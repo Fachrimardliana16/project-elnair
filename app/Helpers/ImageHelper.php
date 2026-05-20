@@ -14,7 +14,7 @@ class ImageHelper
         $fullPath = $destinationPath . '/' . $fileName;
 
         if (!file_exists($destinationPath)) {
-            mkdir($destinationPath, 0777, true);
+            mkdir($destinationPath, 0755, true);
         }
 
         // Check if GD library is installed

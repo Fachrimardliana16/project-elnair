@@ -35,4 +35,15 @@ return [
         ],
     ],
 
+    // ─── Advertising & Analytics Pixel IDs ───────────────────────────────
+    // Set these in your .env file. They are read by the <x-advertising-pixels />
+    // blade component loaded in the global layout head.
+    'pixels' => [
+        'meta_pixel_id'  => env('META_PIXEL_ID'),
+        'gtm_id'         => env('GOOGLE_TAG_MANAGER_ID'),
+        'ga4_id'         => env('GA4_MEASUREMENT_ID'),
+        'tiktok_pixel_id'=> env('TIKTOK_PIXEL_ID'),
+        'google_ads_id'  => env('GOOGLE_ADS_ID'),
+    ],
+
 ];

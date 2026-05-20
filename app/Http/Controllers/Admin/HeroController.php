@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreHeroRequest;
 use App\Models\HeroSetting;
 use Illuminate\Http\Request;
 
@@ -14,20 +15,11 @@ class HeroController extends Controller
         return view('admin.hero.index', compact('hero'));
     }
 
-    public function update(Request $request)
+    public function update(StoreHeroRequest $request)
     {
         $hero = HeroSetting::first() ?? new HeroSetting();
         
-        $data = $request->validate([
-            'tagline' => 'nullable|string',
-            'title' => 'required|string',
-            'subtitle' => 'nullable|string',
-            'btn_primary_text' => 'nullable|string',
-            'btn_primary_url' => 'nullable|string',
-            'btn_secondary_text' => 'nullable|string',
-            'btn_secondary_url' => 'nullable|string',
-            'background_image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('background_image')) {
             $data['background_image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('background_image'), 'assets/img');

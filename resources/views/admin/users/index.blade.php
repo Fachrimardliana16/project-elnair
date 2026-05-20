@@ -4,8 +4,14 @@
 
 @section('content')
 <div class="admin-card">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
-        <h3 style="margin: 0;">User List</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <form method="GET" action="{{ route('admin.users.index') }}" style="display: flex; gap: 0.5rem; flex: 1; max-width: 400px;">
+            <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari nama atau email..." class="form-control" style="margin: 0;">
+            <button type="submit" class="btn-admin" style="white-space: nowrap;"><i class="fas fa-search"></i></button>
+            @if($search)
+            <a href="{{ route('admin.users.index') }}" class="btn-admin-outline" style="white-space: nowrap;">Reset</a>
+            @endif
+        </form>
         <a href="{{ route('admin.users.create') }}" class="btn-admin"><i class="fas fa-plus"></i> Add New User</a>
     </div>
 
@@ -20,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($users as $user)
+                @forelse($users as $user)
                 <tr>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
@@ -32,17 +38,24 @@
                     <td>
                         <div style="display: flex; gap: 0.5rem;">
                             <a href="{{ route('admin.users.edit', $user->id) }}" style="color: #4a90e2;"><i class="fas fa-edit"></i></a>
-                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
+                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="delete-form">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" style="background: none; border: none; color: #e74c3c; cursor: pointer; padding: 0;"><i class="fas fa-trash"></i></button>
+                                <button type="button" class="delete-btn" style="background: none; border: none; color: #e74c3c; cursor: pointer; padding: 0;"><i class="fas fa-trash"></i></button>
                             </form>
                         </div>
                     </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr><td colspan="4" style="text-align: center; color: #888; padding: 2rem;">
+                    {{ $search ? 'User "'.$search.'" tidak ditemukan.' : 'Belum ada user.' }}
+                </td></tr>
+                @endforelse
             </tbody>
         </table>
+        @if($users->hasPages())
+        <div class="mt-3 d-flex justify-content-end">{{ $users->links() }}</div>
+        @endif
     </div>
 </div>
 @endsection

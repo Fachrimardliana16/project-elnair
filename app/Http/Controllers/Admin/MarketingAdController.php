@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\MarketingAd;
+use App\Http\Requests\Admin\StoreMarketingAdRequest;
+use App\Http\Requests\Admin\UpdateMarketingAdRequest;
+use App\Helpers\ImageHelper;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MarketingAdController extends Controller
 {
     public function index()
     {
-        $ads = MarketingAd::all();
+        $ads = MarketingAd::latest()->paginate(20);
         return view('admin.ads.index', compact('ads'));
     }
 
@@ -19,17 +23,12 @@ class MarketingAdController extends Controller
         return view('admin.ads.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreMarketingAdRequest $request)
     {
-        $data = $request->validate([
-            'title' => 'required|string',
-            'image' => 'required|image|max:2048',
-            'link' => 'required|url',
-            'is_active' => 'required|boolean',
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('assets/img/ads', 'public_root');
+            $data['image'] = ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/ads');
         }
 
         MarketingAd::create($data);
@@ -42,17 +41,15 @@ class MarketingAdController extends Controller
         return view('admin.ads.edit', compact('ad'));
     }
 
-    public function update(Request $request, MarketingAd $ad)
+    public function update(UpdateMarketingAdRequest $request, MarketingAd $ad)
     {
-        $data = $request->validate([
-            'title' => 'required|string',
-            'image' => 'nullable|image|max:2048',
-            'link' => 'required|url',
-            'is_active' => 'required|boolean',
-        ]);
+        $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('assets/img/ads', 'public_root');
+            if ($ad->image) {
+                Storage::disk('public_root')->delete($ad->image);
+            }
+            $data['image'] = ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/ads');
         }
 
         $ad->update($data);
@@ -62,6 +59,9 @@ class MarketingAdController extends Controller
 
     public function destroy(MarketingAd $ad)
     {
+        if ($ad->image) {
+            Storage::disk('public_root')->delete($ad->image);
+        }
         $ad->delete();
         return back()->with('success', 'Ad deleted!');
     }

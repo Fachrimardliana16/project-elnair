@@ -13,10 +13,10 @@
             <div>
                 <h4>Discover</h4>
                 <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#why-us">Experience</a></li>
-                    <li><a href="#paket">Packages</a></li>
-                    <li><a href="#testimoni">Stories</a></li>
+                    <li><a href="{{ url('/') }}">Beranda</a></li>
+                    <li><a href="{{ route('about') }}">Tentang Kami</a></li>
+                    <li><a href="{{ url('/') }}#paket">Packages</a></li>
+                    <li><a href="{{ route('artikel.index') }}">Artikel & Kajian</a></li>
                 </ul>
             </div>
             <div>

@@ -28,5 +28,8 @@
         </div>
         @endforeach
     </div>
+    @if($galleries->hasPages())
+    <div class="mt-3 d-flex justify-content-end">{{ $galleries->links() }}</div>
+    @endif
 </div>
 @endsection

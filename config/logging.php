@@ -127,6 +127,24 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+        // Dedicated audit-trail channel — keeps activity events separate from laravel.log
+        'activity' => [
+            'driver'               => 'daily',
+            'path'                 => storage_path('logs/activity.log'),
+            'level'                => 'info',
+            'days'                 => 90,   // retain 90 days of audit trail
+            'replace_placeholders' => true,
+        ],
+
+        // Marketing / pixel event tracking channel
+        'marketing' => [
+            'driver'               => 'daily',
+            'path'                 => storage_path('logs/marketing.log'),
+            'level'                => 'info',
+            'days'                 => 30,
+            'replace_placeholders' => true,
+        ],
+
     ],
 
 ];

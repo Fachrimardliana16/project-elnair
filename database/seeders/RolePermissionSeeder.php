@@ -55,6 +55,7 @@ class RolePermissionSeeder extends Seeder
             'manage_articles',
             'manage_ads',
             'manage_landing_pages',
+            'manage_settings',
         ]);
 
         // Assign superadmin role to the first user

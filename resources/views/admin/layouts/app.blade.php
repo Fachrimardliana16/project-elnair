@@ -77,6 +77,38 @@
             border-left: 4px solid var(--brand-gold);
         }
 
+        /* ── Cluster Headers (functional navigation groupings) ──────────── */
+        .menu-cluster-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 1.2rem 1.5rem 0.45rem;
+            font-size: 0.67rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.40);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            user-select: none;
+            cursor: default;
+        }
+
+        .menu-cluster-header .cluster-icon {
+            font-size: 0.85rem;
+            opacity: 0.75;
+        }
+
+        .menu-cluster-header {
+            position: relative;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            margin-top: 0.5rem;
+        }
+
+        .menu-divider-thin {
+            height: 1px;
+            background: rgba(255,255,255,0.07);
+            margin: 0.5rem 1.5rem;
+        }
+
         /* Main Content */
         .main-content {
             margin-left: var(--sidebar-width);
@@ -179,6 +211,29 @@
         }
         .form-control:focus { outline: none; border-color: var(--brand-gold); }
 
+        /* Inline field-level validation states */
+        .form-control.is-invalid {
+            border-color: #dc3545;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 20px 20px;
+            padding-right: 2.5rem;
+        }
+        .form-control.is-valid {
+            border-color: #28a745;
+        }
+        .invalid-feedback {
+            display: none;
+            color: #dc3545;
+            font-size: 0.8rem;
+            margin-top: 0.35rem;
+            font-weight: 500;
+        }
+        .invalid-feedback.d-block {
+            display: block;
+        }
+
         /* Tables */
         table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
         th { text-align: left; padding: 1rem; border-bottom: 2px solid #eee; font-size: 0.9rem; color: #888; }
@@ -188,6 +243,18 @@
             width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
         }
 
         /* Mobile Responsive Adjustments */
@@ -259,6 +326,7 @@
             }
         }
     </style>
+    @yield('styles')
 </head>
 <body>
 
@@ -271,59 +339,75 @@
             </div>
         </div>
         <ul class="sidebar-menu">
+            {{-- ── Dashboard ────────────────────────────────────────────────────── --}}
             <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}">
                 <a href="{{ route('admin.dashboard') }}"><i class="fas fa-chart-line"></i> Dashboard</a>
             </li>
-            
+
+            {{-- ══════════════════════════════════════════════════════════════════ --}}
+            {{-- KLUSTER 1: PUSAT LAYANAN (Produk & Penawaran Jamaah)             --}}
+            {{-- ══════════════════════════════════════════════════════════════════ --}}
+            @canany(['manage_hero', 'manage_features', 'manage_packages', 'manage_testimonials', 'manage_gallery', 'manage_articles'])
+            <li class="menu-cluster-header" aria-label="Kluster Pusat Layanan">
+                <span class="cluster-icon">🕋</span> Pusat Layanan
+            </li>
+            @endcanany
+
             @can('manage_hero')
             <li class="{{ Request::is('admin/hero') ? 'active' : '' }}">
-                <a href="{{ route('admin.hero') }}"><i class="fas fa-desktop"></i> Hero Content</a>
+                <a href="{{ route('admin.hero') }}"><i class="fas fa-desktop"></i> Hero Section</a>
             </li>
             @endcan
 
             @can('manage_features')
             <li class="{{ Request::is('admin/features*') ? 'active' : '' }}">
-                <a href="{{ route('admin.features.index') }}"><i class="fas fa-star"></i> Why Choose Us</a>
+                <a href="{{ route('admin.features.index') }}"><i class="fas fa-star"></i> Keunggulan</a>
             </li>
             @endcan
 
             @can('manage_packages')
             <li class="{{ Request::is('admin/packages*') ? 'active' : '' }}">
-                <a href="{{ route('admin.packages.index') }}"><i class="fas fa-kaaba"></i> Packages</a>
+                <a href="{{ route('admin.packages.index') }}"><i class="fas fa-kaaba"></i> Paket Umrah/Haji</a>
             </li>
             @endcan
+
+            <li class="{{ Request::is('admin/guides*') ? 'active' : '' }}">
+                <a href="{{ route('admin.guides.index') }}"><i class="fas fa-user-tie"></i> Pembimbing</a>
+            </li>
 
             @can('manage_testimonials')
             <li class="{{ Request::is('admin/testimonials*') ? 'active' : '' }}">
-                <a href="{{ route('admin.testimonials.index') }}"><i class="fas fa-comment-dots"></i> Testimonials</a>
-            </li>
-            @endcan
-            
-            @if(auth()->user()->canAny(['manage_users', 'manage_roles', 'manage_gallery', 'manage_articles', 'manage_ads', 'manage_landing_pages', 'view_logs']))
-            <li class="menu-divider" style="padding: 1rem 2rem 0.5rem; font-size: 0.7rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 1px;">Management</li>
-            @endif
-            
-            @can('manage_users')
-            <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">
-                <a href="{{ route('admin.users.index') }}"><i class="fas fa-users"></i> Users</a>
-            </li>
-            @endcan
-
-            @can('manage_roles')
-            <li class="{{ Request::is('admin/roles*') ? 'active' : '' }}">
-                <a href="{{ route('admin.roles.index') }}"><i class="fas fa-user-shield"></i> Roles & Permissions</a>
+                <a href="{{ route('admin.testimonials.index') }}"><i class="fas fa-comment-dots"></i> Testimoni</a>
             </li>
             @endcan
 
             @can('manage_gallery')
             <li class="{{ Request::is('admin/gallery*') ? 'active' : '' }}">
-                <a href="{{ route('admin.gallery.index') }}"><i class="fas fa-images"></i> Gallery</a>
+                <a href="{{ route('admin.gallery.index') }}"><i class="fas fa-images"></i> Galeri</a>
             </li>
             @endcan
 
             @can('manage_articles')
             <li class="{{ Request::is('admin/articles*') ? 'active' : '' }}">
-                <a href="{{ route('admin.articles.index') }}"><i class="fas fa-newspaper"></i> Articles</a>
+                <a href="{{ route('admin.articles.index') }}"><i class="fas fa-newspaper"></i> Artikel & Blog</a>
+            </li>
+            @endcan
+
+            {{-- ══════════════════════════════════════════════════════════════════ --}}
+            {{-- KLUSTER 2: MANAJEMEN JAMAAH (Leads, Landing Pages, Pemasaran)    --}}
+            {{-- ══════════════════════════════════════════════════════════════════ --}}
+            @canany(['manage_ads', 'manage_landing_pages', 'manage_settings'])
+            <li class="menu-cluster-header" aria-label="Kluster Manajemen Jamaah">
+                <span class="cluster-icon">👥</span> Manajemen Jamaah
+            </li>
+            @endcanany
+
+            @can('manage_landing_pages')
+            <li class="{{ Request::is('admin/landing-page-leads*') ? 'active' : '' }}">
+                <a href="{{ route('admin.landing-pages.leads.index') }}"><i class="fas fa-users-cog"></i> Campaign Leads</a>
+            </li>
+            <li class="{{ Request::is('admin/landing-pages*') && !Request::is('admin/landing-page-leads*') ? 'active' : '' }}">
+                <a href="{{ route('admin.landing-pages.index') }}"><i class="fas fa-pager"></i> Landing Pages</a>
             </li>
             @endcan
 
@@ -333,11 +417,38 @@
             </li>
             @endcan
 
-            @can('manage_landing_pages')
-            <li class="{{ Request::is('admin/landing-pages*') ? 'active' : '' }}">
-                <a href="{{ route('admin.landing-pages.index') }}"><i class="fas fa-pager"></i> Landing Pages</a>
+            @can('manage_settings')
+            <li class="{{ Request::is('admin/marketing-settings') ? 'active' : '' }}">
+                <a href="{{ route('admin.marketing-settings') }}"><i class="fas fa-bullhorn"></i> Marketing Settings</a>
             </li>
             @endcan
+
+            {{-- ══════════════════════════════════════════════════════════════════ --}}
+            {{-- KLUSTER 3: PENGATURAN SISTEM (Akses, Config, Log Trail)          --}}
+            {{-- ══════════════════════════════════════════════════════════════════ --}}
+            @if(auth()->user()->canAny(['manage_users', 'manage_roles', 'view_logs']) || auth()->user()->hasRole('superadmin'))
+            <li class="menu-cluster-header" aria-label="Kluster Pengaturan Sistem">
+                <span class="cluster-icon">⚙️</span> Pengaturan Sistem
+            </li>
+            @endif
+
+            @can('manage_users')
+            <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">
+                <a href="{{ route('admin.users.index') }}"><i class="fas fa-users"></i> Manajemen User</a>
+            </li>
+            @endcan
+
+            @can('manage_roles')
+            <li class="{{ Request::is('admin/roles*') ? 'active' : '' }}">
+                <a href="{{ route('admin.roles.index') }}"><i class="fas fa-user-shield"></i> Role & Izin</a>
+            </li>
+            @endcan
+
+            @if(auth()->user()->hasRole('superadmin'))
+            <li class="{{ Request::is('admin/settings') ? 'active' : '' }}">
+                <a href="{{ route('admin.settings') }}"><i class="fas fa-cog"></i> Pengaturan Website</a>
+            </li>
+            @endif
 
             @can('view_logs')
             <li class="{{ Request::is('admin/logs*') ? 'active' : '' }}">
@@ -345,14 +456,10 @@
             </li>
             @endcan
 
-            @can('manage_settings')
-            <li class="{{ Request::is('admin/settings') ? 'active' : '' }}">
-                <a href="{{ route('admin.settings') }}"><i class="fas fa-cog"></i> Website Settings</a>
-            </li>
-            @endcan
-
+            {{-- Separator and external link --}}
+            <li class="menu-divider-thin"></li>
             <li>
-                <a href="/" target="_blank"><i class="fas fa-external-link-alt"></i> View Website</a>
+                <a href="/" target="_blank" rel="noopener noreferrer"><i class="fas fa-external-link-alt"></i> Lihat Website</a>
             </li>
         </ul>
     </aside>
@@ -415,22 +522,51 @@
             });
         @endif
 
-        // Global Delete Confirmation
-        document.querySelectorAll('form[onsubmit*="confirm"]').forEach(form => {
+        // Global Delete Confirmation — covers legacy onsubmit confirm AND new delete-btn pattern
+        function attachSwalDelete(form) {
             form.removeAttribute('onsubmit');
+            // For forms triggered by type="submit" buttons
             form.addEventListener('submit', function(e) {
+                if (form.dataset.confirmed === 'true') return;
                 e.preventDefault();
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: 'Yakin ingin menghapus?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#0D4C54',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        this.submit();
+                        form.dataset.confirmed = 'true';
+                        form.submit();
+                    }
+                });
+            });
+        }
+
+        // Hook forms with legacy onsubmit confirm
+        document.querySelectorAll('form[onsubmit*="confirm"]').forEach(attachSwalDelete);
+
+        // Hook forms with class="delete-form" via their .delete-btn button
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const form = btn.closest('.delete-form');
+                if (!form) return;
+                Swal.fire({
+                    title: 'Yakin ingin menghapus?',
+                    text: 'Data yang dihapus tidak dapat dikembalikan!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#0D4C54',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
                     }
                 });
             });
@@ -455,6 +591,6 @@
             });
         }
     </script>
-
+    @yield('scripts')
 </body>
 </html>

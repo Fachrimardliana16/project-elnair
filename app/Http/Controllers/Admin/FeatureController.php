@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreFeatureRequest;
+use App\Http\Requests\Admin\UpdateFeatureRequest;
 use App\Models\Feature;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FeatureController extends Controller
 {
@@ -19,16 +22,13 @@ class FeatureController extends Controller
         return view('admin.features.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreFeatureRequest $request)
     {
-        $data = $request->validate([
-            'icon' => 'required|string',
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'order' => 'nullable|integer',
-        ]);
+        $data = $request->validated();
 
         Feature::create($data);
+
+        Cache::forget('homepage_features');
 
         return redirect()->route('admin.features.index')->with('success', 'Feature added!');
     }
@@ -38,16 +38,13 @@ class FeatureController extends Controller
         return view('admin.features.edit', compact('feature'));
     }
 
-    public function update(Request $request, Feature $feature)
+    public function update(UpdateFeatureRequest $request, Feature $feature)
     {
-        $data = $request->validate([
-            'icon' => 'required|string',
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'order' => 'nullable|integer',
-        ]);
+        $data = $request->validated();
 
         $feature->update($data);
+
+        Cache::forget('homepage_features');
 
         return redirect()->route('admin.features.index')->with('success', 'Feature updated!');
     }
@@ -55,6 +52,7 @@ class FeatureController extends Controller
     public function destroy(Feature $feature)
     {
         $feature->delete();
+        Cache::forget('homepage_features');
         return back()->with('success', 'Feature deleted!');
     }
 }
