@@ -51,6 +51,28 @@ class PublicHomeController extends Controller
         $articles     = Cache::remember('homepage_articles', 300, fn () => Article::where('status', 'published')->orderBy('created_at', 'desc')->take(3)->get());
         $settings     = Cache::remember('homepage_settings', 300, fn () => SiteSetting::pluck('value', 'key')->toArray());
 
+        // Guard: if cache returned stale/corrupt data (non-objects), bust and re-query fresh
+        if (!($packages instanceof \Illuminate\Support\Collection) || ($packages->isNotEmpty() && !($packages->first() instanceof Package))) {
+            Cache::forget('homepage_packages');
+            $packages = Package::where('is_active', true)->take(3)->get();
+        }
+        if (!($features instanceof \Illuminate\Support\Collection) || ($features->isNotEmpty() && !($features->first() instanceof Feature))) {
+            Cache::forget('homepage_features');
+            $features = Feature::orderBy('order')->get();
+        }
+        if (!($testimonials instanceof \Illuminate\Support\Collection) || ($testimonials->isNotEmpty() && !($testimonials->first() instanceof Testimonial))) {
+            Cache::forget('homepage_testimonials');
+            $testimonials = Testimonial::all();
+        }
+        if (!($articles instanceof \Illuminate\Support\Collection) || ($articles->isNotEmpty() && !($articles->first() instanceof Article))) {
+            Cache::forget('homepage_articles');
+            $articles = Article::where('status', 'published')->orderBy('created_at', 'desc')->take(3)->get();
+        }
+        if (!is_array($settings)) {
+            Cache::forget('homepage_settings');
+            $settings = SiteSetting::pluck('value', 'key')->toArray();
+        }
+
         // 3. Generate SEO Schema Server-Side to avoid Blade Parse Errors
         $schemaElements = [];
         $position = 1;
