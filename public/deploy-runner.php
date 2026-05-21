@@ -43,7 +43,12 @@ if (!$projectPath) {
 chdir($projectPath);
 
 echo "<pre>";
-echo "Current dir: " . getcwd() . "\n";
+echo "Current dir: " . getcwd() . "\n\n";
+
+// ── Step 1: Git Pull ────────────────────────────────────────────────────
+echo "=== STEP 1: git pull ===\n";
+passthru("git pull origin main 2>&1", $gitExitCode);
+echo "git pull exit code: " . $gitExitCode . "\n\n";
 
 if (!file_exists('.env')) {
     if (!file_exists('.env.example')) {
@@ -91,8 +96,11 @@ if ($migrateExitCode !== 0) {
     exit("Migration failed. Check database credentials in .env and ensure the database exists.");
 }
 
+echo "\nClearing application cache...\n";
+passthru("$php artisan cache:clear 2>&1", $cacheClearExitCode);
+echo "cache:clear exit code: " . $cacheClearExitCode . "\n";
+
 echo "Caching config...\n";
-$php = PHP_BINARY;
 passthru("$php artisan config:cache 2>&1", $configExitCode);
 echo "config:cache exit code: " . $configExitCode . "\n";
 
@@ -104,5 +112,5 @@ echo "Caching views...\n";
 passthru("$php artisan view:cache 2>&1", $viewExitCode);
 echo "view:cache exit code: " . $viewExitCode . "\n";
 
-echo "\nDeployment tasks completed.\n";
+echo "\n=== Deployment completed successfully. ===\n";
 echo "</pre>";
