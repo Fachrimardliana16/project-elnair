@@ -64,6 +64,6 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./public/
-          server-dir: public_html/elnair/public/
+          server-dir: ./
           exclude: |
             **/.DS_Store
