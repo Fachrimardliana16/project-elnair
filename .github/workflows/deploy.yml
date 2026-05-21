@@ -40,6 +40,7 @@ jobs:
           port: 21
           local-dir: ./
           server-dir: ./
+          state-name: .ftp-deploy-sync-state-laravel.json
           exclude: |
             **/.git/**
             **/.git*
@@ -65,5 +66,6 @@ jobs:
           port: 21
           local-dir: ./public/
           server-dir: public_html/elnair/
+          state-name: .ftp-deploy-sync-state-public.json
           exclude: |
             **/.DS_Store
