@@ -53,10 +53,11 @@ class PublicHomeController extends Controller
 
         // 3. Generate SEO Schema Server-Side to avoid Blade Parse Errors
         $schemaElements = [];
-        foreach ($packages as $index => $pkg) {
+        $position = 1;
+        foreach ($packages as $pkg) {
             $schemaElements[] = [
                 '@type'    => 'ListItem',
-                'position' => $index + 1,
+                'position' => $position++,
                 'item'     => [
                     '@type'       => 'Product',
                     'name'        => $pkg->title,
