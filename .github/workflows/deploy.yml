@@ -65,7 +65,7 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./public/
-          server-dir: public_html/elnair/
+          server-dir: public_html/elnair/public/
           state-name: .ftp-deploy-sync-state-public.json
           exclude: |
             **/.DS_Store
