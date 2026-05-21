@@ -13,22 +13,33 @@
         <div class="hero-content reveal active">
             <div class="hero-badge">
                 <i class="fas fa-star-and-crescent" aria-hidden="true"></i>
-                <span>{{ $hero->tagline ?? 'Perjalanan Ibadah yang Berkarakter' }}</span>
+                <span>{{ $hero->tagline ?? 'Terpercaya · Resmi · Berizin Kemenag RI' }}</span>
             </div>
             <h1 style="font-size: clamp(1.8rem, 5vw, 4.5rem); line-height: 1.12;">
-                {{ $hero->title ?? 'Wujudkan Perjalanan Suci Impian Anda' }}
+                {{ $hero->title ?? 'Panggilan Allah Datang — Kami Bantu Anda Menyambutnya' }}
             </h1>
             <p style="font-size: clamp(0.95rem, 2.5vw, 1.3rem); line-height: 1.7; max-width: 60ch;">
-                {{ $hero->subtitle ?? 'Menghadirkan harmoni antara ibadah yang khusyuk dan kenyamanan yang tak tertandingi di Tanah Suci.' }}
+                {{ $hero->subtitle ?? 'Elnair Travel menghadirkan paket Haji & Umroh resmi dengan pendampingan penuh — agar setiap doa di Tanah Suci terasa lebih dekat dan bermakna.' }}
             </p>
             <div class="hero-btns-responsive">
-                <a href="{{ $hero->btn_primary_url ?? '#cta' }}" class="btn btn-gold hero-btn-item">
-                    {{ $hero->btn_primary_text ?? 'Mulai Konsultasi' }}
+                <a href="{{ $hero->btn_primary_url ?? '#cta' }}" class="btn btn-gold hero-btn-item btn-wa-rotator"
+                   data-wa-text="Assalamu'alaikum Elnair, saya mau konsultasi paket Haji/Umroh">
+                    {{ $hero->btn_primary_text ?? 'Konsultasi Gratis Sekarang' }}
                     <i class="fas fa-arrow-right" aria-hidden="true" style="margin-left:8px;"></i>
                 </a>
                 <a href="{{ $hero->btn_secondary_url ?? '#paket' }}" class="btn btn-outline hero-btn-item">
-                    Eksplorasi Paket
+                    Lihat Paket
                 </a>
+            </div>
+            <div class="hero-social-proof">
+                <div class="hero-proof-avatars">
+                    <img src="{{ asset('assets/img/avatar-1.jpg') }}" onerror="this.style.display='none'" alt="" width="32" height="32">
+                    <img src="{{ asset('assets/img/avatar-2.jpg') }}" onerror="this.style.display='none'" alt="" width="32" height="32">
+                    <img src="{{ asset('assets/img/avatar-3.jpg') }}" onerror="this.style.display='none'" alt="" width="32" height="32">
+                </div>
+                <span class="hero-proof-text">
+                    <strong>2.400+ jamaah</strong> telah mempercayakan perjalanan sucinya ke kami
+                </span>
             </div>
         </div>
     </div>
@@ -42,7 +53,7 @@
                     @endif
                         <i class="fas fa-certificate" aria-hidden="true"></i>
                         <div class="trust-text">
-                            <h4>Amanah & Resmi</h4>
+                            <h4>Izin Resmi Kemenag</h4>
                             <p>{{ $settings['ppiu_number'] ?? 'Terdaftar di Kemenag RI' }} <i class="fas fa-external-link-alt" style="font-size: 0.6rem; margin-left: 3px;" aria-hidden="true"></i></p>
                         </div>
                     @if(isset($settings['ppiu_url']) && $settings['ppiu_url'] != '')
@@ -52,22 +63,22 @@
                 <div class="trust-item">
                     <i class="fas fa-shield-check" aria-hidden="true"></i>
                     <div class="trust-text">
-                        <h4>Keamanan Dana</h4>
-                        <p>Sistem Terproteksi</p>
+                        <h4>Dana 100% Aman</h4>
+                        <p>Rekening Terpisah</p>
                     </div>
                 </div>
                 <div class="trust-item">
                     <i class="fas fa-user-tie" aria-hidden="true"></i>
                     <div class="trust-text">
-                        <h4>Pembimbing Ahli</h4>
-                        <p>Muthawwif Berpengalaman</p>
+                        <h4>Muthawwif Bersertifikat</h4>
+                        <p>Bimbing Anda Sepenuh Hati</p>
                     </div>
                 </div>
                 <div class="trust-item">
                     <i class="fas fa-star" aria-hidden="true"></i>
                     <div class="trust-text">
-                        <h4>Layanan Bintang 5</h4>
-                        <p>Prioritas Kenyamanan</p>
+                        <h4>Hotel Bintang 5</h4>
+                        <p>Dekat Masjidil Haram</p>
                     </div>
                 </div>
             </div>

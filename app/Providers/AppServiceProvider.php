@@ -63,9 +63,15 @@ class AppServiceProvider extends ServiceProvider
         //    Redis/database cache instead of hitting the DB per request.
         // ----------------------------------------------------------------
         View::composer('*', function ($view) {
-            $settings = Cache::remember('site_settings_global', 300, fn () =>
-                SiteSetting::pluck('value', 'key')->toArray()
-            );
+            try {
+                $settings = Cache::remember('site_settings_global', 300, fn () =>
+                    SiteSetting::pluck('value', 'key')->toArray()
+                );
+                if (!is_array($settings)) throw new \RuntimeException('Stale settings cache');
+            } catch (\Throwable $e) {
+                Cache::forget('site_settings_global');
+                $settings = SiteSetting::pluck('value', 'key')->toArray();
+            }
 
             $orgSchema = json_encode([
                 '@context' => 'https://schema.org',
@@ -88,10 +94,19 @@ class AppServiceProvider extends ServiceProvider
         //    without repeating the query on every page load.
         // ----------------------------------------------------------------
         View::composer('landing.sections.footer.index', function ($view) {
-            $view->with('packages', Cache::remember(
-                'footer_packages', 300,
-                fn () => Package::where('is_active', true)->take(3)->get()
-            ));
+            try {
+                $packages = Cache::remember(
+                    'footer_packages', 300,
+                    fn () => Package::where('is_active', true)->take(3)->get()
+                );
+                if (!($packages instanceof \Illuminate\Support\Collection) || ($packages->isNotEmpty() && !($packages->first() instanceof Package))) {
+                    throw new \RuntimeException('Stale footer_packages cache');
+                }
+            } catch (\Throwable $e) {
+                Cache::forget('footer_packages');
+                $packages = Package::where('is_active', true)->take(3)->get();
+            }
+            $view->with('packages', $packages);
         });
     }
 }

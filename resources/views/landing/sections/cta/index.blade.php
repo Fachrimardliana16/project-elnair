@@ -84,34 +84,34 @@
     <div class="container">
         <div class="cta-grid">
             <div class="cta-text reveal">
-                <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.8rem;">Premium Consultation</span>
-                <h2>Rencanakan Ibadah Anda Bersama Kami</h2>
+                <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.8rem;">Konsultasi Gratis, Tanpa Tekanan</span>
+                <h2>Satu Langkah Lagi Menuju Baitullah</h2>
                 <p style="font-size: clamp(1rem, 2.5vw, 1.2rem); opacity: 0.8; margin-bottom: 2.5rem; max-width: 55ch;">
-                    Tim konsultan ahli kami siap mendampingi Anda merancang perjalanan suci yang personal, khusyuk, dan berkesan.
+                    Ceritakan keinginan Anda, tim kami akan merancang perjalanan suci yang sesuai anggaran, jadwal, dan kebutuhan ibadah Anda.
                 </p>
                 
                 <div class="cta-features">
                     <div class="cta-feature-item" style="display: flex; align-items: center; gap: 0.75rem;">
                         <i class="fas fa-check-circle" style="color: var(--brand-gold); flex-shrink:0;" aria-hidden="true"></i>
-                        <span style="font-size: 0.9rem;">Respon Cepat 24/7</span>
+                        <span style="font-size: 0.9rem;">Balas Chat dalam 5 Menit</span>
                     </div>
                     <div class="cta-feature-item" style="display: flex; align-items: center; gap: 0.75rem;">
                         <i class="fas fa-check-circle" style="color: var(--brand-gold); flex-shrink:0;" aria-hidden="true"></i>
-                        <span style="font-size: 0.9rem;">Konsultasi Gratis</span>
+                        <span style="font-size: 0.9rem;">Konsultasi Gratis Tanpa Syarat</span>
                     </div>
                     <div class="cta-feature-item" style="display: flex; align-items: center; gap: 0.75rem;">
                         <i class="fas fa-check-circle" style="color: var(--brand-gold); flex-shrink:0;" aria-hidden="true"></i>
-                        <span style="font-size: 0.9rem;">Panduan Dokumen</span>
+                        <span style="font-size: 0.9rem;">Bantu Urus Semua Dokumen</span>
                     </div>
                     <div class="cta-feature-item" style="display: flex; align-items: center; gap: 0.75rem;">
                         <i class="fas fa-check-circle" style="color: var(--brand-gold); flex-shrink:0;" aria-hidden="true"></i>
-                        <span style="font-size: 0.9rem;">Layanan Amanah</span>
+                        <span style="font-size: 0.9rem;">Uang Kembali Jika Gagal Berangkat</span>
                     </div>
                 </div>
 
                 <div class="cta-btn-row">
                     <a href="#" id="waRotatorBtn" class="btn btn-gold" aria-label="Hubungi tim konsultan Elnair via WhatsApp">
-                        <i class="fab fa-whatsapp" style="margin-right: 10px; font-size: 1.2rem;" aria-hidden="true"></i> Hubungi Kami
+                        <i class="fab fa-whatsapp" style="margin-right: 10px; font-size: 1.2rem;" aria-hidden="true"></i> Mulai Konsultasi Gratis
                     </a>
                 </div>
             </div>

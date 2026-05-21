@@ -2,9 +2,9 @@
 <section id="why-us" class="pattern-bg">
     <div class="container">
         <div class="section-header reveal">
-            <span>The Art of Pilgrimage</span>
-            <h2>Mengapa Memilih Kami?</h2>
-            <p>Keunggulan layanan yang dirancang khusus untuk memastikan setiap detik ibadah Anda bernilai dan berkesan.</p>
+            <span>Keunggulan Elnair Travel</span>
+            <h2>Ribuan Jamaah Telah Mempercayakan Perjalanan Sucinya</h2>
+            <p>Setiap detail perjalanan kami rancang dengan seksama — karena ibadah Anda terlalu berharga untuk diserahkan sembarangan.</p>
         </div>
         <div class="bento-grid">
             @foreach($features->take(4) as $index => $loop_feature)

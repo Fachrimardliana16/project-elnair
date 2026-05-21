@@ -15,7 +15,12 @@
             <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">
                 <i class="fas fa-moon"></i>
             </button>
-            <a href="https://wa.me/{{ $settings['wa_number'] ?? '' }}" class="btn btn-gold" style="padding: 0.8rem 2rem; font-size: 0.7rem;">Book Now</a>
+            <a href="https://wa.me/{{ $settings['wa_number'] ?? '' }}" class="btn btn-gold btn-wa-rotator"
+               data-wa-text="Assalamu'alaikum Elnair, saya ingin konsultasi paket"
+               style="padding: 0.8rem 2rem; font-size: 0.7rem; position:relative;">
+                <span style="position:absolute;top:-6px;right:-6px;background:#dc3545;color:white;border-radius:50%;width:18px;height:18px;font-size:0.6rem;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid white;">!</span>
+                Konsultasi Gratis
+            </a>
         </div>
     </div>
 </nav>

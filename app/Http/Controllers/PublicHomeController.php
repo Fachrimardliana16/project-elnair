@@ -40,37 +40,67 @@ class PublicHomeController extends Controller
         // 2. Cache all homepage queries for 5 minutes (TTL = 300 seconds)
         $hero         = Cache::remember('homepage_hero', 300, fn () => HeroSetting::first());
         $features     = Cache::remember('homepage_features', 300, fn () => Feature::orderBy('order')->get());
-        $packages     = Cache::remember('homepage_packages', 300, fn () => Package::where('is_active', true)->take(3)->get());
-        $schedules    = Cache::remember('homepage_schedules', 300, fn () => DepartureSchedule::with('package')
-                            ->where('is_active', true)
-                            ->where('departure_date', '>=', now())
-                            ->orderBy('departure_date', 'asc')
-                            ->take(5)
-                            ->get());
-        $testimonials = Cache::remember('homepage_testimonials', 300, fn () => Testimonial::all());
-        $articles     = Cache::remember('homepage_articles', 300, fn () => Article::where('status', 'published')->orderBy('created_at', 'desc')->take(3)->get());
-        $settings     = Cache::remember('homepage_settings', 300, fn () => SiteSetting::pluck('value', 'key')->toArray());
 
-        // Guard: if cache returned stale/corrupt data (incomplete unserialize), bust and re-query fresh
+        try {
+            $packages = Cache::remember('homepage_packages', 300, fn () => Package::where('is_active', true)->take(3)->get());
+            if (!($packages instanceof \Illuminate\Support\Collection) || ($packages->isNotEmpty() && !($packages->first() instanceof Package))) {
+                throw new \RuntimeException('Stale packages cache');
+            }
+        } catch (\Throwable $e) {
+            Cache::forget('homepage_packages');
+            $packages = Package::where('is_active', true)->take(3)->get();
+        }
+
+        try {
+            $schedules = Cache::remember('homepage_schedules', 300, fn () => DepartureSchedule::with('package')
+                ->where('is_active', true)
+                ->where('departure_date', '>=', now())
+                ->orderBy('departure_date', 'asc')
+                ->take(5)
+                ->get());
+            if (!($schedules instanceof \Illuminate\Support\Collection) || ($schedules->isNotEmpty() && !($schedules->first() instanceof DepartureSchedule))) {
+                throw new \RuntimeException('Stale schedules cache');
+            }
+        } catch (\Throwable $e) {
+            Cache::forget('homepage_schedules');
+            $schedules = DepartureSchedule::with('package')
+                ->where('is_active', true)
+                ->where('departure_date', '>=', now())
+                ->orderBy('departure_date', 'asc')
+                ->take(5)
+                ->get();
+        }
+
+        try {
+            $testimonials = Cache::remember('homepage_testimonials', 300, fn () => Testimonial::all());
+            if (!($testimonials instanceof \Illuminate\Support\Collection) || ($testimonials->isNotEmpty() && !($testimonials->first() instanceof Testimonial))) {
+                throw new \RuntimeException('Stale testimonials cache');
+            }
+        } catch (\Throwable $e) {
+            Cache::forget('homepage_testimonials');
+            $testimonials = Testimonial::all();
+        }
+
+        try {
+            $articles = Cache::remember('homepage_articles', 300, fn () => Article::where('status', 'published')->orderBy('created_at', 'desc')->take(3)->get());
+            if (!($articles instanceof \Illuminate\Support\Collection) || ($articles->isNotEmpty() && !($articles->first() instanceof Article))) {
+                throw new \RuntimeException('Stale articles cache');
+            }
+        } catch (\Throwable $e) {
+            Cache::forget('homepage_articles');
+            $articles = Article::where('status', 'published')->orderBy('created_at', 'desc')->take(3)->get();
+        }
+
+        $settings = Cache::remember('homepage_settings', 300, fn () => SiteSetting::pluck('value', 'key')->toArray());
+
+        // Guard: if cache returned stale/corrupt data (hero has no try-catch above)
         if (!($hero instanceof HeroSetting)) {
             Cache::forget('homepage_hero');
             $hero = HeroSetting::first();
         }
-        if (!($packages instanceof \Illuminate\Support\Collection) || ($packages->isNotEmpty() && !($packages->first() instanceof Package))) {
-            Cache::forget('homepage_packages');
-            $packages = Package::where('is_active', true)->take(3)->get();
-        }
         if (!($features instanceof \Illuminate\Support\Collection) || ($features->isNotEmpty() && !($features->first() instanceof Feature))) {
             Cache::forget('homepage_features');
             $features = Feature::orderBy('order')->get();
-        }
-        if (!($testimonials instanceof \Illuminate\Support\Collection) || ($testimonials->isNotEmpty() && !($testimonials->first() instanceof Testimonial))) {
-            Cache::forget('homepage_testimonials');
-            $testimonials = Testimonial::all();
-        }
-        if (!($articles instanceof \Illuminate\Support\Collection) || ($articles->isNotEmpty() && !($articles->first() instanceof Article))) {
-            Cache::forget('homepage_articles');
-            $articles = Article::where('status', 'published')->orderBy('created_at', 'desc')->take(3)->get();
         }
         if (!is_array($settings)) {
             Cache::forget('homepage_settings');

@@ -11,8 +11,12 @@
 <section id="paket" class="pattern-bg">
     <div class="container">
         <div class="section-header reveal">
-            <span style="letter-spacing: 8px;">Curated Journeys</span>
-            <h2 style="font-size: clamp(2rem, 6vw, 3.5rem);">Paket Ibadah Pilihan</h2>
+            <span style="letter-spacing: 8px;">Paket Haji &amp; Umroh</span>
+            <h2 style="font-size: clamp(2rem, 6vw, 3.5rem);">Pilih Paket, Mulai Perjalanan Suci Anda</h2>
+            <div style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.3); border-radius:50px; padding:0.4rem 1rem; margin-top:0.75rem;">
+                <span style="width:8px;height:8px;background:#e74c3c;border-radius:50%;display:inline-block;animation:onlinePulse 1.8s infinite;flex-shrink:0;"></span>
+                <span style="font-size:0.75rem;color:#e74c3c;font-weight:700;">Kuota terbatas — harga berubah sewaktu-waktu</span>
+            </div>
         </div>
 
         {{-- Responsive grid: 1 col mobile → 2 col tablet → 3 col desktop --}}
@@ -60,7 +64,7 @@
 
         <div style="text-align: center; margin-top: 4rem;" class="reveal">
             <a href="#" style="color: var(--brand-gold); text-decoration: none; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem;">
-                Lihat Semua Paket Eksklusif <i class="fas fa-chevron-right" style="margin-left: 10px;"></i>
+                Lihat Semua Paket <i class="fas fa-chevron-right" style="margin-left: 10px;"></i>
             </a>
         </div>
     </div>

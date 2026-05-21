@@ -3,19 +3,19 @@
 <section id="artikel" class="pattern-bg" style="padding: 5rem 0;">
     <div class="container">
         <div class="section-header reveal" style="text-align: center; margin-bottom: 3rem;">
-            <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.7rem;">Elnair Insights</span>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); margin: 0.5rem 0; color: var(--brand-dark);">Artikel & Kajian</h2>
-            <p style="opacity: 0.8; max-width: 600px; margin: 0 auto;">Inspirasi dan panduan ibadah terbaru untuk menemani persiapan perjalanan suci Anda.</p>
+            <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.7rem;">Inspirasi Ibadah</span>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); margin: 0.5rem 0; color: var(--brand-dark);">Perkaya Ilmu Sebelum Berangkat</h2>
+            <p style="opacity: 0.8; max-width: 600px; margin: 0 auto;">Panduan praktis, doa, dan tips dari tim ahli kami untuk mempersiapkan hati dan fisik menuju Baitullah.</p>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
             @foreach($articles as $article)
-            <article class="reveal" style="background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: transform 0.3s; border: 1px solid rgba(13, 76, 84, 0.05);">
+            <article class="reveal" style="background: var(--card-bg); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s, background 0.3s; border: 1px solid rgba(13, 76, 84, 0.07);">
                 <a href="{{ route('artikel.show', $article->slug) }}" style="display: block;">
                     <div style="height: 200px; background-image: url('{{ $article->thumbnail ? (str_starts_with($article->thumbnail, 'http') ? $article->thumbnail : asset($article->thumbnail)) : asset('assets/img/hero-bg.jpg') }}'); background-size: cover; background-position: center;"></div>
                 </a>
                 <div style="padding: 1.5rem;">
-                    <div style="font-size: 0.75rem; color: #888; margin-bottom: 0.8rem;">
+                    <div style="font-size: 0.75rem; color: var(--brand-teal); opacity: 0.8; margin-bottom: 0.8rem;">
                         <i class="far fa-calendar-alt"></i> {{ $article->created_at->translatedFormat('d M Y') }}
                     </div>
                     <h3 style="font-size: 1.1rem; margin-bottom: 0.8rem; line-height: 1.4;">

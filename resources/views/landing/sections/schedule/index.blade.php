@@ -2,14 +2,14 @@
 <section id="jadwal" class="pattern-bg" style="background: var(--bg-light);">
     <div class="container">
         <div class="section-header reveal">
-            <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.7rem;">Upcoming Departures</span>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.5rem); margin: 1rem 0; color: var(--brand-dark);">Jadwal Keberangkatan</h2>
-            <p style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); max-width: 600px; margin: 0 auto; opacity: 0.8;">Amankan seat Anda sekarang. Kuota terbatas untuk menjaga kekhusyukan dan kenyamanan ibadah.</p>
+            <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.7rem;">Jadwal Resmi 2025–2026</span>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.5rem); margin: 1rem 0; color: var(--brand-dark);">Kursi Terbatas — Segera Amankan Tempat Anda</h2>
+            <p style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); max-width: 600px; margin: 0 auto; opacity: 0.8;">Kuota setiap keberangkatan kami batasi agar ibadah Anda tetap khusyuk dan mendapat perhatian penuh dari tim kami.</p>
         </div>
 
         <div class="schedule-grid" style="display: grid; gap: 1rem; margin-top: 3rem; max-width: 900px; margin-left: auto; margin-right: auto;">
             @forelse($schedules as $schedule)
-            <div class="schedule-card reveal" style="display: flex; align-items: center; justify-content: space-between; background: white; padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.03); border: 1px solid rgba(13, 76, 84, 0.05); flex-wrap: wrap; gap: 1.5rem;">
+            <div class="schedule-card reveal" style="display: flex; align-items: center; justify-content: space-between; background: var(--card-bg); padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border: 1px solid rgba(13, 76, 84, 0.07); flex-wrap: wrap; gap: 1.5rem; transition: background 0.3s ease;">
                 
                 <div class="schedule-date" style="display: flex; flex-direction: column; min-width: 120px;">
                     <span style="font-size: 0.8rem; color: var(--brand-gold); font-weight: 700; text-transform: uppercase;">Berangkat</span>
@@ -39,7 +39,7 @@
 
             </div>
             @empty
-            <div style="text-align: center; padding: 3rem; background: white; border-radius: 15px; border: 1px dashed #ccc;">
+            <div style="text-align: center; padding: 3rem; background: var(--card-bg); border-radius: 15px; border: 1px dashed rgba(102,165,173,0.3);">
                 <p style="opacity: 0.6; margin: 0;">Belum ada jadwal keberangkatan terbaru.</p>
             </div>
             @endforelse
