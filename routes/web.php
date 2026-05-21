@@ -31,11 +31,6 @@ Route::get('/tentang-kami', [\App\Http\Controllers\PublicPageController::class, 
 Route::get('/artikel', [\App\Http\Controllers\PublicArticleController::class, 'index'])->name('artikel.index');
 Route::get('/artikel/{slug}', [\App\Http\Controllers\PublicArticleController::class, 'show'])->name('artikel.show');
 
-Route::get('/clear-all-cache-temp', function() {
-    \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-    return 'Cache cleared successfully!';
-});
-
 Route::get('/admin', function () {
     return redirect()->route('admin.dashboard');
 });
