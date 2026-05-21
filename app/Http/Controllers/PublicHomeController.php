@@ -51,7 +51,11 @@ class PublicHomeController extends Controller
         $articles     = Cache::remember('homepage_articles', 300, fn () => Article::where('status', 'published')->orderBy('created_at', 'desc')->take(3)->get());
         $settings     = Cache::remember('homepage_settings', 300, fn () => SiteSetting::pluck('value', 'key')->toArray());
 
-        // Guard: if cache returned stale/corrupt data (non-objects), bust and re-query fresh
+        // Guard: if cache returned stale/corrupt data (incomplete unserialize), bust and re-query fresh
+        if (!($hero instanceof HeroSetting)) {
+            Cache::forget('homepage_hero');
+            $hero = HeroSetting::first();
+        }
         if (!($packages instanceof \Illuminate\Support\Collection) || ($packages->isNotEmpty() && !($packages->first() instanceof Package))) {
             Cache::forget('homepage_packages');
             $packages = Package::where('is_active', true)->take(3)->get();
