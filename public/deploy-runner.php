@@ -4,7 +4,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 $token = $_GET['token'] ?? '';
-if ($token !== 'ISI_TOKEN_BARU_DI_SINI') {
+if ($token !== '20850ba12d0f486dac9a913a0da2db237cc1ef622e6fd4cc') {
     echo "PHP Version: " . PHP_VERSION . "\n";
     echo "Error: Token mismatch.\n";
     http_response_code(403);
@@ -49,6 +49,12 @@ echo "Current dir: " . getcwd() . "\n\n";
 echo "=== STEP 1: git pull ===\n";
 passthru("git pull origin main 2>&1", $gitExitCode);
 echo "git pull exit code: " . $gitExitCode . "\n\n";
+
+// ── Step 1b: Storage Link ──────────────────────────────────────────────────
+echo "=== STEP 1b: storage:link ===\n";
+$php = PHP_BINARY;
+passthru("$php artisan storage:link --force 2>&1", $storageLinkExitCode);
+echo "storage:link exit code: " . $storageLinkExitCode . "\n\n";
 
 if (!file_exists('.env')) {
     if (!file_exists('.env.example')) {

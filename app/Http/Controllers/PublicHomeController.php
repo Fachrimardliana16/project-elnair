@@ -37,6 +37,16 @@ class PublicHomeController extends Controller
             }
         }
 
+        // 1b. Full HTML response cache — bypass all DB queries + Blade rendering on cache hits.
+        //     Cache is invalidated by HomepageCacheObserver whenever any content is saved.
+        //     TTL: 10 minutes (content changes infrequently; observer clears it on save).
+        $cachedHtml = Cache::get('homepage_html');
+        if ($cachedHtml !== null) {
+            return response($cachedHtml, 200)
+                ->header('Content-Type', 'text/html; charset=utf-8')
+                ->header('X-Cache', 'HIT');
+        }
+
         // 2. Cache all homepage queries for 5 minutes (TTL = 300 seconds)
         $hero         = Cache::remember('homepage_hero', 300, fn () => HeroSetting::first());
         $features     = Cache::remember('homepage_features', 300, fn () => Feature::orderBy('order')->get());
@@ -136,9 +146,16 @@ class PublicHomeController extends Controller
             'itemListElement' => $schemaElements,
         ]);
 
-        return view('landing.index', compact(
+        // Render view to string, cache the full HTML output for 10 minutes
+        $html = view('landing.index', compact(
             'hero', 'features', 'packages', 'schedules',
             'testimonials', 'articles', 'settings', 'packageSchema'
-        ));
+        ))->render();
+
+        Cache::put('homepage_html', $html, 600); // 10 minutes
+
+        return response($html, 200)
+            ->header('Content-Type', 'text/html; charset=utf-8')
+            ->header('X-Cache', 'MISS');
     }
 }

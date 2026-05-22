@@ -21,8 +21,8 @@
                 </a>
                 <div style="padding: 2rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; font-size: 0.8rem; color: #888;">
-                        <span><i class="far fa-calendar-alt"></i> {{ $article->created_at->translatedFormat('d M Y') }}</span>
-                        <span><i class="far fa-user"></i> {{ $article->author->name ?? 'Admin' }}</span>
+                        <span><i class="fas fa-calendar-days" aria-hidden="true"></i> {{ $article->created_at->translatedFormat('d M Y') }}</span>
+                        <span><i class="fas fa-user" aria-hidden="true"></i> {{ $article->author->name ?? 'Admin' }}</span>
                     </div>
                     <h3 style="font-size: 1.3rem; margin-bottom: 1rem; line-height: 1.4;">
                         <a href="{{ route('artikel.show', $article->slug) }}" style="color: var(--brand-dark); text-decoration: none; font-family: 'Playfair Display', serif;">

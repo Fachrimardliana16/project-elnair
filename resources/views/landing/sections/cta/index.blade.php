@@ -118,14 +118,17 @@
             <div class="cta-image reveal">
                 <div class="cta-image-wrapper" style="border-radius: 40px; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.4);">
                     {{-- Aspect ratio locked, loading=lazy since it's below the fold --}}
-                    <img src="{{ asset('assets/img/cs.png') }}"
-                         alt="Tim Customer Service Elnair Travel"
-                         class="cs-img-elite"
-                         loading="lazy"
-                         decoding="async"
-                         width="600"
-                         height="750"
-                         style="width: 100%; height: auto; display: block; transition: transform 0.5s;">
+                    <picture>
+                        <source srcset="{{ asset('assets/img/cs.webp') }}" type="image/webp">
+                        <img src="{{ asset('assets/img/cs.png') }}"
+                             alt="Tim Customer Service Elnair Travel"
+                             class="cs-img-elite"
+                             loading="lazy"
+                             decoding="async"
+                             width="600"
+                             height="750"
+                             style="width: 100%; height: auto; display: block; transition: transform 0.5s;">
+                    </picture>
                 </div>
             </div>
         </div>

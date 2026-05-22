@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // Global middleware (runs on every request)
         $middleware->prepend(\App\Http\Middleware\TrustLoadBalancerProxies::class);
         $middleware->append(\App\Http\Middleware\CaptureUtmParameters::class);
+        $middleware->append(\App\Http\Middleware\GzipResponse::class);
 
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,

@@ -8,8 +8,8 @@
         <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.9rem;">Elnair Insights</span>
         <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); margin: 1rem auto; max-width: 900px; line-height: 1.3;">{{ $article->title }}</h1>
         <div style="display: flex; justify-content: center; gap: 2rem; font-size: 1rem; opacity: 0.9; margin-top: 2rem;">
-            <span><i class="far fa-calendar-alt"></i> {{ $article->created_at->translatedFormat('d F Y') }}</span>
-            <span><i class="far fa-user"></i> Ditulis oleh {{ $article->author->name ?? 'Admin' }}</span>
+            <span><i class="fas fa-calendar-days" aria-hidden="true"></i> {{ $article->created_at->translatedFormat('d F Y') }}</span>
+            <span><i class="fas fa-user" aria-hidden="true"></i> Ditulis oleh {{ $article->author->name ?? 'Admin' }}</span>
         </div>
     </div>
 </section>

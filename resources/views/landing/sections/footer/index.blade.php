@@ -3,11 +3,14 @@
     <div class="container">
         <div class="footer-grid">
             <div>
-                <img src="{{ asset($settings['logo'] ?? 'assets/img/logo-full.png') }}" alt="Elnair Logo" class="footer-brand-logo">
+                <picture>
+                    <source srcset="{{ asset(str_replace('.png', '.webp', $settings['logo'] ?? 'assets/img/logo-full.webp')) }}" type="image/webp">
+                    <img src="{{ asset($settings['logo'] ?? 'assets/img/logo-full.png') }}" alt="Elnair Logo" class="footer-brand-logo" width="160" height="50" loading="lazy" decoding="async">
+                </picture>
                 <p>Mewujudkan perjalanan suci yang aman, nyaman, dan berkesan bagi setiap hamba Allah yang merindukan Baitullah.</p>
                 <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
-                    <a href="{{ $settings['instagram_url'] ?? '#' }}" style="color: white; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
-                    <a href="{{ $settings['facebook_url'] ?? '#' }}" style="color: white; font-size: 1.2rem;"><i class="fab fa-facebook"></i></a>
+                    <a href="{{ $settings['instagram_url'] ?? '#' }}" style="color: white; font-size: 1.2rem;" aria-label="Ikuti kami di Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="{{ $settings['facebook_url'] ?? '#' }}" style="color: white; font-size: 1.2rem;" aria-label="Ikuti kami di Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div>

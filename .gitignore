@@ -1,5 +1,7 @@
 *.log
 .DS_Store
+.deploy.env
+.ftp-deploy-sync-state-*.json
 .env
 .env.backup
 .env.production

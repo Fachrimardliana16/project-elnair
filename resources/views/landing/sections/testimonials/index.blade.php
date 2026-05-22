@@ -31,7 +31,7 @@
                         <div class="testi-meta">
                             <h4 style="font-size: 1.1rem; font-weight: 800; line-height: 1.2;">{{ $testi->name }}</h4>
                             <small style="color: var(--brand-gold); font-weight: 700; font-size: 0.7rem;">{{ $testi->role_label }}</small>
-                            <div class="testi-rating" style="margin-top: 4px;" aria-label="5 bintang">
+                            <div class="testi-rating" role="img" style="margin-top: 4px;" aria-label="5 bintang">
                                 <i class="fas fa-star" aria-hidden="true"></i>
                                 <i class="fas fa-star" aria-hidden="true"></i>
                                 <i class="fas fa-star" aria-hidden="true"></i>

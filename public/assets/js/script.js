@@ -22,17 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         lastScrollTop = scrollTop;
-
-        // Reveal animations on scroll
-        reveals.forEach(reveal => {
-            const windowHeight = window.innerHeight;
-            const elementTop = reveal.getBoundingClientRect().top;
-            const elementVisible = 150;
-
-            if (elementTop < windowHeight - elementVisible) {
-                reveal.classList.add('active');
-            }
-        });
+        // Note: reveal animations handled by IntersectionObserver below (no forced reflow)
     };
 
     window.addEventListener('scroll', handleScroll);

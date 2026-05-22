@@ -16,6 +16,15 @@ use Illuminate\Support\Facades\Log;
  */
 class HomepageCacheObserver
 {
+    /**
+     * Clears the full HTML page cache in addition to the specific data cache.
+     * Called by every saved() method so any content change invalidates the cached page.
+     */
+    private function clearHtmlCache(): void
+    {
+        Cache::forget('homepage_html');
+    }
+
     // -----------------------------------------------------------------
     // HeroSetting
     // -----------------------------------------------------------------
@@ -23,7 +32,8 @@ class HomepageCacheObserver
     public function heroSaved(): void
     {
         Cache::forget('homepage_hero');
-        Log::channel('activity')->info('Cache busted: homepage_hero');
+        $this->clearHtmlCache();
+        Log::channel('activity')->info('Cache busted: homepage_hero + homepage_html');
     }
 
     // -----------------------------------------------------------------
@@ -33,7 +43,8 @@ class HomepageCacheObserver
     public function featureSaved(): void
     {
         Cache::forget('homepage_features');
-        Log::channel('activity')->info('Cache busted: homepage_features');
+        $this->clearHtmlCache();
+        Log::channel('activity')->info('Cache busted: homepage_features + homepage_html');
     }
 
     // -----------------------------------------------------------------
@@ -43,7 +54,8 @@ class HomepageCacheObserver
     public function packageSaved(): void
     {
         Cache::forget('homepage_packages');
-        Log::channel('activity')->info('Cache busted: homepage_packages');
+        $this->clearHtmlCache();
+        Log::channel('activity')->info('Cache busted: homepage_packages + homepage_html');
     }
 
     // -----------------------------------------------------------------
@@ -53,7 +65,8 @@ class HomepageCacheObserver
     public function scheduleSaved(): void
     {
         Cache::forget('homepage_schedules');
-        Log::channel('activity')->info('Cache busted: homepage_schedules');
+        $this->clearHtmlCache();
+        Log::channel('activity')->info('Cache busted: homepage_schedules + homepage_html');
     }
 
     // -----------------------------------------------------------------
@@ -63,7 +76,8 @@ class HomepageCacheObserver
     public function testimonialSaved(): void
     {
         Cache::forget('homepage_testimonials');
-        Log::channel('activity')->info('Cache busted: homepage_testimonials');
+        $this->clearHtmlCache();
+        Log::channel('activity')->info('Cache busted: homepage_testimonials + homepage_html');
     }
 
     // -----------------------------------------------------------------
@@ -73,7 +87,8 @@ class HomepageCacheObserver
     public function articleSaved(): void
     {
         Cache::forget('homepage_articles');
-        Log::channel('activity')->info('Cache busted: homepage_articles');
+        $this->clearHtmlCache();
+        Log::channel('activity')->info('Cache busted: homepage_articles + homepage_html');
     }
 
     // -----------------------------------------------------------------
@@ -84,6 +99,7 @@ class HomepageCacheObserver
     {
         Cache::forget('homepage_settings');
         Cache::forget('site_settings_global');
-        Log::channel('activity')->info('Cache busted: homepage_settings + site_settings_global');
+        $this->clearHtmlCache();
+        Log::channel('activity')->info('Cache busted: homepage_settings + site_settings_global + homepage_html');
     }
 }

@@ -10,11 +10,11 @@
                 </p>
                 <div class="location-details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.5rem;">
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                        <h4 style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-gold);">Alamat Utama</h4>
+                        <strong style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-gold);">Alamat Utama</strong>
                         <p style="font-size: 0.8rem; line-height: 1.4; font-weight: 500;">{{ $settings['address'] ?? 'Jl. Premium No. 123, SCBD, Jakarta Pusat' }}</p>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                        <h4 style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-gold);">Hubungi Kami</h4>
+                        <strong style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-gold);">Hubungi Kami</strong>
                         <p style="font-size: 0.8rem; line-height: 1.4; font-weight: 500;">
                             {{ $settings['phone'] ?? '(021) 1234 5678' }}<br>
                             {{ $settings['email'] ?? 'info@elnairtravel.com' }}
@@ -25,7 +25,8 @@
             <div class="map-container" style="height: clamp(200px, 40vh, 600px); border-radius: 30px; box-shadow: 0 40px 80px rgba(13, 76, 84, 0.15); overflow: hidden;">
                 <iframe 
                     src="{{ $settings['google_maps_url'] ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.255167098418!2d106.8209867!3d-6.2293867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3f480399407%3A0x67398188182f06b!2sSCBD!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid' }}" 
-                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                    title="Peta Lokasi Kantor Elnair Travel"></iframe>
             </div>
         </div>
     </div>

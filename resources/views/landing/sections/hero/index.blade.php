@@ -33,9 +33,9 @@
             </div>
             <div class="hero-social-proof">
                 <div class="hero-proof-avatars">
-                    <img src="{{ asset('assets/img/avatar-1.jpg') }}" onerror="this.style.display='none'" alt="" width="32" height="32">
-                    <img src="{{ asset('assets/img/avatar-2.jpg') }}" onerror="this.style.display='none'" alt="" width="32" height="32">
-                    <img src="{{ asset('assets/img/avatar-3.jpg') }}" onerror="this.style.display='none'" alt="" width="32" height="32">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#c8a96e"/><circle cx="16" cy="13" r="6" fill="#fff" opacity=".8"/><ellipse cx="16" cy="28" rx="10" ry="7" fill="#fff" opacity=".8"/></svg>
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#a0784a"/><circle cx="16" cy="13" r="6" fill="#fff" opacity=".8"/><ellipse cx="16" cy="28" rx="10" ry="7" fill="#fff" opacity=".8"/></svg>
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#d4b483"/><circle cx="16" cy="13" r="6" fill="#fff" opacity=".8"/><ellipse cx="16" cy="28" rx="10" ry="7" fill="#fff" opacity=".8"/></svg>
                 </div>
                 <span class="hero-proof-text">
                     <strong>2.400+ jamaah</strong> telah mempercayakan perjalanan sucinya ke kami
@@ -53,7 +53,7 @@
                     @endif
                         <i class="fas fa-certificate" aria-hidden="true"></i>
                         <div class="trust-text">
-                            <h4>Izin Resmi Kemenag</h4>
+                            <strong>Izin Resmi Kemenag</strong>
                             <p>{{ $settings['ppiu_number'] ?? 'Terdaftar di Kemenag RI' }} <i class="fas fa-external-link-alt" style="font-size: 0.6rem; margin-left: 3px;" aria-hidden="true"></i></p>
                         </div>
                     @if(isset($settings['ppiu_url']) && $settings['ppiu_url'] != '')
@@ -63,21 +63,21 @@
                 <div class="trust-item">
                     <i class="fas fa-shield-check" aria-hidden="true"></i>
                     <div class="trust-text">
-                        <h4>Dana 100% Aman</h4>
+                        <strong>Dana 100% Aman</strong>
                         <p>Rekening Terpisah</p>
                     </div>
                 </div>
                 <div class="trust-item">
                     <i class="fas fa-user-tie" aria-hidden="true"></i>
                     <div class="trust-text">
-                        <h4>Muthawwif Bersertifikat</h4>
+                        <strong>Muthawwif Bersertifikat</strong>
                         <p>Bimbing Anda Sepenuh Hati</p>
                     </div>
                 </div>
                 <div class="trust-item">
                     <i class="fas fa-star" aria-hidden="true"></i>
                     <div class="trust-text">
-                        <h4>Hotel Bintang 5</h4>
+                        <strong>Hotel Bintang 5</strong>
                         <p>Dekat Masjidil Haram</p>
                     </div>
                 </div>
