@@ -117,7 +117,6 @@
             </div>
             <div class="cta-image reveal">
                 <div class="cta-image-wrapper" style="border-radius: 40px; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.4);">
-                    {{-- Aspect ratio locked, loading=lazy since it's below the fold --}}
                     <picture>
                         <source srcset="{{ asset('assets/img/cs.webp') }}" type="image/webp">
                         <img src="{{ asset('assets/img/cs.png') }}"

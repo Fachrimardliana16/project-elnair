@@ -2,24 +2,43 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\ImageHelper;
 use App\Http\Controllers\Controller;
-use App\Models\Gallery;
 use App\Http\Requests\Admin\StoreGalleryRequest;
 use App\Http\Requests\Admin\UpdateGalleryRequest;
+use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $galleries = Gallery::latest()->paginate(24);
-        return view('admin.gallery.index', compact('galleries'));
+        $selectedCategory = $request->input('category');
+
+        $categories = Gallery::whereNotNull('category')
+            ->where('category', '!=', '')
+            ->distinct()
+            ->pluck('category')
+            ->toArray();
+
+        $galleries = Gallery::when($selectedCategory, fn ($q) => $q->where('category', $selectedCategory))
+            ->latest()
+            ->paginate(24)
+            ->withQueryString();
+
+        return view('admin.gallery.index', compact('galleries', 'categories', 'selectedCategory'));
     }
 
     public function create()
     {
-        return view('admin.gallery.create');
+        $categories = Gallery::whereNotNull('category')
+            ->where('category', '!=', '')
+            ->distinct()
+            ->pluck('category')
+            ->toArray();
+
+        return view('admin.gallery.create', compact('categories'));
     }
 
     public function store(StoreGalleryRequest $request)
@@ -27,7 +46,7 @@ class GalleryController extends Controller
         $data = $request->validated();
 
         if ($request->hasFile('image')) {
-            $data['image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/gallery');
+            $data['image'] = ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/gallery');
         }
 
         Gallery::create($data);
@@ -37,7 +56,13 @@ class GalleryController extends Controller
 
     public function edit(Gallery $gallery)
     {
-        return view('admin.gallery.edit', compact('gallery'));
+        $categories = Gallery::whereNotNull('category')
+            ->where('category', '!=', '')
+            ->distinct()
+            ->pluck('category')
+            ->toArray();
+
+        return view('admin.gallery.edit', compact('gallery', 'categories'));
     }
 
     public function update(UpdateGalleryRequest $request, Gallery $gallery)
@@ -48,7 +73,7 @@ class GalleryController extends Controller
             if ($gallery->image) {
                 Storage::disk('public_root')->delete($gallery->image);
             }
-            $data['image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/gallery');
+            $data['image'] = ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/gallery');
         }
 
         $gallery->update($data);
@@ -62,6 +87,7 @@ class GalleryController extends Controller
             Storage::disk('public_root')->delete($gallery->image);
         }
         $gallery->delete();
+
         return back()->with('success', 'Gallery item deleted!');
     }
 }

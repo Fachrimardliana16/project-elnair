@@ -1,3 +1,75 @@
+@php
+    $html_content = $page->content;
+    
+    // 1. Dynamically replace any hardcoded WhatsApp links in builder content with our rotator redirect route
+    $html_content = preg_replace_callback('/href=["\'](https?:\/\/(wa\.me|api\.whatsapp\.com)[^"\']*)["\']/i', function($matches) use ($page) {
+        $url = html_entity_decode($matches[1]);
+        $parsedUrl = parse_url($url);
+        $query = [];
+        if (isset($parsedUrl['query'])) {
+            parse_str($parsedUrl['query'], $query);
+        }
+        $text = $query['text'] ?? ($query['message'] ?? '');
+        
+        $redirectUrl = route('landing.whatsapp-redirect', ['slug' => $page->slug]);
+        if (!empty($text)) {
+            $redirectUrl .= '?text=' . urlencode($text);
+        }
+        return 'href="' . $redirectUrl . '"';
+    }, $html_content);
+
+    // 2. Serve Dynamic Images in Next-Gen Format (WebP) dynamically
+    $html_content = preg_replace_callback('/(src|href|background-image|url)\s*[:=]\s*["\']?([^"\')\s]+\.(png|jpe?g))["\']?/i', function($matches) {
+        $original_url = $matches[2];
+        
+        // Parse path to check if local
+        $path = parse_url($original_url, PHP_URL_PATH);
+        if ($path) {
+            $clean_path = ltrim($path, '/');
+            $webp_path = preg_replace('/\.(png|jpe?g)$/i', '.webp', $clean_path);
+            
+            if (file_exists(public_path($webp_path))) {
+                return str_replace($original_url, asset($webp_path), $matches[0]);
+            }
+        }
+        return $matches[0];
+    }, $html_content);
+
+    // 3. Extract the first image src or background-image url to preload as LCP
+    $lcp_image = null;
+    if (preg_match('/<img[^>]+src=["\']([^"\']+)["\']/i', $html_content, $matches)) {
+        $lcp_image = $matches[1];
+    } elseif (preg_match('/background-image:\s*url\(["\']?([^"\')]+)["\']?\)/i', $html_content, $matches)) {
+        $lcp_image = $matches[1];
+    }
+
+    // 4. Inject loading="lazy" into below-the-fold images and fetchpriority="high" to the LCP image
+    $img_counter = 0;
+    $html_content = preg_replace_callback('/<img\s+([^>]*)/i', function($matches) use (&$img_counter) {
+        $attributes = $matches[1];
+        $img_counter++;
+        
+        // First image (LCP image)
+        if ($img_counter === 1) {
+            $attributes = preg_replace('/loading=["\']?lazy["\']?/i', '', $attributes);
+            if (strpos($attributes, 'fetchpriority') === false) {
+                $attributes .= ' fetchpriority="high"';
+            }
+            return '<img ' . trim($attributes);
+        }
+        
+        // Other images below the fold
+        if (strpos($attributes, 'loading=') === false) {
+            $attributes .= ' loading="lazy"';
+        }
+        return '<img ' . trim($attributes);
+    }, $html_content);
+
+    // Floating WhatsApp Button Link using our redirect route
+    $wa_input = $page->custom_wa_number ?? ($settings['wa_number'] ?? '');
+    $wa_message = $page->custom_wa_message ?? ("Halo Elnair, saya ingin bertanya tentang " . $page->title);
+    $wa_link = route('landing.whatsapp-redirect', ['slug' => $page->slug]) . "?text=" . urlencode($wa_message);
+@endphp
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,11 +80,35 @@
     <meta name="description" content="{{ $page->meta_description ?? ($settings['meta_description'] ?? '') }}">
     <meta name="author" content="{{ $settings['site_name'] ?? 'Elnair Travel' }}">
     
-    <!-- Base Styles (Inherit global theme styles for components) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {{-- Preload the dynamic Hero LCP Image immediately --}}
+    @if(!empty($lcp_image))
+    <link rel="preload" as="image" href="{{ $lcp_image }}" fetchpriority="high">
+    @endif
+
+    {{-- Preload self-hosted fonts --}}
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ asset('assets/fonts/outfit-latin.woff2') }}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ asset('assets/webfonts/fa-solid-900.woff2') }}">
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="{{ asset('assets/webfonts/fa-brands-400.woff2') }}">
+
+    {{-- Inline font definitions to ensure immediate text rendering --}}
+    <style>
+    @font-face{font-family:'Outfit Fallback';src:local('Arial'),local('Helvetica Neue'),local('sans-serif');size-adjust:97%;ascent-override:105%;descent-override:35%;line-gap-override:0%}
+    @font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:swap;src:url("{{ asset('assets/fonts/outfit-latin-ext.woff2') }}") format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+    @font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:swap;src:url("{{ asset('assets/fonts/outfit-latin.woff2') }}") format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    @font-face{font-family:"Font Awesome 6 Free";font-display:swap;font-weight:900;src:url("{{ asset('assets/webfonts/fa-solid-900.woff2') }}") format("woff2")}
+    @font-face{font-family:"Font Awesome 6 Free";font-display:swap;font-weight:400;src:url("{{ asset('assets/webfonts/fa-regular-400.woff2') }}") format("woff2")}
+    @font-face{font-family:"Font Awesome 6 Brands";font-display:swap;font-weight:400;src:url("{{ asset('assets/webfonts/fa-brands-400.woff2') }}") format("woff2")}
+    
+    body { font-family: 'Outfit', 'Outfit Fallback', sans-serif !important; }
+    </style>
+
+    {{-- Load styles asynchronously --}}
+    <link rel="preload" href="{{ asset('assets/css/style.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"></noscript>
+
+    {{-- Load local self-hosted Font Awesome bundle asynchronously --}}
+    <link rel="preload" href="{{ asset('assets/css/fa/fa-bundle.min.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('assets/css/fa/fa-bundle.min.css') }}"></noscript>
     
     @isset($settings['favicon'])
     <link rel="shortcut icon" href="{{ asset($settings['favicon']) }}" type="image/x-icon">
@@ -191,32 +287,6 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     @endif
     
-    @php
-        $html_content = $page->content;
-        
-        // Dynamically replace any hardcoded WhatsApp links in builder content with our rotator redirect route
-        $html_content = preg_replace_callback('/href=["\'](https?:\/\/(wa\.me|api\.whatsapp\.com)[^"\']*)["\']/i', function($matches) use ($page) {
-            $url = html_entity_decode($matches[1]);
-            $parsedUrl = parse_url($url);
-            $query = [];
-            if (isset($parsedUrl['query'])) {
-                parse_str($parsedUrl['query'], $query);
-            }
-            $text = $query['text'] ?? ($query['message'] ?? '');
-            
-            $redirectUrl = route('landing.whatsapp-redirect', ['slug' => $page->slug]);
-            if (!empty($text)) {
-                $redirectUrl .= '?text=' . urlencode($text);
-            }
-            return 'href="' . $redirectUrl . '"';
-        }, $html_content);
-        
-        // Floating WhatsApp Button Link using our redirect route
-        $wa_input = $page->custom_wa_number ?? ($settings['wa_number'] ?? '');
-        $wa_message = $page->custom_wa_message ?? ("Halo Elnair, saya ingin bertanya tentang " . $page->title);
-        $wa_link = route('landing.whatsapp-redirect', ['slug' => $page->slug]) . "?text=" . urlencode($wa_message);
-    @endphp
-
     <!-- 100% UNRESTRICTED CANVAS CONTENT (From Elementor Builder) -->
     {!! $html_content !!}
     

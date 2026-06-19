@@ -39,8 +39,8 @@
     @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700 900;font-display:optional;src:url("{{ asset('assets/fonts/playfair-display-700-900-latin-ext.woff2') }}") format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
     @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700 900;font-display:optional;src:url("{{ asset('assets/fonts/playfair-display-700-900-latin.woff2') }}") format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
     @font-face{font-family:'Outfit Fallback';src:local('Arial'),local('Helvetica Neue'),local('sans-serif');size-adjust:97%;ascent-override:105%;descent-override:35%;line-gap-override:0%}
-    @font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:swap;src:url("{{ asset('assets/fonts/outfit-latin-ext.woff2') }}") format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-    @font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:swap;src:url("{{ asset('assets/fonts/outfit-latin.woff2') }}") format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    @font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:block;src:url("{{ asset('assets/fonts/outfit-latin-ext.woff2') }}") format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+    @font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:block;src:url("{{ asset('assets/fonts/outfit-latin.woff2') }}") format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
     @font-face{font-family:"Font Awesome 6 Free";font-display:block;font-weight:900;src:url("{{ asset('assets/webfonts/fa-solid-900.woff2') }}") format("woff2")}
     @font-face{font-family:"Font Awesome 6 Free";font-display:block;font-weight:400;src:url("{{ asset('assets/webfonts/fa-regular-400.woff2') }}") format("woff2")}
     @font-face{font-family:"Font Awesome 6 Brands";font-display:block;font-weight:400;src:url("{{ asset('assets/webfonts/fa-brands-400.woff2') }}") format("woff2")}
@@ -119,6 +119,7 @@
 
     @include('landing.sections.footer.index')
 
+    @if(($settings['show_sticky_cta_bar'] ?? '1') == '1')
     {{-- ── Sticky Bottom CTA Bar (muncul setelah scroll 30%) ─────────── --}}
     <div id="stickyCtaBar" class="sticky-cta-bar" aria-live="polite">
         <div class="sticky-cta-inner">
@@ -136,6 +137,9 @@
             <button class="sticky-cta-close" id="stickyCtaClose" aria-label="Tutup">×</button>
         </div>
     </div>
+    @endif
+
+    {{-- Sticky CTA Bar removed from mobile, leaving WA rotator --}}
 
     <style>
     /* ── Sticky CTA Bar ────────────────────────────────────────────────── */

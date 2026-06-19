@@ -4,7 +4,7 @@
 @section('page_title', 'Daftar Pembimbing')
 
 @section('content')
-<div style="margin-bottom: 2rem;">
+<div style="margin-bottom: 2rem; display: flex; justify-content: flex-end; align-items: center;">
     <a href="{{ route('admin.guides.create') }}" class="btn-admin"><i class="fas fa-plus"></i> Tambah Pembimbing</a>
 </div>
 

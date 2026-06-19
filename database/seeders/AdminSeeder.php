@@ -2,15 +2,16 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\SiteSetting;
-use App\Models\HeroSetting;
-use App\Models\Feature;
-use App\Models\Package;
-use App\Models\Testimonial;
 use App\Models\Article;
 use App\Models\DepartureSchedule;
+use App\Models\Feature;
+use App\Models\Guide;
+use App\Models\HeroSetting;
+use App\Models\Package;
+use App\Models\SiteSetting;
+use App\Models\Testimonial;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class AdminSeeder extends Seeder
@@ -25,6 +26,7 @@ class AdminSeeder extends Seeder
         Package::truncate();
         Testimonial::truncate();
         DepartureSchedule::truncate();
+        Guide::truncate();
 
         // Admin User
         User::create([
@@ -33,6 +35,38 @@ class AdminSeeder extends Seeder
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
+
+        // Guides / Pembimbing
+        $guides = [
+            [
+                'name' => 'Ustadz KH. Ahmad Zaki, Lc.',
+                'role' => 'Pembimbing Utama',
+                'description' => 'Lulusan Universitas Islam Madinah dengan pengalaman membimbing ibadah haji & umrah selama lebih dari 15 tahun.',
+                'image' => 'assets/img/guides/guide1.png',
+                'order' => 1,
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Ustadz Dr. H. Khalid Basalamah, M.A.',
+                'role' => 'Pembimbing Asisten',
+                'description' => 'Asatidz nasional yang aktif berdakwah dan membimbing jemaah haji khusus/furoda.',
+                'image' => 'assets/img/guides/guide2.png',
+                'order' => 2,
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Ustadz H. Abdul Somad, Lc., D.E.S.A.',
+                'role' => 'Pembimbing Tamu',
+                'description' => 'Dai kondang Indonesia yang membimbing rohani jemaah umrah VIP Elnair Travel.',
+                'image' => 'assets/img/guides/guide3.png',
+                'order' => 3,
+                'is_active' => true,
+            ],
+        ];
+
+        foreach ($guides as $g) {
+            Guide::create($g);
+        }
 
         // Default Site Settings
         $settings = [
@@ -132,7 +166,7 @@ class AdminSeeder extends Seeder
                 'status' => 'Tersedia',
                 'is_active' => true,
             ]);
-            
+
             DepartureSchedule::create([
                 'package_id' => $umrahVipPkg->id,
                 'departure_date' => now()->addMonths(3),
@@ -150,7 +184,7 @@ class AdminSeeder extends Seeder
                 'status' => 'Penuh',
                 'is_active' => true,
             ]);
-            
+
             DepartureSchedule::create([
                 'package_id' => $umrahTurkiPkg->id,
                 'departure_date' => now()->addMonths(4),

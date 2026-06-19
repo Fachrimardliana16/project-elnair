@@ -82,14 +82,22 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 1.2rem 1.5rem 0.45rem;
+            padding: 1.2rem 1.5rem 0.6rem;
             font-size: 0.67rem;
             font-weight: 800;
             color: rgba(255,255,255,0.40);
             text-transform: uppercase;
             letter-spacing: 2px;
             user-select: none;
-            cursor: default;
+            cursor: pointer;
+            position: relative;
+            border-top: 1px solid rgba(255,255,255,0.07);
+            margin-top: 0.5rem;
+            transition: color 0.25s ease;
+        }
+
+        .menu-cluster-header:hover {
+            color: rgba(255,255,255,0.75);
         }
 
         .menu-cluster-header .cluster-icon {
@@ -97,10 +105,24 @@
             opacity: 0.75;
         }
 
-        .menu-cluster-header {
-            position: relative;
-            border-top: 1px solid rgba(255,255,255,0.07);
-            margin-top: 0.5rem;
+        .menu-cluster-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+            opacity: 1;
+        }
+
+        .menu-cluster-items.collapsed {
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .menu-cluster-header.collapsed .cluster-arrow {
+            transform: rotate(-90deg);
         }
 
         .menu-divider-thin {
@@ -192,11 +214,83 @@
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .btn-admin-outline:hover {
             background: var(--brand-dark);
             color: white;
+        }
+
+        /* Premium Table Action Buttons styling */
+        .action-buttons-group {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            gap: 5px;
+            line-height: 1;
+        }
+
+        .btn-action-view {
+            color: var(--brand-dark);
+            background: rgba(13, 76, 84, 0.07);
+            border-color: rgba(13, 76, 84, 0.15);
+        }
+
+        .btn-action-view:hover {
+            color: white;
+            background: var(--brand-dark);
+            border-color: var(--brand-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(13, 76, 84, 0.15);
+        }
+
+        .btn-action-edit {
+            color: var(--brand-gold);
+            background: rgba(139, 94, 60, 0.08);
+            border-color: rgba(139, 94, 60, 0.15);
+        }
+
+        .btn-action-edit:hover {
+            color: white;
+            background: var(--brand-gold);
+            border-color: var(--brand-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(139, 94, 60, 0.15);
+        }
+
+        .btn-action-delete {
+            color: #dc2626;
+            background: rgba(220, 38, 38, 0.06);
+            border-color: rgba(220, 38, 38, 0.15);
+        }
+
+        .btn-action-delete:hover {
+            color: white;
+            background: #dc2626;
+            border-color: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(220, 38, 38, 0.15);
+        }
+
+        .btn-action i {
+            font-size: 0.85rem;
         }
 
         /* Form Controls */
@@ -349,112 +443,164 @@
             {{-- ══════════════════════════════════════════════════════════════════ --}}
             @canany(['manage_hero', 'manage_features', 'manage_packages', 'manage_testimonials', 'manage_gallery', 'manage_articles'])
             <li class="menu-cluster-header" aria-label="Kluster Pusat Layanan">
-                <span class="cluster-icon">🕋</span> Pusat Layanan
+                Pusat Layanan
+                <i class="fas fa-chevron-down cluster-arrow" style="transition: transform 0.25s ease; font-size: 0.75rem; margin-left: auto; opacity: 0.6;"></i>
+            </li>
+            <li style="list-style: none;">
+                <ul class="menu-cluster-items">
+                    @can('manage_hero')
+                    <li class="{{ Request::is('admin/hero') ? 'active' : '' }}">
+                        <a href="{{ route('admin.hero') }}"><i class="fas fa-desktop"></i> Hero Section</a>
+                    </li>
+                    @endcan
+
+                    @can('manage_features')
+                    <li class="{{ Request::is('admin/features*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.features.index') }}"><i class="fas fa-star"></i> Keunggulan</a>
+                    </li>
+                    @endcan
+
+                    @can('manage_packages')
+                    <li class="{{ Request::is('admin/packages*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.packages.index') }}"><i class="fas fa-kaaba"></i> Paket Umrah/Haji</a>
+                    </li>
+                    <li class="{{ Request::is('admin/schedules*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.schedules.index') }}"><i class="fas fa-calendar-alt"></i> Jadwal Keberangkatan</a>
+                    </li>
+                    @endcan
+
+                    <li class="{{ Request::is('admin/guides*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.guides.index') }}"><i class="fas fa-user-tie"></i> Pembimbing</a>
+                    </li>
+
+                    @can('manage_testimonials')
+                    <li class="{{ Request::is('admin/testimonials*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.testimonials.index') }}"><i class="fas fa-comment-dots"></i> Testimoni</a>
+                    </li>
+                    @endcan
+
+                    @can('manage_gallery')
+                    <li class="{{ Request::is('admin/gallery*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.gallery.index') }}"><i class="fas fa-images"></i> Galeri</a>
+                    </li>
+                    @endcan
+
+                    @can('manage_articles')
+                    <li class="{{ Request::is('admin/articles*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.articles.index') }}"><i class="fas fa-newspaper"></i> Artikel & Blog</a>
+                    </li>
+                    @endcan
+                </ul>
             </li>
             @endcanany
 
-            @can('manage_hero')
-            <li class="{{ Request::is('admin/hero') ? 'active' : '' }}">
-                <a href="{{ route('admin.hero') }}"><i class="fas fa-desktop"></i> Hero Section</a>
+            {{-- ══════════════════════════════════════════════════════════════════ --}}
+            {{-- KLUSTER 2: MANAJEMEN JAMAAH (Data Utama Pelanggan)               --}}
+            {{-- ══════════════════════════════════════════════════════════════════ --}}
+            @canany(['manage_jamaahs', 'manage_groups', 'manage_payments', 'manage_documents'])
+            <li class="menu-cluster-header" aria-label="Kluster Manajemen Jamaah">
+                Manajemen Jamaah
+                <i class="fas fa-chevron-down cluster-arrow" style="transition: transform 0.25s ease; font-size: 0.75rem; margin-left: auto; opacity: 0.6;"></i>
             </li>
-            @endcan
+            <li style="list-style: none;">
+                <ul class="menu-cluster-items">
+                    @can('manage_jamaahs')
+                    <li class="{{ Request::is('admin/jamaahs*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.jamaahs.index') }}"><i class="fas fa-users"></i> Pendaftar Jamaah</a>
+                    </li>
+                    @endcan
 
-            @can('manage_features')
-            <li class="{{ Request::is('admin/features*') ? 'active' : '' }}">
-                <a href="{{ route('admin.features.index') }}"><i class="fas fa-star"></i> Keunggulan</a>
-            </li>
-            @endcan
+                    @can('manage_groups')
+                    <li class="{{ Request::is('admin/groups*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.groups.index') }}"><i class="fas fa-route"></i> Rombongan Jemaah</a>
+                    </li>
+                    @endcan
 
-            @can('manage_packages')
-            <li class="{{ Request::is('admin/packages*') ? 'active' : '' }}">
-                <a href="{{ route('admin.packages.index') }}"><i class="fas fa-kaaba"></i> Paket Umrah/Haji</a>
-            </li>
-            @endcan
+                    @can('manage_payments')
+                    <li class="{{ Request::is('admin/payments*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.payments.index') }}"><i class="fas fa-wallet"></i> Kelola Pembayaran</a>
+                    </li>
+                    @endcan
 
-            <li class="{{ Request::is('admin/guides*') ? 'active' : '' }}">
-                <a href="{{ route('admin.guides.index') }}"><i class="fas fa-user-tie"></i> Pembimbing</a>
+                    @can('manage_documents')
+                    <li class="{{ Request::is('admin/documents*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.documents.index') }}"><i class="fas fa-folder-open"></i> Berkas & Visa</a>
+                    </li>
+                    @endcan
+                </ul>
             </li>
-
-            @can('manage_testimonials')
-            <li class="{{ Request::is('admin/testimonials*') ? 'active' : '' }}">
-                <a href="{{ route('admin.testimonials.index') }}"><i class="fas fa-comment-dots"></i> Testimoni</a>
-            </li>
-            @endcan
-
-            @can('manage_gallery')
-            <li class="{{ Request::is('admin/gallery*') ? 'active' : '' }}">
-                <a href="{{ route('admin.gallery.index') }}"><i class="fas fa-images"></i> Galeri</a>
-            </li>
-            @endcan
-
-            @can('manage_articles')
-            <li class="{{ Request::is('admin/articles*') ? 'active' : '' }}">
-                <a href="{{ route('admin.articles.index') }}"><i class="fas fa-newspaper"></i> Artikel & Blog</a>
-            </li>
-            @endcan
+            @endcanany
 
             {{-- ══════════════════════════════════════════════════════════════════ --}}
-            {{-- KLUSTER 2: MANAJEMEN JAMAAH (Leads, Landing Pages, Pemasaran)    --}}
+            {{-- KLUSTER 3: PANEL MARKETING (Campaign, Landing Page, Ads)         --}}
             {{-- ══════════════════════════════════════════════════════════════════ --}}
             @canany(['manage_ads', 'manage_landing_pages', 'manage_settings'])
-            <li class="menu-cluster-header" aria-label="Kluster Manajemen Jamaah">
-                <span class="cluster-icon">👥</span> Manajemen Jamaah
+            <li class="menu-cluster-header" aria-label="Kluster Panel Marketing">
+               Panel Marketing
+                <i class="fas fa-chevron-down cluster-arrow" style="transition: transform 0.25s ease; font-size: 0.75rem; margin-left: auto; opacity: 0.6;"></i>
+            </li>
+            <li style="list-style: none;">
+                <ul class="menu-cluster-items">
+                    @can('manage_landing_pages')
+                    <li class="{{ Request::is('admin/landing-page-leads*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.landing-pages.leads.index') }}"><i class="fas fa-users-cog"></i> Campaign Leads</a>
+                    </li>
+                    <li class="{{ Request::is('admin/landing-pages*') && !Request::is('admin/landing-page-leads*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.landing-pages.index') }}"><i class="fas fa-pager"></i> Landing Pages</a>
+                    </li>
+                    @endcan
+
+                    @can('manage_ads')
+                    <li class="{{ Request::is('admin/ads*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.ads.index') }}"><i class="fas fa-ad"></i> Marketing Ads</a>
+                    </li>
+                    @endcan
+
+                    @can('manage_settings')
+                    <li class="{{ Request::is('admin/marketing-settings') ? 'active' : '' }}">
+                        <a href="{{ route('admin.marketing-settings') }}"><i class="fas fa-bullhorn"></i> Marketing Settings</a>
+                    </li>
+                    @endcan
+                </ul>
             </li>
             @endcanany
 
-            @can('manage_landing_pages')
-            <li class="{{ Request::is('admin/landing-page-leads*') ? 'active' : '' }}">
-                <a href="{{ route('admin.landing-pages.leads.index') }}"><i class="fas fa-users-cog"></i> Campaign Leads</a>
-            </li>
-            <li class="{{ Request::is('admin/landing-pages*') && !Request::is('admin/landing-page-leads*') ? 'active' : '' }}">
-                <a href="{{ route('admin.landing-pages.index') }}"><i class="fas fa-pager"></i> Landing Pages</a>
-            </li>
-            @endcan
-
-            @can('manage_ads')
-            <li class="{{ Request::is('admin/ads*') ? 'active' : '' }}">
-                <a href="{{ route('admin.ads.index') }}"><i class="fas fa-ad"></i> Marketing Ads</a>
-            </li>
-            @endcan
-
-            @can('manage_settings')
-            <li class="{{ Request::is('admin/marketing-settings') ? 'active' : '' }}">
-                <a href="{{ route('admin.marketing-settings') }}"><i class="fas fa-bullhorn"></i> Marketing Settings</a>
-            </li>
-            @endcan
-
             {{-- ══════════════════════════════════════════════════════════════════ --}}
-            {{-- KLUSTER 3: PENGATURAN SISTEM (Akses, Config, Log Trail)          --}}
+            {{-- KLUSTER 4: PANEL PENGATURAN WEB (Akses, Config, Log Trail)       --}}
             {{-- ══════════════════════════════════════════════════════════════════ --}}
             @if(auth()->user()->canAny(['manage_users', 'manage_roles', 'view_logs']) || auth()->user()->hasRole('superadmin'))
-            <li class="menu-cluster-header" aria-label="Kluster Pengaturan Sistem">
-                <span class="cluster-icon">⚙️</span> Pengaturan Sistem
+            <li class="menu-cluster-header" aria-label="Kluster Panel Pengaturan Web">
+                Panel Pengaturan Web
+                <i class="fas fa-chevron-down cluster-arrow" style="transition: transform 0.25s ease; font-size: 0.75rem; margin-left: auto; opacity: 0.6;"></i>
+            </li>
+            <li style="list-style: none;">
+                <ul class="menu-cluster-items">
+                    @can('manage_users')
+                    <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.users.index') }}"><i class="fas fa-users"></i> Manajemen User</a>
+                    </li>
+                    @endcan
+
+                    @can('manage_roles')
+                    <li class="{{ Request::is('admin/roles*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.roles.index') }}"><i class="fas fa-user-shield"></i> Role & Izin</a>
+                    </li>
+                    @endcan
+
+                    @if(auth()->user()->hasRole('superadmin'))
+                    <li class="{{ Request::is('admin/settings') ? 'active' : '' }}">
+                        <a href="{{ route('admin.settings') }}"><i class="fas fa-cog"></i> Pengaturan Website</a>
+                    </li>
+                    @endif
+
+                    @can('view_logs')
+                    <li class="{{ Request::is('admin/logs*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.logs') }}"><i class="fas fa-exclamation-triangle"></i> Error Logs</a>
+                    </li>
+                    @endcan
+                </ul>
             </li>
             @endif
-
-            @can('manage_users')
-            <li class="{{ Request::is('admin/users*') ? 'active' : '' }}">
-                <a href="{{ route('admin.users.index') }}"><i class="fas fa-users"></i> Manajemen User</a>
-            </li>
-            @endcan
-
-            @can('manage_roles')
-            <li class="{{ Request::is('admin/roles*') ? 'active' : '' }}">
-                <a href="{{ route('admin.roles.index') }}"><i class="fas fa-user-shield"></i> Role & Izin</a>
-            </li>
-            @endcan
-
-            @if(auth()->user()->hasRole('superadmin'))
-            <li class="{{ Request::is('admin/settings') ? 'active' : '' }}">
-                <a href="{{ route('admin.settings') }}"><i class="fas fa-cog"></i> Pengaturan Website</a>
-            </li>
-            @endif
-
-            @can('view_logs')
-            <li class="{{ Request::is('admin/logs*') ? 'active' : '' }}">
-                <a href="{{ route('admin.logs') }}"><i class="fas fa-exclamation-triangle"></i> Error Logs</a>
-            </li>
-            @endcan
 
             {{-- Separator and external link --}}
             <li class="menu-divider-thin"></li>
@@ -569,6 +715,33 @@
                         form.submit();
                     }
                 });
+            });
+        });
+
+        // Collapsible Sidebar Accordion Logic
+        document.querySelectorAll('.menu-cluster-header').forEach(header => {
+            const nextLi = header.nextElementSibling;
+            if (!nextLi) return;
+            const itemsList = nextLi.querySelector('.menu-cluster-items');
+            if (!itemsList) return;
+
+            // Auto-expand if the cluster has an active menu item inside
+            const hasActiveItem = itemsList.querySelector('li.active') !== null;
+            if (!hasActiveItem) {
+                header.classList.add('collapsed');
+                itemsList.classList.add('collapsed');
+            }
+
+            // Click Toggle Listener
+            header.addEventListener('click', () => {
+                const isCollapsed = header.classList.contains('collapsed');
+                if (isCollapsed) {
+                    header.classList.remove('collapsed');
+                    itemsList.classList.remove('collapsed');
+                } else {
+                    header.classList.add('collapsed');
+                    itemsList.classList.add('collapsed');
+                }
             });
         });
 

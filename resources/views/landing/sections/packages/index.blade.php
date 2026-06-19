@@ -8,7 +8,7 @@
 --}}
 
 <!-- Packages Elite -->
-<section id="paket" class="pattern-bg">
+<section id="paket" class="pattern-bg" style="height: auto !important; min-height: 100vh !important; padding: 6rem 0 !important; overflow: visible !important; display: flex; flex-direction: column; justify-content: center; position: relative;">
     <div class="container">
         <div class="section-header reveal">
             <span style="letter-spacing: 8px;">Paket Haji &amp; Umroh</span>
@@ -21,8 +21,11 @@
 
         {{-- Responsive grid: 1 col mobile → 2 col tablet → 3 col desktop --}}
         <div class="pkg-grid-responsive">
-            @foreach($packages->take(3) as $pkg)
-            <div class="pkg-card reveal">
+            @foreach($packages as $index => $pkg)
+            @php
+                $isExtra = $index >= 3;
+            @endphp
+            <div class="pkg-card reveal {{ $isExtra ? 'pkg-card-extra' : '' }}" style="{{ $isExtra ? 'display: none; opacity: 0; transform: translateY(24px);' : '' }}">
                 {{-- Image box with locked 4:3 aspect ratio to prevent Cumulative Layout Shift --}}
                 <div class="pkg-img-box" style="position: relative; overflow: hidden; aspect-ratio: 4/3;">
                     <div class="pkg-img" style="
@@ -62,11 +65,14 @@
             @endforeach
         </div>
 
+        @if($packages->count() > 3)
         <div style="text-align: center; margin-top: 4rem;" class="reveal">
-            <a href="#" style="color: var(--brand-gold); text-decoration: none; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem;">
-                Lihat Semua Paket <i class="fas fa-chevron-right" style="margin-left: 10px;"></i>
-            </a>
+            <button id="btn_toggle_packages" class="btn btn-outline" style="border: 2px solid var(--brand-gold); color: var(--brand-gold); background: transparent; padding: 1rem 2.8rem; border-radius: 50px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
+                <span id="btn_toggle_text">Lihat Selanjutnya</span> 
+                <i id="btn_toggle_icon" class="fas fa-chevron-down"></i>
+            </button>
         </div>
+        @endif
     </div>
 </section>
 
@@ -77,6 +83,10 @@
     grid-template-columns: 1fr;       /* Mobile portrait: single column */
     gap: 1.5rem;
     margin-top: 3rem;
+}
+
+.pkg-card-extra {
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
 
 @media (min-width: 640px) {
@@ -153,3 +163,51 @@
 }
 </style>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('btn_toggle_packages');
+    if (!btn) return;
+    
+    const extraCards = document.querySelectorAll('.pkg-card-extra');
+    const textSpan = document.getElementById('btn_toggle_text');
+    const icon = document.getElementById('btn_toggle_icon');
+    let isExpanded = false;
+    
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        isExpanded = !isExpanded;
+        
+        if (isExpanded) {
+            extraCards.forEach(card => {
+                // Set display flex first
+                card.style.display = 'flex';
+                // Trigger transition in next animation frame
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    });
+                });
+            });
+            textSpan.textContent = 'Lihat Lebih Sedikit';
+            icon.className = 'fas fa-chevron-up';
+        } else {
+            extraCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(24px)';
+                // Hide after transition completes
+                setTimeout(() => {
+                    if (!isExpanded) {
+                        card.style.display = 'none';
+                    }
+                }, 500);
+            });
+            textSpan.textContent = 'Lihat Selanjutnya';
+            icon.className = 'fas fa-chevron-down';
+            
+            // Scroll back to packages section smoothly
+            document.getElementById('paket').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+</script>

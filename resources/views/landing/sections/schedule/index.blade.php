@@ -1,5 +1,5 @@
 <!-- Departure Schedule -->
-<section id="jadwal" class="pattern-bg" style="background: var(--bg-light);">
+<section id="jadwal" class="pattern-bg" style="background: var(--bg-light); height: auto !important; min-height: 100vh !important; padding: 6rem 0 !important; overflow: visible !important; display: flex; flex-direction: column; justify-content: center; position: relative;">
     <div class="container">
         <div class="section-header reveal">
             <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.7rem;">Jadwal Resmi 2025–2026</span>
@@ -9,7 +9,10 @@
 
         <div class="schedule-grid" style="display: grid; gap: 1rem; margin-top: 3rem; max-width: 900px; margin-left: auto; margin-right: auto;">
             @forelse($schedules as $schedule)
-            <div class="schedule-card reveal" style="display: flex; align-items: center; justify-content: space-between; background: var(--card-bg); padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border: 1px solid rgba(13, 76, 84, 0.07); flex-wrap: wrap; gap: 1.5rem; transition: background 0.3s ease;">
+            @php
+                $isExtra = $loop->index >= 5;
+            @endphp
+            <div class="schedule-card reveal {{ $isExtra ? 'schedule-card-extra collapsed' : '' }}" style="display: flex; align-items: center; justify-content: space-between; background: var(--card-bg); padding: 1.5rem 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); border: 1px solid rgba(13, 76, 84, 0.07); flex-wrap: wrap; gap: 1.5rem; transition: background 0.3s ease; {{ $isExtra ? 'opacity: 0; transform: translateY(24px);' : '' }}">
                 
                 <div class="schedule-date" style="display: flex; flex-direction: column; min-width: 120px;">
                     <span style="font-size: 0.8rem; color: var(--brand-gold); font-weight: 700; text-transform: uppercase;">Berangkat</span>
@@ -44,18 +47,34 @@
             </div>
             @endforelse
         </div>
+
+        @if($schedules->count() > 5)
+        <div style="text-align: center; margin-top: 3rem;" class="reveal">
+            <button id="btn_toggle_schedules" class="btn btn-outline" style="border: 2px solid var(--brand-gold); color: var(--brand-gold); background: transparent; padding: 1rem 2.8rem; border-radius: 50px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
+                <span id="btn_toggle_schedule_text">Lihat Selanjutnya</span> 
+                <i id="btn_toggle_schedule_icon" class="fas fa-chevron-down"></i>
+            </button>
+        </div>
+        @endif
     </div>
 </section>
 
 <style>
+    .schedule-card-extra {
+        transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease !important;
+    }
+    .schedule-card-extra.collapsed {
+        display: none !important;
+    }
     @media (max-width: 768px) {
         #jadwal {
             height: auto !important;
-            min-height: 100dvh !important;
+            min-height: unset !important;
             padding: 80px 0 40px !important;
+            overflow: visible !important;
             display: flex !important;
             flex-direction: column !important;
-            justify-content: center !important;
+            justify-content: flex-start !important;
         }
         .schedule-grid {
             margin-top: 1.5rem !important;
@@ -119,3 +138,48 @@
         }
     }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('btn_toggle_schedules');
+    if (!btn) return;
+    
+    const extraCards = document.querySelectorAll('.schedule-card-extra');
+    const textSpan = document.getElementById('btn_toggle_schedule_text');
+    const icon = document.getElementById('btn_toggle_schedule_icon');
+    let isExpanded = false;
+    
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        isExpanded = !isExpanded;
+        
+        if (isExpanded) {
+            extraCards.forEach(card => {
+                card.classList.remove('collapsed');
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    });
+                });
+            });
+            textSpan.textContent = 'Lihat Lebih Sedikit';
+            icon.className = 'fas fa-chevron-up';
+        } else {
+            extraCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(24px)';
+                setTimeout(() => {
+                    if (!isExpanded) {
+                        card.classList.add('collapsed');
+                    }
+                }, 500);
+            });
+            textSpan.textContent = 'Lihat Selanjutnya';
+            icon.className = 'fas fa-chevron-down';
+            
+            document.getElementById('jadwal').scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+</script>

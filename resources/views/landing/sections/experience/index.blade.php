@@ -1,23 +1,34 @@
-<!-- Section Experience (Bento Grid) -->
-<section id="why-us" class="pattern-bg">
+<!-- Section Experience (Luxury Cards Grid) -->
+<section id="why-us" class="pattern-bg" style="height: auto !important; min-height: 100vh !important; padding: 6rem 0 !important; overflow: visible !important; display: flex; flex-direction: column; justify-content: center; position: relative;">
     <div class="container">
-        <div class="section-header reveal">
-            <span>Keunggulan Elnair Travel</span>
-            <h2>Ribuan Jamaah Telah Mempercayakan Perjalanan Sucinya</h2>
-            <p>Setiap detail perjalanan kami rancang dengan seksama — karena ibadah Anda terlalu berharga untuk diserahkan sembarangan.</p>
+        <div class="section-header reveal" style="margin-bottom: 4rem; text-align: center;">
+            <span style="color: var(--brand-gold); text-transform: uppercase; letter-spacing: 5px; font-weight: 800; font-size: 0.75rem; display: block; margin-bottom: 1rem;">Keunggulan Elnair Travel</span>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--brand-dark); margin-bottom: 1rem;">Ribuan Jamaah Telah Mempercayakan Perjalanan Sucinya</h2>
+            <p style="max-width: 700px; margin: 0 auto; color: #666; font-size: 0.95rem; line-height: 1.7;">Setiap detail perjalanan kami rancang dengan seksama — karena ibadah Anda terlalu berharga untuk diserahkan sembarangan.</p>
         </div>
-        <div class="bento-grid">
-            @foreach($features->take(4) as $index => $loop_feature)
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+            @foreach($features as $index => $loop_feature)
             @php
-                $bento_class = 'bento-' . ($index % 4 + 1);
+                $cardNumber = sprintf('%02d', $index + 1);
             @endphp
-            <div class="bento-card {{ $bento_class }} reveal">
+            <div class="card reveal" style="padding: 2.5rem; border-radius: 24px; position: relative;">
+                <span class="card-index" style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: var(--brand-gold);">
+                    {{ $cardNumber }}
+                </span>
+                
                 <div class="card-icon-box">
                     <i class="{{ $loop_feature->icon }} card-icon"></i>
                 </div>
-                <div class="bento-content">
-                    <h3>{{ $loop_feature->title }}</h3>
-                    <p>{{ $loop_feature->description }}</p>
+                
+                <div style="margin-top: 1.25rem;">
+                    <h3 style="margin-bottom: 0.75rem; font-size: 1.25rem; font-weight: 700;">
+                        {{ $loop_feature->title }}
+                    </h3>
+                    <p style="font-size: 0.88rem; line-height: 1.6; margin-bottom: 1.5rem;">
+                        {{ $loop_feature->description }}
+                    </p>
+                    <div class="card-line"></div>
                 </div>
             </div>
             @endforeach
