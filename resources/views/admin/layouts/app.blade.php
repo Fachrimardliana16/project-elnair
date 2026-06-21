@@ -6,6 +6,14 @@
     <title>@yield('title') | Elnair Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    @isset($settings['favicon'])
+    @php
+        $faviconPath = public_path($settings['favicon']);
+        $faviconCacheBuster = file_exists($faviconPath) ? '?v=' . filemtime($faviconPath) : '';
+        $faviconMime = str_ends_with($settings['favicon'], '.webp') ? 'image/webp' : (str_ends_with($settings['favicon'], '.png') ? 'image/png' : 'image/x-icon');
+    @endphp
+    <link rel="shortcut icon" href="{{ asset($settings['favicon']) }}{{ $faviconCacheBuster }}" type="{{ $faviconMime }}">
+    @endisset
     <style>
         :root {
             --brand-dark: #0D4C54;

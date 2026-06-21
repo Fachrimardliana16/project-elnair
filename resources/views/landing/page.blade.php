@@ -111,7 +111,12 @@
     <noscript><link rel="stylesheet" href="{{ asset('assets/css/fa/fa-bundle.min.css') }}"></noscript>
     
     @isset($settings['favicon'])
-    <link rel="shortcut icon" href="{{ asset($settings['favicon']) }}" type="image/x-icon">
+    @php
+        $faviconPath = public_path($settings['favicon']);
+        $faviconCacheBuster = file_exists($faviconPath) ? '?v=' . filemtime($faviconPath) : '';
+        $faviconMime = str_ends_with($settings['favicon'], '.webp') ? 'image/webp' : (str_ends_with($settings['favicon'], '.png') ? 'image/png' : 'image/x-icon');
+    @endphp
+    <link rel="shortcut icon" href="{{ asset($settings['favicon']) }}{{ $faviconCacheBuster }}" type="{{ $faviconMime }}">
     @endisset
 
     @php
