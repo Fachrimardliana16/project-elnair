@@ -98,6 +98,7 @@ class SiteSettingController extends Controller
             'wa_number',
             'instagram_url',
             'facebook_url',
+            'email',
             'address',
             'google_maps_url',
             'google_analytics',
