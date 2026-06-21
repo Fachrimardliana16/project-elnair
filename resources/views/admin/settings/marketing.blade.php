@@ -24,6 +24,10 @@
                             <input type="email" name="email" class="form-control" value="{{ $settings['email'] ?? '' }}" placeholder="info@elnairtravel.com">
                         </div>
                         <div class="form-group mb-3">
+                            <label style="font-weight: 600;">Nomor Telepon Kantor (Opsional)</label>
+                            <input type="text" name="phone" class="form-control" value="{{ $settings['phone'] ?? '' }}" placeholder="(021) 1234 5678">
+                        </div>
+                        <div class="form-group mb-3">
                             <label style="font-weight: 600;">Instagram URL</label>
                             <input type="text" name="instagram_url" class="form-control" value="{{ $settings['instagram_url'] ?? '' }}">
                         </div>
