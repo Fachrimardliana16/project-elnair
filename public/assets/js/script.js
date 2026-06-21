@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.remove('scrolled');
         }
 
-        // Hide on scroll down, show on scroll up
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            navbar.classList.add('nav-hidden');
-        } else {
-            navbar.classList.remove('nav-hidden');
-        }
+        // Hide on scroll down, show on scroll up removed per request
+        // if (scrollTop > lastScrollTop && scrollTop > 100) {
+        //     navbar.classList.add('nav-hidden');
+        // } else {
+        //     navbar.classList.remove('nav-hidden');
+        // }
         
         lastScrollTop = scrollTop;
         // Note: reveal animations handled by IntersectionObserver below (no forced reflow)
