@@ -294,8 +294,7 @@
         });
     </script>
 
-
-    <script src="{{ asset('assets/js/script.js') }}" defer></script>
+    <script src="{{ asset('assets/js/script.js') }}?v={{ time() }}" defer></script>
 
     <script src="{{ asset('assets/js/pixel-tracker.js') }}" defer></script>
     
