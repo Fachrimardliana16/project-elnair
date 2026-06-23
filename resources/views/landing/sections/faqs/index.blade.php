@@ -24,7 +24,7 @@
 
             @if(count($faqs) > 5)
             <div style="text-align: center; margin-top: 2rem;">
-                <button id="toggleFaqsBtn" style="background: none; border: 1px solid var(--brand-gold); color: var(--brand-gold); padding: 0.8rem 2.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Outfit', sans-serif; font-size: 0.95rem;" onmouseover="this.style.background='var(--brand-gold)'; this.style.color='white';" onmouseout="this.style.background='none'; this.style.color='var(--brand-gold)';">
+                <button id="toggleFaqsBtn" class="btn btn-gold">
                     Lihat Semua FAQ <i class="fas fa-chevron-down" style="margin-left: 8px;"></i>
                 </button>
             </div>

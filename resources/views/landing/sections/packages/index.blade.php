@@ -67,17 +67,17 @@
 
         @if($packages->count() > 3)
         <div style="text-align: center; margin-top: 4rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;" class="reveal">
-            <button id="btn_toggle_packages" class="btn btn-outline" style="border: 2px solid var(--brand-gold); color: var(--brand-gold); background: transparent; padding: 1rem 2.8rem; border-radius: 50px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
+            <button id="btn_toggle_packages" class="btn btn-gold">
                 <span id="btn_toggle_text">Lihat Selanjutnya</span> 
-                <i id="btn_toggle_icon" class="fas fa-chevron-down"></i>
+                <i id="btn_toggle_icon" class="fas fa-chevron-down" style="margin-left: 8px;"></i>
             </button>
-            <a href="{{ route('paket.index') }}" class="btn btn-gold" style="padding: 1rem 2.8rem; border-radius: 50px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; background: var(--brand-gold); color: white; border: 2px solid var(--brand-gold);">
+            <a href="{{ route('paket.index') }}" class="btn btn-gold">
                 Lihat Selengkapnya
             </a>
         </div>
         @else
         <div style="text-align: center; margin-top: 4rem;" class="reveal">
-            <a href="{{ route('paket.index') }}" class="btn btn-gold" style="padding: 1rem 2.8rem; border-radius: 50px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; background: var(--brand-gold); color: white; border: 2px solid var(--brand-gold);">
+            <a href="{{ route('paket.index') }}" class="btn btn-gold">
                 Lihat Selengkapnya
             </a>
         </div>
@@ -154,7 +154,6 @@
     flex: 1;
     justify-content: center;
     text-align: center;
-    border-radius: 10px;
     min-height: 48px;              /* iOS/Android tap target standard */
     display: flex;
     align-items: center;

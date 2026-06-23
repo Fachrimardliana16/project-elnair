@@ -46,7 +46,7 @@
         </div>
 
         <div style="text-align: center; margin-top: 3rem;" class="reveal">
-            <a href="{{ route('jadwal.index') }}" class="btn btn-gold" style="padding: 1rem 2.8rem; border-radius: 50px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; background: var(--brand-gold); color: white; border: 2px solid var(--brand-gold);">
+            <a href="{{ route('jadwal.index') }}" class="btn btn-gold">
                 Lihat Selengkapnya
             </a>
         </div>

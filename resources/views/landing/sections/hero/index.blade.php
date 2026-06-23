@@ -105,7 +105,6 @@
     justify-content: center;
     text-align: center;
     min-height: 52px;             /* iOS/Android minimum tap target */
-    border-radius: 12px;
     font-size: 1rem;
     font-weight: 700;
 }

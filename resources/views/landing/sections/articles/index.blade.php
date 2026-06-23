@@ -35,7 +35,7 @@
         </div>
 
         <div style="text-align: center; margin-top: 3rem;">
-            <a href="{{ route('artikel.index') }}" class="btn btn-outline" style="border-color: var(--brand-dark); color: var(--brand-dark);">
+            <a href="{{ route('artikel.index') }}" class="btn btn-gold">
                 Lihat Semua Artikel <i class="fas fa-arrow-right" style="margin-left: 0.5rem;"></i>
             </a>
         </div>
