@@ -95,24 +95,45 @@
 /* ── Hero Buttons — Mobile-first ─────────────────────────────────────── */
 .hero-btns-responsive {
     display: flex;
-    flex-direction: column;       /* Mobile: stacked, full-width */
-    gap: 0.875rem;
-    margin-top: 2rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+    width: 100%;
 }
 
 .hero-btn-item {
-    width: 100%;
+    width: 90%;
+    max-width: 320px;
     justify-content: center;
     text-align: center;
-    min-height: 52px;             /* iOS/Android minimum tap target */
-    font-size: 1rem;
+    min-height: 48px;
+    font-size: 0.85rem;
     font-weight: 700;
+    padding: 0.8rem 1rem;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .hero-social-proof {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+    }
+    .hero-proof-text {
+        padding-left: 0 !important;
+        font-size: 0.75rem !important;
+        line-height: 1.4;
+    }
 }
 
 @media (min-width: 480px) {
     .hero-btns-responsive {
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: center;
     }
     .hero-btn-item {
         width: auto;
@@ -124,7 +145,7 @@
 @media (min-width: 768px) {
     .hero-btn-item {
         padding: 1.2rem 2.5rem;
-        font-size: 1.05rem;
+        font-size: 0.95rem;
     }
 }
 </style>
