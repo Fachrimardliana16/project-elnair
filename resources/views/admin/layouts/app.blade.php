@@ -449,7 +449,7 @@
             {{-- ══════════════════════════════════════════════════════════════════ --}}
             {{-- KLUSTER 1: PUSAT LAYANAN (Produk & Penawaran Jamaah)             --}}
             {{-- ══════════════════════════════════════════════════════════════════ --}}
-            @canany(['manage_hero', 'manage_features', 'manage_packages', 'manage_testimonials', 'manage_gallery', 'manage_articles'])
+            @canany(['manage_hero', 'manage_features', 'manage_packages', 'manage_schedules', 'manage_guides', 'manage_testimonials', 'manage_faqs', 'manage_gallery', 'manage_articles'])
             <li class="menu-cluster-header" aria-label="Kluster Pusat Layanan">
                 Pusat Layanan
                 <i class="fas fa-chevron-down cluster-arrow" style="transition: transform 0.25s ease; font-size: 0.75rem; margin-left: auto; opacity: 0.6;"></i>
@@ -472,14 +472,19 @@
                     <li class="{{ Request::is('admin/packages*') ? 'active' : '' }}">
                         <a href="{{ route('admin.packages.index') }}"><i class="fas fa-kaaba"></i> Paket Umrah/Haji</a>
                     </li>
+                    @endcan
+
+                    @can('manage_schedules')
                     <li class="{{ Request::is('admin/schedules*') ? 'active' : '' }}">
                         <a href="{{ route('admin.schedules.index') }}"><i class="fas fa-calendar-alt"></i> Jadwal Keberangkatan</a>
                     </li>
                     @endcan
 
+                    @can('manage_guides')
                     <li class="{{ Request::is('admin/guides*') ? 'active' : '' }}">
                         <a href="{{ route('admin.guides.index') }}"><i class="fas fa-user-tie"></i> Pembimbing</a>
                     </li>
+                    @endcan
 
                     @can('manage_testimonials')
                     <li class="{{ Request::is('admin/testimonials*') ? 'active' : '' }}">
@@ -487,9 +492,11 @@
                     </li>
                     @endcan
 
+                    @can('manage_faqs')
                     <li class="{{ Request::is('admin/faqs*') ? 'active' : '' }}">
                         <a href="{{ route('admin.faqs.index') }}"><i class="fas fa-question-circle"></i> Kelola FAQ</a>
                     </li>
+                    @endcan
 
                     @can('manage_gallery')
                     <li class="{{ Request::is('admin/gallery*') ? 'active' : '' }}">

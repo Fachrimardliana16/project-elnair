@@ -13,9 +13,32 @@
         <div class="form-group">
             <label>Permissions</label>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                @php
+                    $permissionLabels = [
+                        'manage_users' => 'Manajemen User',
+                        'manage_roles' => 'Role & Izin',
+                        'manage_hero' => 'Hero Section',
+                        'manage_features' => 'Keunggulan',
+                        'manage_packages' => 'Paket Umrah/Haji',
+                        'manage_schedules' => 'Jadwal Keberangkatan',
+                        'manage_guides' => 'Pembimbing',
+                        'manage_testimonials' => 'Testimoni',
+                        'manage_faqs' => 'Kelola FAQ',
+                        'manage_settings' => 'Pengaturan Web & Marketing',
+                        'manage_gallery' => 'Galeri',
+                        'manage_articles' => 'Artikel & Blog',
+                        'manage_ads' => 'Marketing Ads',
+                        'manage_landing_pages' => 'Landing Pages & Campaign Leads',
+                        'manage_jamaahs' => 'Pendaftar Jamaah',
+                        'manage_groups' => 'Rombongan Jemaah',
+                        'manage_payments' => 'Kelola Pembayaran',
+                        'manage_documents' => 'Berkas & Visa',
+                        'view_logs' => 'Error Logs',
+                    ];
+                @endphp
                 @foreach($permissions as $permission)
                 <label style="font-weight: 400; display: flex; align-items: center; gap: 0.5rem;">
-                    <input type="checkbox" name="permissions[]" value="{{ $permission->name }}"> {{ str_replace('_', ' ', ucfirst($permission->name)) }}
+                    <input type="checkbox" name="permissions[]" value="{{ $permission->name }}"> {{ $permissionLabels[$permission->name] ?? str_replace('_', ' ', ucfirst($permission->name)) }}
                 </label>
                 @endforeach
             </div>

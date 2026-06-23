@@ -32,6 +32,9 @@ class RolePermissionSeeder extends Seeder
             'manage_groups',
             'manage_payments',
             'manage_documents',
+            'manage_guides',
+            'manage_faqs',
+            'manage_schedules',
             'view_logs',
         ];
 
