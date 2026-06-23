@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function showLogin()
     {
-        if (Auth::check() && Auth::user()->hasAnyRole(['superadmin', 'admin', 'marketing'])) {
+        if (Auth::check() && Auth::user()->hasAnyRole(['superadmin', 'owner', 'admin', 'marketing', 'sales', 'operasional', 'finance'])) {
             return redirect()->route('admin.dashboard');
         }
         return view('admin.login');
@@ -38,7 +38,7 @@ class AuthController extends Controller
             RateLimiter::clear($throttleKey);
             $request->session()->regenerate();
 
-            if (Auth::user()->hasAnyRole(['superadmin', 'admin', 'marketing'])) {
+            if (Auth::user()->hasAnyRole(['superadmin', 'owner', 'admin', 'marketing', 'sales', 'operasional', 'finance'])) {
                 return redirect()->intended('admin/dashboard');
             }
 
