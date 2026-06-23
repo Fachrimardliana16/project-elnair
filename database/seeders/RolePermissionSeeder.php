@@ -39,18 +39,18 @@ class RolePermissionSeeder extends Seeder
         ];
 
         foreach ($permissions as $permission) {
-            Permission::create(['name' => $permission]);
+            Permission::firstOrCreate(['name' => $permission]);
         }
 
         // Create Roles and Assign Permissions
-        $superAdmin = Role::create(['name' => 'superadmin']);
-        $superAdmin->givePermissionTo(Permission::all());
+        $superAdmin = Role::firstOrCreate(['name' => 'superadmin']);
+        $superAdmin->syncPermissions(Permission::all());
 
-        $owner = Role::create(['name' => 'owner']);
-        $owner->givePermissionTo(Permission::all());
+        $owner = Role::firstOrCreate(['name' => 'owner']);
+        $owner->syncPermissions(Permission::all());
 
-        $admin = Role::create(['name' => 'admin']);
-        $admin->givePermissionTo([
+        $admin = Role::firstOrCreate(['name' => 'admin']);
+        $admin->syncPermissions([
             'manage_hero',
             'manage_features',
             'manage_packages',
@@ -64,8 +64,8 @@ class RolePermissionSeeder extends Seeder
             'manage_payments',
         ]);
 
-        $marketing = Role::create(['name' => 'marketing']);
-        $marketing->givePermissionTo([
+        $marketing = Role::firstOrCreate(['name' => 'marketing']);
+        $marketing->syncPermissions([
             'manage_gallery',
             'manage_articles',
             'manage_ads',
@@ -73,22 +73,22 @@ class RolePermissionSeeder extends Seeder
             'manage_settings',
         ]);
 
-        $sales = Role::create(['name' => 'sales']);
-        $sales->givePermissionTo([
+        $sales = Role::firstOrCreate(['name' => 'sales']);
+        $sales->syncPermissions([
             'manage_landing_pages',
             'manage_ads',
         ]);
 
-        $operasional = Role::create(['name' => 'operasional']);
-        $operasional->givePermissionTo([
+        $operasional = Role::firstOrCreate(['name' => 'operasional']);
+        $operasional->syncPermissions([
             'manage_packages',
             'manage_jamaahs',
             'manage_groups',
             'manage_documents',
         ]);
 
-        $finance = Role::create(['name' => 'finance']);
-        $finance->givePermissionTo([
+        $finance = Role::firstOrCreate(['name' => 'finance']);
+        $finance->syncPermissions([
             'manage_payments',
             'manage_jamaahs',
         ]);

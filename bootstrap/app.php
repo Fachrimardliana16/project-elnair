@@ -27,6 +27,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(CaptureUtmParameters::class);
         $middleware->append(GzipResponse::class);
 
+        $middleware->web(append: [
+            \App\Http\Middleware\TrackVisitor::class,
+        ]);
+
         $middleware->alias([
             'admin' => AdminMiddleware::class,
             'jemaah.auth' => JemaahAuth::class,

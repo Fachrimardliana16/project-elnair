@@ -7,6 +7,7 @@ use App\Models\Package;
 use App\Models\Article;
 use App\Models\LandingPageLead;
 use App\Models\User;
+use App\Models\Visitor;
 
 class DashboardController extends Controller
 {
@@ -26,6 +27,10 @@ class DashboardController extends Controller
                                 ->latest()
                                 ->take(5)
                                 ->get();
+                                
+        $visitorsToday = Visitor::where('visited_date', today())->count();
+        $totalVisitors = Visitor::count();
+        $totalHits     = Visitor::sum('hits');
 
         return view('admin.dashboard', compact(
             'activePackages',
@@ -33,7 +38,10 @@ class DashboardController extends Controller
             'leadsThisMonth',
             'dealsThisMonth',
             'totalUsers',
-            'recentLeads'
+            'recentLeads',
+            'visitorsToday',
+            'totalVisitors',
+            'totalHits'
         ));
     }
 }
