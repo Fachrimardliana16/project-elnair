@@ -1,2 +1,10 @@
 *
 !.gitignore
+!documents/
+!documents/**
+!jamaah_docs/
+!jamaah_docs/**
+!payment_proofs/
+!payment_proofs/**
+!payments/
+!payments/**
