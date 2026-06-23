@@ -487,6 +487,10 @@
                     </li>
                     @endcan
 
+                    <li class="{{ Request::is('admin/faqs*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.faqs.index') }}"><i class="fas fa-question-circle"></i> Kelola FAQ</a>
+                    </li>
+
                     @can('manage_gallery')
                     <li class="{{ Request::is('admin/gallery*') ? 'active' : '' }}">
                         <a href="{{ route('admin.gallery.index') }}"><i class="fas fa-images"></i> Galeri</a>

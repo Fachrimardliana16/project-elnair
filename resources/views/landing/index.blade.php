@@ -25,12 +25,18 @@
         @include('landing.sections.testimonials.index')
     @endif
 
+
+
     @if(($settings['show_location_section'] ?? '1') == '1')
         @include('landing.sections.location.index')
     @endif
 
     @if(($settings['show_cta_section'] ?? '1') == '1')
         @include('landing.sections.cta.index')
+    @endif
+
+    @if(($settings['show_faqs_section'] ?? '1') == '1')
+        @include('landing.sections.faqs.index')
     @endif
 
     <!-- SEO Schema.org (JSON-LD) -->

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartureScheduleController;
 use App\Http\Controllers\Admin\DocumentController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FeatureController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\GroupController;
@@ -72,6 +73,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('packages', PackageController::class)->names('packages');
         Route::resource('schedules', DepartureScheduleController::class)->names('schedules');
         Route::resource('testimonials', TestimonialController::class)->names('testimonials');
+        Route::resource('faqs', FaqController::class)->names('faqs');
 
         Route::resource('users', UserController::class)->names('users');
         Route::resource('roles', RoleController::class)->names('roles');

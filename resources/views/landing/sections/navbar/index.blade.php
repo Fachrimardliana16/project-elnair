@@ -10,6 +10,7 @@
             </picture>
         </a>
         <div class="nav-links">
+            <a href="{{ route('home') }}">Beranda</a>
             <a href="{{ route('landing.page', 'haji') }}">Haji</a>
             <a href="{{ route('landing.page', 'umroh') }}">Umroh</a>
         </div>

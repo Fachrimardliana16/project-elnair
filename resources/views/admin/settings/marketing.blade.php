@@ -9,43 +9,13 @@
         @csrf
         <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
             <div>
-                <h3 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--brand-dark);"><i class="fas fa-address-book"></i> Kontak Utama & Media Sosial</h3>
-                <div class="grid-2">
-                    <div>
-                        <div class="form-group mb-3">
-                            <label style="font-weight: 600;">WhatsApp Numbers (Pisahkan dengan koma untuk fitur Rotator CS)</label>
-                            <input type="text" name="wa_number" class="form-control" value="{{ $settings['wa_number'] ?? '' }}" placeholder="Contoh: 628111, 628222, 628333">
-                            <small style="color: #64748b; font-size: 0.72rem; display: block; margin-top: 3px;">
-                                <i class="fas fa-info-circle"></i> Angka wajib diawali kode negara (62).
-                            </small>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label style="font-weight: 600;">Email Perusahaan</label>
-                            <input type="email" name="email" class="form-control" value="{{ $settings['email'] ?? '' }}" placeholder="info@elnairtravel.com">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label style="font-weight: 600;">Nomor Telepon Kantor (Opsional)</label>
-                            <input type="text" name="phone" class="form-control" value="{{ $settings['phone'] ?? '' }}" placeholder="(021) 1234 5678">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label style="font-weight: 600;">Instagram URL</label>
-                            <input type="text" name="instagram_url" class="form-control" value="{{ $settings['instagram_url'] ?? '' }}">
-                        </div>
-                        <div class="form-group mb-3">
-                            <label style="font-weight: 600;">Facebook URL</label>
-                            <input type="text" name="facebook_url" class="form-control" value="{{ $settings['facebook_url'] ?? '' }}">
-                        </div>
-                    </div>
-                    <div>
-                        <div class="form-group mb-3">
-                            <label style="font-weight: 600;">Alamat Kantor Utama</label>
-                            <textarea name="address" class="form-control" rows="2">{{ $settings['address'] ?? '' }}</textarea>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label style="font-weight: 600;">Google Maps Embed URL (Iframe Src)</label>
-                            <input type="text" name="google_maps_url" class="form-control" value="{{ $settings['google_maps_url'] ?? '' }}" placeholder="https://www.google.com/maps/embed?pb=...">
-                        </div>
-                    </div>
+                <h3 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--brand-dark);"><i class="fas fa-comments"></i> WhatsApp Rotator CRM</h3>
+                <div class="form-group mb-3">
+                    <label style="font-weight: 600;">WhatsApp Numbers (Pisahkan dengan koma untuk fitur Rotator CS)</label>
+                    <input type="text" name="wa_number" class="form-control" value="{{ $settings['wa_number'] ?? '' }}" placeholder="Contoh: 628111, 628222, 628333">
+                    <small style="color: #64748b; font-size: 0.72rem; display: block; margin-top: 3px;">
+                        <i class="fas fa-info-circle"></i> Angka wajib diawali kode negara (62).
+                    </small>
                 </div>
             </div>
         </div>

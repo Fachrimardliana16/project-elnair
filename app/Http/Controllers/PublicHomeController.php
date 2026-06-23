@@ -124,6 +124,16 @@ class PublicHomeController extends Controller
 
         $settings = Cache::remember('homepage_settings', 300, fn () => SiteSetting::pluck('value', 'key')->toArray());
 
+        try {
+            $faqs = Cache::remember('homepage_faqs', 300, fn () => \App\Models\Faq::where('is_active', true)->orderBy('order', 'asc')->get());
+            if (! ($faqs instanceof Collection) || ($faqs->isNotEmpty() && ! ($faqs->first() instanceof \App\Models\Faq))) {
+                throw new \RuntimeException('Stale faqs cache');
+            }
+        } catch (\Throwable $e) {
+            Cache::forget('homepage_faqs');
+            $faqs = \App\Models\Faq::where('is_active', true)->orderBy('order', 'asc')->get();
+        }
+
         // Guard: if cache returned stale/corrupt data (hero has no try-catch above)
         if (! ($hero instanceof HeroSetting)) {
             Cache::forget('homepage_hero');
@@ -171,7 +181,7 @@ class PublicHomeController extends Controller
         return view('landing.index', compact(
             'hero', 'features', 'packages', 'schedules',
             'testimonials', 'articles', 'settings', 'packageSchema',
-            'registrationPackages', 'registrationSchedules'
+            'registrationPackages', 'registrationSchedules', 'faqs'
         ));
     }
 }

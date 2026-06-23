@@ -37,6 +37,12 @@ class SiteSettingController extends Controller
             'midtrans_client_key',
             'midtrans_server_key',
             'midtrans_environment',
+            'instagram_url',
+            'facebook_url',
+            'email',
+            'phone',
+            'address',
+            'google_maps_url',
         ]);
 
         if ($request->hasFile('logo')) {
@@ -96,12 +102,6 @@ class SiteSettingController extends Controller
 
         $data = $request->only([
             'wa_number',
-            'instagram_url',
-            'facebook_url',
-            'email',
-            'phone',
-            'address',
-            'google_maps_url',
             'google_analytics',
             'facebook_pixel',
             'facebook_pixel_id',
