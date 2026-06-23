@@ -14,8 +14,8 @@
             <span style="letter-spacing: 8px;">Paket Haji &amp; Umroh</span>
             <h2 style="font-size: clamp(2rem, 6vw, 3.5rem);">Pilih Paket, Mulai Perjalanan Suci Anda</h2>
             <div style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.3); border-radius:50px; padding:0.4rem 1rem; margin-top:0.75rem;">
-                <span style="width:8px;height:8px;background:#e74c3c;border-radius:50%;display:inline-block;flex-shrink:0;position:relative;"><span style="position:absolute;inset:0;border-radius:50%;background:#e74c3c;animation:onlinePulse 1.8s ease-in-out infinite;will-change:transform,opacity;"></span></span>
-                <span style="font-size:0.75rem;color:#e74c3c;font-weight:700;">Kuota terbatas — harga berubah sewaktu-waktu</span>
+                <div style="width:8px;height:8px;background:#e74c3c;border-radius:50%;display:inline-block;flex-shrink:0;position:relative;"><div style="position:absolute;inset:0;border-radius:50%;background:#e74c3c;animation:onlinePulse 1.8s ease-in-out infinite;will-change:transform,opacity;"></div></div>
+                <div style="font-size:0.75rem;color:#e74c3c;font-weight:700;margin:0;letter-spacing:0;text-transform:uppercase;">KUOTA TERBATAS — HARGA BERUBAH SEWAKTU-WAKTU</div>
             </div>
         </div>
 
