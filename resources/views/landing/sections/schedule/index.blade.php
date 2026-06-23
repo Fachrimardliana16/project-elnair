@@ -49,11 +49,20 @@
         </div>
 
         @if($schedules->count() > 5)
-        <div style="text-align: center; margin-top: 3rem;" class="reveal">
+        <div style="text-align: center; margin-top: 3rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;" class="reveal">
             <button id="btn_toggle_schedules" class="btn btn-outline" style="border: 2px solid var(--brand-gold); color: var(--brand-gold); background: transparent; padding: 1rem 2.8rem; border-radius: 50px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; justify-content: center; gap: 10px;">
                 <span id="btn_toggle_schedule_text">Lihat Selanjutnya</span> 
                 <i id="btn_toggle_schedule_icon" class="fas fa-chevron-down"></i>
             </button>
+            <a href="{{ route('jadwal.index') }}" class="btn btn-gold" style="padding: 1rem 2.8rem; border-radius: 50px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; background: var(--brand-gold); color: white; border: 2px solid var(--brand-gold);">
+                Lihat Selengkapnya
+            </a>
+        </div>
+        @else
+        <div style="text-align: center; margin-top: 3rem;" class="reveal">
+            <a href="{{ route('jadwal.index') }}" class="btn btn-gold" style="padding: 1rem 2.8rem; border-radius: 50px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-size: 0.8rem; display: inline-flex; align-items: center; justify-content: center; transition: 0.3s; background: var(--brand-gold); color: white; border: 2px solid var(--brand-gold);">
+                Lihat Selengkapnya
+            </a>
         </div>
         @endif
     </div>

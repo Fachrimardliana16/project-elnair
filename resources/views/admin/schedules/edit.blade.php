@@ -11,7 +11,11 @@
         </a>
     </div>
 
-    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 1.5rem;">Ubah Jadwal Keberangkatan</h3>
+    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 0.5rem;">Ubah Jadwal Keberangkatan</h3>
+    
+    <div style="background: rgba(13, 76, 84, 0.05); border-left: 4px solid var(--brand-dark); padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px; font-size: 0.85rem; color: #555;">
+        <strong>Info:</strong> Jadwal hanya mengatur informasi tanggal keberangkatan dan sisa kursi. Untuk mengubah <strong>Deskripsi Perjalanan, Itinerary, dan Fasilitas</strong>, silakan ubah data di menu <a href="{{ route('admin.packages.index') }}" style="color: var(--brand-dark); font-weight: 600; text-decoration: underline;">Paket</a>.
+    </div>
 
     <form action="{{ route('admin.schedules.update', $schedule->id) }}" method="POST">
         @csrf

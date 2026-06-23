@@ -11,7 +11,11 @@
         </a>
     </div>
 
-    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 1.5rem;">Form Jadwal Keberangkatan Baru</h3>
+    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--brand-dark); margin-bottom: 0.5rem;">Tambah Jadwal Keberangkatan Baru</h3>
+    
+    <div style="background: rgba(13, 76, 84, 0.05); border-left: 4px solid var(--brand-dark); padding: 1rem; margin-bottom: 1.5rem; border-radius: 4px; font-size: 0.85rem; color: #555;">
+        <strong>Info:</strong> Jadwal hanya mengatur informasi tanggal keberangkatan dan sisa kursi. Anda harus <a href="{{ route('admin.packages.create') }}" style="color: var(--brand-dark); font-weight: 600; text-decoration: underline;">Membuat Paket</a> terlebih dahulu untuk mengisi <strong>Deskripsi Perjalanan, Itinerary, dan Fasilitas</strong>.
+    </div>
 
     <form action="{{ route('admin.schedules.store') }}" method="POST">
         @csrf
