@@ -28,7 +28,7 @@ class DashboardController extends Controller
                                 ->take(5)
                                 ->get();
                                 
-        $visitorsToday = Visitor::where('visited_date', today())->count();
+        $visitorsToday = Visitor::where('visited_date', today()->toDateString())->count();
         $totalVisitors = Visitor::count();
         $totalHits     = Visitor::sum('hits');
 
