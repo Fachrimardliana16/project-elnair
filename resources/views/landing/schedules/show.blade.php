@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Hero Schedule Detail -->
-<section style="position: relative; height: 60vh; background-image: url('{{ $schedule->package && str_starts_with($schedule->package->image, 'http') ? $schedule->package->image : asset($schedule->package->image ?? 'assets/img/hero-bg.jpg') }}'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center;">
+<section style="position: relative; height: 60vh; background-image: url('{{ $schedule->package && str_starts_with($schedule->package->image, 'http') ? $schedule->package->image : asset($schedule->package->image ?? 'assets/img/hero-premium.webp') }}'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center;">
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 76, 84, 0.8);"></div>
     <div class="container" style="position: relative; z-index: 2; text-align: center; color: white;">
         <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.9rem;">Jadwal Keberangkatan</span>

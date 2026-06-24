@@ -119,7 +119,7 @@
 <body>
     <div class="error-container">
         <div class="logo-area">
-            <img src="{{ asset('assets/img/logo-full.png') }}" alt="Elnair Travel" onerror="this.style.display='none'">
+            <img src="{{ asset('assets/img/logo-full.webp') }}" alt="Elnair Travel" onerror="this.style.display='none'">
         </div>
 
         <div class="error-icon">

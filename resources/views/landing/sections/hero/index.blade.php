@@ -8,7 +8,7 @@
 
 <!-- Luxury Hero -->
 <header class="hero" id="home">
-    <div class="hero-bg-img" style="background-image: url('{{ ($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium.png') }}'); opacity: 0.7;"></div>
+    <div class="hero-bg-img" style="background-image: url('{{ ($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium.webp') }}'); opacity: 0.7;"></div>
     <div class="container">
         <div class="hero-content reveal active">
             <div class="hero-badge">
@@ -133,7 +133,7 @@
     .hero-btns-responsive {
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: center; /* Center on small tablets */
     }
     .hero-btn-item {
         width: auto;
@@ -143,6 +143,12 @@
 }
 
 @media (min-width: 768px) {
+    .hero-btns-responsive {
+        justify-content: flex-start; /* Left align on desktop */
+    }
+    .hero-social-proof {
+        justify-content: flex-start;
+    }
     .hero-btn-item {
         padding: 1.2rem 2.5rem;
         font-size: 0.95rem;

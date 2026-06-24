@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Hero About -->
-<section class="hero-about" style="position: relative; height: 50vh; background-image: url('{{ asset('assets/img/hero-premium.png') }}'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center;">
+<section class="hero-about" style="position: relative; height: 50vh; background-image: url('{{ asset('assets/img/hero-premium.webp') }}'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center;">
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 76, 84, 0.8);"></div>
     <div class="container" style="position: relative; z-index: 2; text-align: center; color: white;">
         <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.9rem;">Company Profile</span>
@@ -31,7 +31,7 @@
                         <p style="line-height: 1.8; color: var(--text-dark);">Dengan mengedepankan profesionalisme, transparansi, dan integritas dalam setiap layanan, Elnair terus berupaya membangun hubungan jangka panjang yang dilandasi oleh kepercayaan. Komitmen tersebut menjadi fondasi kami dalam menghadirkan pengalaman perjalanan ibadah yang berkualitas serta menjadi mitra yang dapat diandalkan bagi masyarakat.</p>
                     </div>
                     <div class="about-image">
-                        <img src="{{ asset('assets/img/hero-premium.png') }}" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+                        <img src="{{ asset('assets/img/hero-premium.webp') }}" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
             <div class="tab-content" id="visi">
                 <div class="about-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
                     <div class="about-image">
-                        <img src="{{ asset('assets/img/hero-premium.png') }}" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+                        <img src="{{ asset('assets/img/hero-premium.webp') }}" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
                     </div>
                     <div class="about-text">
                         <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--brand-dark); margin-bottom: 1.5rem;">Visi & Misi Kami</h2>
@@ -137,7 +137,7 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
                     @forelse($guides as $guide)
                     <div class="guide-card reveal" style="background: var(--card-bg, #fff); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; padding-bottom: 2rem; border: 1px solid rgba(13, 76, 84, 0.05);">
-                        <div style="height: 250px; background-image: url('{{ $guide->image ? (str_starts_with($guide->image, 'http') ? $guide->image : asset($guide->image)) : asset('assets/img/hero-premium.png') }}'); background-size: cover; background-position: center; margin-bottom: 1.5rem;"></div>
+                        <div style="height: 250px; background-image: url('{{ $guide->image ? (str_starts_with($guide->image, 'http') ? $guide->image : asset($guide->image)) : asset('assets/img/hero-premium.webp') }}'); background-size: cover; background-position: center; margin-bottom: 1.5rem;"></div>
                         <h4 style="font-size: 1.2rem; color: var(--brand-dark); margin-bottom: 0.3rem; padding: 0 1rem;">{{ $guide->name }}</h4>
                         <span style="color: var(--brand-gold); font-size: 0.8rem; font-weight: 700; display: block; margin-bottom: 1rem;">{{ $guide->role }}</span>
                         @if($guide->description)

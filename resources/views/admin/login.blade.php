@@ -110,7 +110,7 @@
 
     <div class="login-card" style="padding-top: 3rem;">
         <div style="overflow: hidden; height: 110px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; padding-top: 10px;">
-            <img src="{{ asset('assets/img/logo-full.png') }}" alt="Elnair Logo" style="width: 200px; height: auto; transform: scale(1.0); transform-origin: center;">
+            <img src="{{ asset('assets/img/logo-full.webp') }}" alt="Elnair Logo" style="width: 200px; height: auto; transform: scale(1.0); transform-origin: center;">
         </div>
         <p style="margin-bottom: 2rem;">Access the administrative dashboard</p>
 

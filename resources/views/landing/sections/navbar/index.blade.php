@@ -4,9 +4,9 @@
         <a href="{{ route('home') }}" class="logo" style="text-decoration: none;">
             <picture>
                 <source srcset="{{ asset('assets/img/logo-mobile.webp') }}" type="image/webp" media="(max-width: 768px)">
-                <source srcset="{{ asset('assets/img/logo-mobile.png') }}" media="(max-width: 768px)">
+                <source srcset="{{ asset('assets/img/logo-mobile.webp') }}" media="(max-width: 768px)">
                 <source srcset="{{ asset(str_replace('.png', '.webp', $settings['logo'] ?? 'assets/img/logo-full.webp')) }}" type="image/webp">
-                <img src="{{ asset($settings['logo'] ?? 'assets/img/logo-full.png') }}" alt="Elnair Logo" class="brand-logo" width="180" height="180" loading="eager" fetchpriority="high" decoding="sync">
+                <img src="{{ asset($settings['logo'] ?? 'assets/img/logo-full.webp') }}" alt="Elnair Logo" class="brand-logo" width="180" height="180" loading="eager" fetchpriority="high" decoding="sync">
             </picture>
         </a>
         <div class="nav-links">

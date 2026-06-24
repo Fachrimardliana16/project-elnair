@@ -17,7 +17,7 @@
             @forelse($articles as $article)
             <article class="article-card reveal">
                 <a href="{{ route('artikel.show', $article->slug) }}" style="display: block;">
-                    <div style="height: 220px; background-image: url('{{ $article->thumbnail ? (str_starts_with($article->thumbnail, 'http') ? $article->thumbnail : asset($article->thumbnail)) : asset('assets/img/hero-bg.jpg') }}'); background-size: cover; background-position: center;"></div>
+                    <div style="height: 220px; background-image: url('{{ $article->thumbnail ? (str_starts_with($article->thumbnail, 'http') ? $article->thumbnail : asset($article->thumbnail)) : asset('assets/img/hero-premium.webp') }}'); background-size: cover; background-position: center;"></div>
                 </a>
                 <div style="padding: 2rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; font-size: 0.8rem; color: #888;">

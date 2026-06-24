@@ -5,7 +5,7 @@
             <div>
                 <picture>
                     <source srcset="{{ asset(str_replace('.png', '.webp', $settings['logo'] ?? 'assets/img/logo-full.webp')) }}" type="image/webp">
-                    <img src="{{ asset($settings['logo'] ?? 'assets/img/logo-full.png') }}" alt="Elnair Logo" class="footer-brand-logo" width="160" height="50" loading="lazy" decoding="async">
+                    <img src="{{ asset($settings['logo'] ?? 'assets/img/logo-full.webp') }}" alt="Elnair Logo" class="footer-brand-logo" width="160" height="50" loading="lazy" decoding="async">
                 </picture>
                 <p>Mewujudkan perjalanan suci yang aman, nyaman, dan berkesan bagi setiap hamba Allah yang merindukan Baitullah.</p>
                 <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">

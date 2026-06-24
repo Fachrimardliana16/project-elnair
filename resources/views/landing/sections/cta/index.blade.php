@@ -119,7 +119,7 @@
                 <div class="cta-image-wrapper" style="border-radius: 40px; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.4);">
                     <picture>
                         <source srcset="{{ asset('assets/img/cs.webp') }}" type="image/webp">
-                        <img src="{{ asset('assets/img/cs.png') }}"
+                        <img src="{{ asset('assets/img/cs.webp') }}"
                              alt="Tim Customer Service Elnair Travel"
                              class="cs-img-elite"
                              loading="lazy"

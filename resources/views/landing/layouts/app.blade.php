@@ -19,9 +19,8 @@
           media="(max-width: 768px)"
           fetchpriority="high">
 
-    {{-- Preload hero LCP image — requests .png URL; htaccess transparently serves .webp via T=image/webp.
-         Cache key stays .png so the CSS background-image cache-hits correctly. --}}
-    <link rel="preload" as="image" href="{{ asset('assets/img/hero-premium.png') }}" fetchpriority="high">
+    {{-- Preload hero LCP image --}}
+    <link rel="preload" as="image" href="{{ asset('assets/img/hero-premium.webp') }}" fetchpriority="high">
 
     {{-- Preload self-hosted fonts (same-origin = no cross-origin DNS penalty, no GDPR 3rd-party request)
          Playfair Display 700-900 latin — critical: used by h1 LCP element

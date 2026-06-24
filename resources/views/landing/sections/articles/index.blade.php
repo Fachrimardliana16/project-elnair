@@ -12,7 +12,7 @@
             @foreach($articles as $article)
             <article class="reveal" style="background: var(--card-bg); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: transform 0.3s, background 0.3s; border: 1px solid rgba(13, 76, 84, 0.07);">
                 <a href="{{ route('artikel.show', $article->slug) }}" aria-label="{{ $article->title }}" style="display: block;">
-                    <div style="height: 200px; background-image: url('{{ $article->thumbnail ? (str_starts_with($article->thumbnail, 'http') ? $article->thumbnail : asset($article->thumbnail)) : asset('assets/img/hero-bg.jpg') }}'); background-size: cover; background-position: center;"></div>
+                    <div style="height: 200px; background-image: url('{{ $article->thumbnail ? (str_starts_with($article->thumbnail, 'http') ? $article->thumbnail : asset($article->thumbnail)) : asset('assets/img/hero-premium.webp') }}'); background-size: cover; background-position: center;"></div>
                 </a>
                 <div style="padding: 1.5rem;">
                     <div style="font-size: 0.75rem; color: var(--brand-teal); opacity: 0.8; margin-bottom: 0.8rem;">

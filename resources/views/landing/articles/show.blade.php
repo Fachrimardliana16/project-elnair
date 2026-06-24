@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Hero Article Detail -->
-<section style="position: relative; height: 60vh; background-image: url('{{ $article->thumbnail ? (str_starts_with($article->thumbnail, 'http') ? $article->thumbnail : asset($article->thumbnail)) : asset('assets/img/hero-bg.jpg') }}'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center;">
+<section style="position: relative; height: 60vh; background-image: url('{{ $article->thumbnail ? (str_starts_with($article->thumbnail, 'http') ? $article->thumbnail : asset($article->thumbnail)) : asset('assets/img/hero-premium.webp') }}'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center;">
     <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 76, 84, 0.75);"></div>
     <div class="container" style="position: relative; z-index: 2; text-align: center; color: white;">
         <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.9rem;">Elnair Insights</span>
@@ -43,7 +43,7 @@
                     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
                         @foreach($related as $rel)
                         <div style="display: flex; gap: 1rem; align-items: center;">
-                            <div style="width: 80px; height: 80px; border-radius: 10px; background-image: url('{{ $rel->thumbnail ? (str_starts_with($rel->thumbnail, 'http') ? $rel->thumbnail : asset($rel->thumbnail)) : asset('assets/img/hero-bg.jpg') }}'); background-size: cover; background-position: center; flex-shrink: 0;"></div>
+                            <div style="width: 80px; height: 80px; border-radius: 10px; background-image: url('{{ $rel->thumbnail ? (str_starts_with($rel->thumbnail, 'http') ? $rel->thumbnail : asset($rel->thumbnail)) : asset('assets/img/hero-premium.webp') }}'); background-size: cover; background-position: center; flex-shrink: 0;"></div>
                             <div>
                                 <h4 style="font-size: 1rem; line-height: 1.4; margin-bottom: 0.3rem;">
                                     <a href="{{ route('artikel.show', $rel->slug) }}" class="sidebar-title-link">

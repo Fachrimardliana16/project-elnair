@@ -437,7 +437,7 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header" style="padding: 2rem 1.2rem; text-align: center;">
             <div style="background: white; border-radius: 12px; height: 90px; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-                <img src="{{ asset('assets/img/logo-full.png') }}" alt="Logo" style="width: 170px; height: auto; flex-shrink: 0; margin-top: 40px;">
+                <img src="{{ asset('assets/img/logo-full.webp') }}" alt="Logo" style="width: 170px; height: auto; flex-shrink: 0; margin-top: 40px;">
             </div>
         </div>
         <ul class="sidebar-menu">
