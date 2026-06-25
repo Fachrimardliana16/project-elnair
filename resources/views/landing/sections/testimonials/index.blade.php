@@ -325,16 +325,24 @@
             startAutoSlide();
         }
         
-        // ── 2. DRAGGABLE / SWIPEABLE IMPLEMENTATION (Uses pixel translation on active viewports) ──
+        // ── 2. DRAGGABLE / SWIPEABLE IMPLEMENTATION ──
+        // slideWidth is cached and only updated on resize — never read during drag events
+        // This eliminates Forced Synchronous Layout (getBoundingClientRect mid-interaction)
         let isDragging = false;
         let startX = 0;
         let diffX = 0;
         let trackTranslate = 0;
+        let cachedSlideWidth = 0;
+        
+        function updateCachedSlideWidth() {
+            const allSlides = track.querySelectorAll('.testi-slide, .testi-slide-clone');
+            if (allSlides.length > 0) {
+                cachedSlideWidth = allSlides[0].getBoundingClientRect().width;
+            }
+        }
         
         function getTrackOffsetPx() {
-            const allSlides = track.querySelectorAll('.testi-slide, .testi-slide-clone');
-            const slideWidth = allSlides[0].getBoundingClientRect().width;
-            return -(currentIndex * slideWidth);
+            return -(currentIndex * cachedSlideWidth);
         }
         
         function dragStart(e) {
@@ -347,8 +355,10 @@
             startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
             diffX = 0;
             
-            track.style.transition = 'none';
+            // Read layout BEFORE writing style — avoids forced synchronous layout
             trackTranslate = getTrackOffsetPx();
+            track.style.transition = 'none';
+            track.style.transform = `translateX(${trackTranslate}px)`;
         }
         
         function dragMove(e) {
@@ -372,9 +382,8 @@
             track.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
             isTransitioning = true;
             
-            const allSlides = track.querySelectorAll('.testi-slide, .testi-slide-clone');
-            const slideWidth = allSlides[0].getBoundingClientRect().width;
-            const threshold = slideWidth * 0.15;
+            // Use cached value — no layout read during event handler
+            const threshold = cachedSlideWidth * 0.15;
             
             if (diffX < -threshold) {
                 slideTo(currentIndex + 1);
@@ -401,6 +410,7 @@
         }
         
         // Initial setup
+        updateCachedSlideWidth();
         setupDots();
         slideTo(0);
         startAutoSlide();
@@ -414,6 +424,7 @@
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
+                updateCachedSlideWidth();
                 setupDots();
                 slideTo(currentIndex);
             }, 100);

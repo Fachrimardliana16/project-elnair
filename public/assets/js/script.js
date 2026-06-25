@@ -34,8 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
+                    // Use getBoundingClientRect + scrollY (no forced layout; rect is calculated once before any write)
+                    const rect = target.getBoundingClientRect();
+                    const targetTop = rect.top + window.scrollY - 80;
                     window.scrollTo({
-                        top: target.offsetTop - 80,
+                        top: targetTop,
                         behavior: 'smooth'
                     });
                 }
@@ -64,18 +67,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Luxury Hover Effects for Cards
     const cards = document.querySelectorAll('.card, .pkg-card');
     cards.forEach(card => {
+        let rafPending = false;
         card.addEventListener('mousemove', (e) => {
+            if (rafPending) return;
+            rafPending = true;
+            // READ layout geometry BEFORE any write
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-
             const rotateX = (y - centerY) / 20;
             const rotateY = (centerX - x) / 20;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+            // WRITE in rAF — safely deferred from the read above
+            requestAnimationFrame(() => {
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+                rafPending = false;
+            });
         });
 
         card.addEventListener('mouseleave', () => {

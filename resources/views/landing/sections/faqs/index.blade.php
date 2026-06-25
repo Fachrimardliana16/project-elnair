@@ -74,6 +74,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 toggleFaqsBtn.innerHTML = 'Sembunyikan <i class="fas fa-chevron-up" style="margin-left: 8px;"></i>';
             } else {
+                // READ layout FIRST (before any style writes) to avoid forced synchronous layout
+                const faqSection = document.getElementById('faq');
+                const scrollTarget = faqSection
+                    ? faqSection.getBoundingClientRect().top + window.pageYOffset - 100
+                    : null;
+
+                // THEN write styles
                 hiddenFaqs.forEach(item => {
                     const content = item.querySelector('.faq-content');
                     if(content) content.style.maxHeight = '0px';
@@ -83,11 +90,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 toggleFaqsBtn.innerHTML = 'Lihat Semua FAQ <i class="fas fa-chevron-down" style="margin-left: 8px;"></i>';
                 
-                const faqSection = document.getElementById('faq');
-                if (faqSection) {
-                    const yOffset = -100;
-                    const y = faqSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                    window.scrollTo({top: y, behavior: 'smooth'});
+                if (scrollTarget !== null) {
+                    window.scrollTo({top: scrollTarget, behavior: 'smooth'});
                 }
             }
         });
