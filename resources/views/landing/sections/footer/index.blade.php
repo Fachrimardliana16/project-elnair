@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div>
-                <h4>Discover</h4>
+                <h3>Discover</h3>
                 <ul>
                     <li><a href="{{ url('/') }}">Beranda</a></li>
                     <li><a href="{{ route('about') }}">Tentang Kami</a></li>
@@ -23,7 +23,7 @@
                 </ul>
             </div>
             <div>
-                <h4>Services</h4>
+                <h3>Services</h3>
                 <ul>
                     @foreach($packages as $pkg)
                     <li><a href="#">{{ $pkg->title }}</a></li>
@@ -31,7 +31,7 @@
                 </ul>
             </div>
             <div>
-                <h4>Contact</h4>
+                <h3>Contact</h3>
                 <ul>
                     <li>{{ $settings['email'] ?? 'info@elnairtravel.com' }}</li>
                     <li>{{ $settings['phone'] ?? '(021) 1234 5678' }}</li>

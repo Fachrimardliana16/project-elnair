@@ -32,7 +32,7 @@
                                     aspect-ratio: 1/1;
                                 " role="img" aria-label="{{ $testi->name }}"></div>
                                 <div class="testi-meta">
-                                    <h4 style="font-size: 1.1rem; font-weight: 800; line-height: 1.2;">{{ $testi->name }}</h4>
+                                    <h3 style="font-size: 1.1rem; font-weight: 800; line-height: 1.2; margin: 0; padding-bottom: 0.3rem;">{{ $testi->name }}</h3>
                                     <small style="color: var(--brand-gold); font-weight: 700; font-size: 0.7rem;">{{ $testi->role_label }}</small>
                                     <div class="testi-rating" role="img" style="margin-top: 4px;" aria-label="5 bintang">
                                         <i class="fas fa-star" aria-hidden="true"></i>
@@ -182,6 +182,16 @@
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     padding: 0;
+    position: relative;
+}
+.testi-dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
 }
 
 .testi-dot.active {

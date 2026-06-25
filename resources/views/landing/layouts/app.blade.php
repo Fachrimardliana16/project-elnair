@@ -268,10 +268,24 @@
             let stickyDismissed = sessionStorage.getItem('stickyCtaDismissed');
 
             if (stickyBar && !stickyDismissed) {
+                let docHeight = document.body.scrollHeight - window.innerHeight;
+                window.addEventListener('resize', function() {
+                    docHeight = document.body.scrollHeight - window.innerHeight;
+                }, { passive: true });
+                
+                let ticking = false;
                 window.addEventListener('scroll', function () {
-                    const scrollPct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-                    if (scrollPct > 0.30) {
-                        stickyBar.classList.add('visible');
+                    if (!ticking) {
+                        window.requestAnimationFrame(function() {
+                            if (docHeight > 0) {
+                                const scrollPct = window.scrollY / docHeight;
+                                if (scrollPct > 0.30) {
+                                    stickyBar.classList.add('visible');
+                                }
+                            }
+                            ticking = false;
+                        });
+                        ticking = true;
                     }
                 }, { passive: true });
             }

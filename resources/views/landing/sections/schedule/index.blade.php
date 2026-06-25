@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="schedule-package" style="flex: 1; min-width: 200px;">
-                    <h4 style="font-size: 1.1rem; color: var(--brand-dark); margin-bottom: 0.3rem;">{{ $schedule->package->title }}</h4>
+                    <h3 style="font-size: 1.1rem; color: var(--brand-dark); margin-bottom: 0.3rem; font-weight: normal;">{{ $schedule->package->title }}</h3>
                     <span style="font-size: 0.8rem; opacity: 0.7;">{{ $schedule->package->price_label }} {{ $schedule->package->price_value }}</span>
                 </div>
 
