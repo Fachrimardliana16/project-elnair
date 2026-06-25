@@ -39,7 +39,7 @@
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
+        <div class="footer-bottom" style="color: #d4d4d4 !important;">
             &copy; {{ date('Y') }} {{ strtoupper($settings['site_name'] ?? 'ELNAIR TRAVEL') }} SERVICES. ALL RIGHTS RESERVED.
         </div>
     </div>

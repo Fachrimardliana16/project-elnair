@@ -169,32 +169,42 @@
 .testi-dots {
     display: flex;
     justify-content: center;
-    gap: 0.6rem;
+    gap: 0;
     margin-top: 2.5rem;
+    align-items: center;
 }
 
+/* Button is 44x44 (meets Google's 48dp touch target guideline).
+   The visual dot is the ::after pseudo-element inside it. */
 .testi-dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* The visible dot */
+.testi-dot::after {
+    content: '';
     width: 10px;
     height: 10px;
     border-radius: 50%;
     background: rgba(139, 94, 60, 0.2);
-    border: none;
-    cursor: pointer;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    padding: 0;
-    position: relative;
-}
-.testi-dot::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 48px;
-    height: 48px;
+    display: block;
+    flex-shrink: 0;
 }
 
-.testi-dot.active {
+.testi-dot.active::after {
     background: var(--brand-gold);
     width: 24px;
     border-radius: 10px;
