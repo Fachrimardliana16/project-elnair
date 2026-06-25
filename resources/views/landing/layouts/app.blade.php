@@ -37,6 +37,7 @@
     <style>
     @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700 900;font-display:optional;src:url("{{ asset('assets/fonts/playfair-display-700-900-latin-ext.woff2') }}") format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
     @font-face{font-family:'Playfair Display';font-style:normal;font-weight:700 900;font-display:optional;src:url("{{ asset('assets/fonts/playfair-display-700-900-latin.woff2') }}") format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+    @font-face{font-family:'Playfair Display Fallback';src:local('Georgia'),local('Times New Roman'),local('serif');size-adjust:112%;ascent-override:85%;descent-override:22%;line-gap-override:0%}
     @font-face{font-family:'Outfit Fallback';src:local('Arial'),local('Helvetica Neue'),local('sans-serif');size-adjust:97%;ascent-override:105%;descent-override:35%;line-gap-override:0%}
     @font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:block;src:url("{{ asset('assets/fonts/outfit-latin-ext.woff2') }}") format('woff2');unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
     @font-face{font-family:'Outfit';font-style:normal;font-weight:300 700;font-display:block;src:url("{{ asset('assets/fonts/outfit-latin.woff2') }}") format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
@@ -61,7 +62,7 @@
     .hero{background:var(--brand-dark);color:#fff;text-align:left;overflow:hidden}
     .hero-bg-img{position:absolute;top:0;left:0;width:100%;height:100%;background-size:cover;background-position:center;z-index:0}
     .hero .container{position:relative;z-index:2}
-    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,8vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:1.5rem;max-width:850px;letter-spacing:-1px}
+    .hero h1{font-family:'Playfair Display','Playfair Display Fallback',serif;font-size:clamp(2rem,8vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:1.5rem;max-width:850px;letter-spacing:-1px}
     .hero p{font-size:clamp(.9rem,3vw,1.2rem);line-height:1.6;margin-bottom:2.5rem;max-width:650px;opacity:.9}
     .hero-badge{display:inline-flex;align-items:center;gap:.8rem;background:rgba(255,255,255,.1);padding:.6rem 1.4rem;border-radius:50px;backdrop-filter:blur(15px);border:1px solid rgba(255,255,255,.2);margin-bottom:2rem}
     .btn{display:inline-flex;align-items:center;padding:1.2rem 2.8rem;border-radius:50px;text-decoration:none;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-size:.85rem;transition:var(--transition-elite)}
