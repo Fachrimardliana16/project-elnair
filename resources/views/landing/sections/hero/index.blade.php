@@ -8,7 +8,26 @@
 
 <!-- Luxury Hero -->
 <header class="hero" id="home">
-    <div class="hero-bg-img" style="background-image: url('{{ ($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium.webp') }}'); opacity: 0.7;"></div>
+    {{-- 
+        Hero background: <picture> element (NOT CSS background-image).
+        Reason: CSS background-image is NOT scanned by the browser's preload scanner.
+        An <img> inside <picture> IS scanned immediately at HTML parse time.
+        fetchpriority="high" + loading="eager" = browser prioritizes this above all else.
+        Mobile gets a 40KB image; desktop gets 88KB — major LCP improvement on mobile.
+    --}}
+    <picture class="hero-bg-picture" aria-hidden="true">
+        <source media="(max-width: 768px)" srcset="{{ ($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium-mobile.webp') }}">
+        <img
+            src="{{ ($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium.webp') }}"
+            alt=""
+            class="hero-bg-img"
+            fetchpriority="high"
+            loading="eager"
+            decoding="async"
+            width="1024"
+            height="1024"
+        >
+    </picture>
     <div class="container">
         <div class="hero-content reveal active">
             <div class="hero-badge">

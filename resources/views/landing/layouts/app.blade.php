@@ -19,8 +19,15 @@
           media="(max-width: 768px)"
           fetchpriority="high">
 
-    {{-- Preload hero LCP image --}}
-    <link rel="preload" as="image" href="{{ asset('assets/img/hero-premium.webp') }}" fetchpriority="high">
+    {{-- Preload hero LCP image — responsive:
+         Mobile (≤768px): hero-premium-mobile.webp = 40 KiB (55% smaller)
+         Desktop (>768px): hero-premium.webp = 88 KiB
+         imagesrcset+media mirrors the <picture><source media> so the preload scanner
+         fetches EXACTLY the same image the browser will render — no wasted bandwidth. --}}
+    <link rel="preload" as="image"
+          imagesrcset="{{ asset('assets/img/hero-premium-mobile.webp') }} 768w, {{ asset('assets/img/hero-premium.webp') }} 1024w"
+          imagesizes="(max-width: 768px) 100vw, 100vw"
+          fetchpriority="high">
 
     {{-- Preload self-hosted fonts (same-origin = no cross-origin DNS penalty, no GDPR 3rd-party request)
          Playfair Display 700-900 latin — critical: used by h1 LCP element
@@ -60,7 +67,8 @@
     .brand-logo{height:180px;width:auto;filter:drop-shadow(0 0 18px rgba(255,255,255,.6)) drop-shadow(0 5px 20px rgba(0,0,0,.3));transform:translateY(15px)}
     .logo{position:relative;z-index:10;display:flex;align-items:center}
     .hero{background:var(--brand-dark);color:#fff;text-align:left;overflow:hidden}
-    .hero-bg-img{position:absolute;top:0;left:0;width:100%;height:100%;background-size:cover;background-position:center;z-index:0}
+    .hero-bg-picture{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;display:block}
+    .hero-bg-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.7;display:block}
     .hero .container{position:relative;z-index:2}
     .hero h1{font-family:'Playfair Display','Playfair Display Fallback',serif;font-size:clamp(2rem,8vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:1.5rem;max-width:850px;letter-spacing:-1px}
     .hero p{font-size:clamp(.9rem,3vw,1.2rem);line-height:1.6;margin-bottom:2.5rem;max-width:650px;opacity:.9}
