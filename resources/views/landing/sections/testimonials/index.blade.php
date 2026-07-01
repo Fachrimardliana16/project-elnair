@@ -57,12 +57,22 @@
                                             title="Testimoni {{ $testi->name }}">
                                         </iframe>
                                     </div>
-                                    <p style="font-size: clamp(0.8rem, 2.5vw, 0.9rem); color: var(--text-dark); line-height: 1.6; margin-top: 1rem;">{{ $testi->quote }}</p>
+                                    <div class="testi-text-wrapper">
+                                        <p class="testi-quote-text" style="font-size: clamp(0.8rem, 2.5vw, 0.9rem); color: var(--text-dark); line-height: 1.6; margin-top: 1rem;">{{ $testi->quote }}</p>
+                                        @if(strlen($testi->quote) > 120)
+                                            <button type="button" class="testi-read-more" style="background: none; border: none; color: var(--brand-gold); font-size: 0.8rem; font-weight: bold; cursor: pointer; padding: 0; margin-top: 0.25rem;">Baca Selengkapnya</button>
+                                        @endif
+                                    </div>
                                 @else
                                     <div>
                                         <i class="fas fa-quote-left" style="font-size: 1.5rem; opacity: 0.25; color: var(--brand-gold);" aria-hidden="true"></i>
                                     </div>
-                                    <p style="font-family: 'Playfair Display', serif; font-size: clamp(0.9rem, 3vw, 1.05rem); font-style: italic; color: var(--text-dark); line-height: 1.6; margin-top: 0.5rem;">{{ $testi->quote }}</p>
+                                    <div class="testi-text-wrapper">
+                                        <p class="testi-quote-text" style="font-family: 'Playfair Display', serif; font-size: clamp(0.9rem, 3vw, 1.05rem); font-style: italic; color: var(--text-dark); line-height: 1.6; margin-top: 0.5rem;">{{ $testi->quote }}</p>
+                                        @if(strlen($testi->quote) > 150)
+                                            <button type="button" class="testi-read-more" style="background: none; border: none; color: var(--brand-gold); font-size: 0.85rem; font-weight: bold; font-family: sans-serif; font-style: normal; cursor: pointer; padding: 0; margin-top: 0.25rem;">Baca Selengkapnya</button>
+                                        @endif
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -210,6 +220,19 @@
     background: var(--brand-gold);
     width: 24px;
     border-radius: 10px;
+}
+
+/* ── Truncation ───────────────────────────────────────────────────────── */
+.testi-quote-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.testi-quote-text.expanded {
+    -webkit-line-clamp: unset;
 }
 </style>
 
@@ -447,5 +470,28 @@
     } else {
         initSlider();
     }
+    
+    // Read more toggle delegation
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('testi-read-more')) {
+            e.preventDefault();
+            const wrapper = e.target.closest('.testi-text-wrapper');
+            const text = wrapper.querySelector('.testi-quote-text');
+            if (text.classList.contains('expanded')) {
+                text.classList.remove('expanded');
+                e.target.textContent = 'Baca Selengkapnya';
+            } else {
+                text.classList.add('expanded');
+                e.target.textContent = 'Tutup';
+            }
+            
+            // Re-calculate slider dimensions if active
+            const track = document.querySelector('.testi-slider-track');
+            if (track) {
+                // optional: force resize event to recount heights if you had absolute positioning, 
+                // but since flexbox is used, the card just grows.
+            }
+        }
+    });
 })();
 </script>
