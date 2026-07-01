@@ -43,6 +43,12 @@ class SiteSettingController extends Controller
             'phone',
             'address',
             'google_maps_url',
+            'operational_hours',
+            'company_legal_name',
+            'kemenag_license',
+            'nib_number',
+            'nib_date',
+            'legal_description',
         ]);
 
         if ($request->hasFile('logo')) {

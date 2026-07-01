@@ -13,6 +13,12 @@
                         <p style="font-size: 0.8rem; line-height: 1.4; font-weight: 500;">{{ $settings['address'] ?? 'Jl. Premium No. 123, SCBD, Jakarta Pusat' }}</p>
                     </div>
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <strong style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-gold);">Jam Operasional</strong>
+                        <p style="font-size: 0.8rem; line-height: 1.4; font-weight: 500;">
+                            {!! nl2br(e($settings['operational_hours'] ?? "Senin - Jumat: 09:00 - 17:00\nSabtu: 09:00 - 14:00")) !!}
+                        </p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                         <strong style="font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brand-gold);">Hubungi Kami</strong>
                         <p style="font-size: 0.8rem; line-height: 1.4; font-weight: 500;">
                             {{ $settings['phone'] ?? '(021) 1234 5678' }}<br>

@@ -35,10 +35,30 @@
             </div>
 
             <div>
-                <h3 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--brand-dark);"><i class="fas fa-certificate"></i> Dokumen Perizinan PPIU (Kemenag)</h3>
+                <h3 style="margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--brand-dark);"><i class="fas fa-certificate"></i> Dokumen Perizinan & Legalitas</h3>
                 <div class="form-group mb-3">
-                    <label style="font-weight: 600;">Nomor Izin PPIU</label>
-                    <input type="text" name="ppiu_number" class="form-control" value="{{ $settings['ppiu_number'] ?? '' }}" placeholder="Contoh: No. 123 Tahun 2024">
+                    <label style="font-weight: 600;">Nama PT Legal (Perusahaan)</label>
+                    <input type="text" name="company_legal_name" class="form-control" value="{{ $settings['company_legal_name'] ?? '' }}" placeholder="Contoh: PT Elnair Sentra Wisata">
+                </div>
+                <div class="form-group mb-3">
+                    <label style="font-weight: 600;">Deskripsi Legalitas Singkat</label>
+                    <textarea name="legal_description" class="form-control" rows="2" placeholder="Legalitas dan perizinan resmi perusahaan sebagai komitmen...">{{ $settings['legal_description'] ?? '' }}</textarea>
+                </div>
+                <div class="form-group mb-3">
+                    <label style="font-weight: 600;">Nomor PPIU</label>
+                    <input type="text" name="ppiu_number" class="form-control" value="{{ $settings['ppiu_number'] ?? '' }}" placeholder="Contoh: (On Process) atau No. 123 Tahun 2024">
+                </div>
+                <div class="form-group mb-3">
+                    <label style="font-weight: 600;">Nomor Izin Kemenag</label>
+                    <input type="text" name="kemenag_license" class="form-control" value="{{ $settings['kemenag_license'] ?? '' }}" placeholder="Contoh: (On Process) atau No. 456 Tahun 2024">
+                </div>
+                <div class="form-group mb-3">
+                    <label style="font-weight: 600;">Nomor Induk Berusaha (NIB)</label>
+                    <input type="text" name="nib_number" class="form-control" value="{{ $settings['nib_number'] ?? '' }}" placeholder="Contoh: 1909240160665">
+                </div>
+                <div class="form-group mb-3">
+                    <label style="font-weight: 600;">Info Terbit NIB (Lokasi & Tanggal)</label>
+                    <input type="text" name="nib_date" class="form-control" value="{{ $settings['nib_date'] ?? '' }}" placeholder="Contoh: Terbit: Jakarta, 19 September 2024">
                 </div>
                 <div class="form-group mb-3">
                     <label style="font-weight: 600;">URL Scan Bukti / Link Siskopatuh Kemenag</label>
@@ -72,6 +92,10 @@
                     <div class="form-group mb-3">
                         <label style="font-weight: 600;">Alamat Kantor Utama</label>
                         <textarea name="address" class="form-control" rows="2">{{ $settings['address'] ?? '' }}</textarea>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label style="font-weight: 600;">Jam Operasional</label>
+                        <textarea name="operational_hours" class="form-control" rows="2" placeholder="Senin - Jumat: 09:00 - 17:00&#10;Sabtu: 09:00 - 14:00">{{ $settings['operational_hours'] ?? '' }}</textarea>
                     </div>
                     <div class="form-group mb-3">
                         <label style="font-weight: 600;">Google Maps Embed URL (Iframe Src)</label>

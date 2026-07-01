@@ -94,12 +94,11 @@
           onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"></noscript>
 
-    {{-- Font Awesome: subsetted CSS — only 25 icons used on this page (was 1856 icons = 98 KiB).
-         fa-subset.min.css = 14.5 KiB vs 98 KiB original → 85% reduction in unused CSS. --}}
+    {{-- Font Awesome: Full bundle for dynamic admin icons --}}
     <link rel="preload" as="style"
-          href="{{ asset('assets/css/fa/fa-subset.min.css') }}"
+          href="{{ asset('assets/css/fa/fa-bundle.min.css') }}"
           onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('assets/css/fa/fa-subset.min.css') }}"></noscript>
+    <noscript><link rel="stylesheet" href="{{ asset('assets/css/fa/fa-bundle.min.css') }}"></noscript>
     
     @isset($settings['favicon'])
     @php

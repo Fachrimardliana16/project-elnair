@@ -160,25 +160,25 @@
 <section class="info-legalitas" style="background: var(--brand-dark); color: white; padding: 4rem 0;">
     <div class="container">
         <div style="text-align: center; margin-bottom: 3rem;">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: white;">PT Elnair Sentra Wisata</h2>
-            <p style="opacity: 0.8; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Legalitas dan perizinan resmi perusahaan sebagai komitmen kami memberikan keamanan dan kenyamanan ibadah Anda.</p>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: white;">{{ $settings['company_legal_name'] ?? 'PT Elnair Sentra Wisata' }}</h2>
+            <p style="opacity: 0.8; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">{{ $settings['legal_description'] ?? 'Legalitas dan perizinan resmi perusahaan sebagai komitmen kami memberikan keamanan dan kenyamanan ibadah Anda.' }}</p>
         </div>
         <div style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: stretch; gap: 2rem; text-align: center;">
             <div style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.05); padding: 2.5rem 1.5rem; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
                 <i class="fas fa-certificate" style="font-size: 3rem; color: var(--brand-gold); margin-bottom: 1rem;"></i>
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">Nomor PPIU</h3>
-                <p style="font-size: 1.2rem; font-weight: 700; color: var(--brand-gold); margin: 0;">(On Process)</p>
+                <p style="font-size: 1.2rem; font-weight: 700; color: var(--brand-gold); margin: 0;">{{ $settings['ppiu_number'] ?? '(On Process)' }}</p>
             </div>
             <div style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.05); padding: 2.5rem 1.5rem; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
                 <i class="fas fa-file-signature" style="font-size: 3rem; color: var(--brand-gold); margin-bottom: 1rem;"></i>
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">Izin Kemenag</h3>
-                <p style="font-size: 1.2rem; font-weight: 700; color: var(--brand-gold); margin: 0;">(On Process)</p>
+                <p style="font-size: 1.2rem; font-weight: 700; color: var(--brand-gold); margin: 0;">{{ $settings['kemenag_license'] ?? '(On Process)' }}</p>
             </div>
             <div style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.05); padding: 2.5rem 1.5rem; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1);">
                 <i class="fas fa-id-card" style="font-size: 3rem; color: var(--brand-gold); margin-bottom: 1rem;"></i>
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">NIB</h3>
-                <p style="font-size: 1.2rem; font-weight: 700; color: var(--brand-gold); margin: 0;">1909240160665</p>
-                <span style="display: block; margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.7;">Terbit: Jakarta, 19 September 2024</span>
+                <p style="font-size: 1.2rem; font-weight: 700; color: var(--brand-gold); margin: 0;">{{ $settings['nib_number'] ?? '1909240160665' }}</p>
+                <span style="display: block; margin-top: 0.5rem; font-size: 0.85rem; opacity: 0.7;">{{ $settings['nib_date'] ?? 'Terbit: Jakarta, 19 September 2024' }}</span>
             </div>
         </div>
     </div>
