@@ -11,8 +11,9 @@
 <section id="testimoni" class="testi-luxury pattern-bg">
     <div class="container">
         <div class="section-header reveal">
-            <span style="letter-spacing: 8px;">Suara Para Jamaah</span>
-            <h2 style="font-size: clamp(2rem, 6vw, 3.5rem);">Mereka Sudah Merasakannya — Giliran Anda</h2>
+            <h2 style="font-size: clamp(2rem, 6vw, 3.5rem);">Cerita Nyata dari Jamaah Elnair Tour & Travel </h2>
+
+            <p style="max-width: 700px; margin: 0 auto; color: #666; font-size: 0.95rem; line-height: 1.7;">Setiap detail perjalanan kami rancang dengan sepenuh hati, karena kami memahami betapa berharganya setiap detik ibadah suci Anda.</p>
         </div>
         
         <div class="testi-slider-container">

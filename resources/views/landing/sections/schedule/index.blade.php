@@ -2,9 +2,9 @@
 <section id="jadwal" class="pattern-bg" style="background: var(--bg-light); height: auto !important; min-height: 100vh !important; padding: 6rem 0 !important; overflow: visible !important; display: flex; flex-direction: column; justify-content: center; position: relative;">
     <div class="container">
         <div class="section-header reveal">
-            <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.7rem;">Jadwal Resmi 2025–2026</span>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.5rem); margin: 1rem 0; color: var(--brand-dark);">Kursi Terbatas — Segera Amankan Tempat Anda</h2>
-            <p style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); max-width: 600px; margin: 0 auto; opacity: 0.8;">Kuota setiap keberangkatan kami batasi agar ibadah Anda tetap khusyuk dan mendapat perhatian penuh dari tim kami.</p>
+            <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.7rem;">Jadwal Keberangkatan Resmi</span>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.5rem); margin: 1rem 0; color: var(--brand-dark);">Pilihan Paket Umrah Terbaik untuk Kenyamanan Ibadah Anda</h2>
+            <p style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); max-width: 600px; margin: 0 auto; opacity: 0.8;">Temukan paket umrah yang dirancang khusus untuk memastikan kekhusyukan ibadah Anda dengan fasilitas terbaik.</p>
         </div>
 
         <div class="schedule-grid" style="display: grid; gap: 1rem; margin-top: 3rem; max-width: 900px; margin-left: auto; margin-right: auto;">

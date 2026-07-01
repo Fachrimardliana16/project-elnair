@@ -5,7 +5,7 @@
 <section class="schedules-hero">
     <div class="container">
         <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.9rem;">Elnair Tour & Travel</span>
-        <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4rem); margin: 1rem 0;">Jadwal Resmi 2025–2026</h1>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4rem); margin: 1rem 0;">Jadwal Keberangkatan Resmi</h1>
         <p style="font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto;">Pilih jadwal keberangkatan yang sesuai dengan rencana ibadah Anda. Kuota setiap keberangkatan terbatas.</p>
     </div>
 </section>

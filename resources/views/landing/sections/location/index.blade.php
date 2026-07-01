@@ -3,10 +3,9 @@
     <div class="container">
         <div class="address-grid reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(2rem, 5vw, 6rem); align-items: center; min-height: 80vh;">
             <div class="address-info">
-                <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.7rem;">Our Presence</span>
                 <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 8vw, 4.5rem); margin: 1rem 0; line-height: 1.1; color: var(--brand-dark);">Kunjungi Kantor Kami</h2>
                 <p style="font-size: clamp(0.9rem, 2.5vw, 1.2rem); color: var(--text-dark); opacity: 0.8; margin-bottom: clamp(1.5rem, 4vw, 4rem); line-height: 1.6;">
-                    Rasakan kehangatan layanan kami secara langsung di pusat bisnis Jakarta. Tim kami siap menyambut Anda dengan bimbingan personal.
+                    Rasakan kehangatan layanan kami secara langsung. Tim kami siap menyambut kedatangan Anda.
                 </p>
                 <div class="location-details" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.5rem;">
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">

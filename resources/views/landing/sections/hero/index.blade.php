@@ -62,7 +62,7 @@
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#d4b483"/><circle cx="16" cy="13" r="6" fill="#fff" opacity=".8"/><ellipse cx="16" cy="28" rx="10" ry="7" fill="#fff" opacity=".8"/></svg>
                 </div>
                 <span class="hero-proof-text">
-                    <strong>2.400+ jamaah</strong> telah mempercayakan perjalanan sucinya ke kami
+                    Jamaah telah mempercayakan perjalanan sucinya kepada kami
                 </span>
             </div>
         </div>
@@ -85,7 +85,7 @@
                     @endif
                 </div>
                 <div class="trust-item">
-                    <i class="fas fa-shield-check" aria-hidden="true"></i>
+                    <i class="fas fa-shield-alt" aria-hidden="true"></i>
                     <div class="trust-text">
                         <strong>Dana 100% Aman</strong>
                         <p>Rekening Terpisah</p>
@@ -101,8 +101,8 @@
                 <div class="trust-item">
                     <i class="fas fa-star" aria-hidden="true"></i>
                     <div class="trust-text">
-                        <strong>Hotel Bintang 5</strong>
-                        <p>Dekat Masjidil Haram</p>
+                        <strong>Kenyamanan</strong>
+                        <p>Fokus pada Kenyamanan Jamaah</p>
                     </div>
                 </div>
             </div>

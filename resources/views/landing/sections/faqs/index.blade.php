@@ -4,7 +4,7 @@
         <div class="section-header reveal" style="text-align: center;">
             <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.7rem;">Pusat Bantuan</span>
             <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); margin: 1rem 0; color: var(--text-dark);">Frequently Asked Questions</h2>
-            <p style="font-size: 1rem; max-width: 600px; margin: 0 auto; opacity: 0.8; color: var(--text-dark);">Jawaban untuk pertanyaan-pertanyaan yang sering ditanyakan oleh calon tamu Allah.</p>
+            <p style="font-size: 1rem; max-width: 600px; margin: 0 auto; opacity: 0.8; color: var(--text-dark);">Jawaban untuk pertanyaan-pertanyaan yang sering ditanyakan oleh calon tamu Allah SWT.</p>
         </div>
 
         <div style="max-width: 800px; margin: 3rem auto 0; overflow: visible !important;">

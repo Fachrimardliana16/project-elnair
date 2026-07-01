@@ -3,9 +3,8 @@
 <section id="artikel" class="pattern-bg" style="padding: 5rem 0;">
     <div class="container">
         <div class="section-header reveal" style="text-align: center; margin-bottom: 3rem;">
-            <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.7rem;">Inspirasi Ibadah</span>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); margin: 0.5rem 0; color: var(--brand-dark);">Perkaya Ilmu Sebelum Berangkat</h2>
-            <p style="opacity: 0.8; max-width: 600px; margin: 0 auto;">Panduan praktis, doa, dan tips dari tim ahli kami untuk mempersiapkan hati dan fisik menuju Baitullah.</p>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); margin: 0.5rem 0; color: var(--brand-dark);">Panduan & Inspirasi Perjalanan Ibadah Anda</h2>
+            <p style="opacity: 0.8; max-width: 600px; margin: 0 auto;"> Tips praktis, panduan ibadah, dan dokumentasi inspirasi dari tim Elnair untuk kenyamanan persiapan umrah Anda</p>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">

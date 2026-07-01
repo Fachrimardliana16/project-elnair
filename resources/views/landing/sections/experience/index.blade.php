@@ -2,9 +2,9 @@
 <section id="why-us" class="pattern-bg" style="height: auto !important; min-height: 100vh !important; padding: 6rem 0 !important; overflow: visible !important; display: flex; flex-direction: column; justify-content: center; position: relative;">
     <div class="container">
         <div class="section-header reveal" style="margin-bottom: 4rem; text-align: center;">
-            <span style="color: var(--brand-gold); text-transform: uppercase; letter-spacing: 5px; font-weight: 800; font-size: 0.75rem; display: block; margin-bottom: 1rem;">Keunggulan Elnair Travel</span>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--brand-dark); margin-bottom: 1rem;">Ribuan Jamaah Telah Mempercayakan Perjalanan Sucinya</h2>
-            <p style="max-width: 700px; margin: 0 auto; color: #666; font-size: 0.95rem; line-height: 1.7;">Setiap detail perjalanan kami rancang dengan seksama — karena ibadah Anda terlalu berharga untuk diserahkan sembarangan.</p>
+            <span style="color: var(--brand-gold); text-transform: uppercase; letter-spacing: 5px; font-weight: 800; font-size: 0.75rem; display: block; margin-bottom: 1rem;">Keunggulan Elnair Tour & Travel</span>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--brand-dark); margin-bottom: 1rem;">Mengapa Harus Memilih Elnair Tour & Travel?</h2>
+            <p style="max-width: 700px; margin: 0 auto; color: #666; font-size: 0.95rem; line-height: 1.7;">Setiap detail perjalanan kami rancang dengan sepenuh hati, karena kami memahami betapa berharganya setiap detik ibadah suci Anda.</p>
         </div>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">

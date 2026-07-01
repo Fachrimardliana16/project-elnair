@@ -84,17 +84,13 @@
     <div class="container">
         <div class="cta-grid">
             <div class="cta-text reveal">
-                <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.8rem;">Konsultasi Gratis, Tanpa Tekanan</span>
+                <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.8rem;">Konsultasi Gratis</span>
                 <h2>Satu Langkah Lagi Menuju Baitullah</h2>
                 <p style="font-size: clamp(1rem, 2.5vw, 1.2rem); opacity: 0.8; margin-bottom: 2.5rem; max-width: 55ch;">
-                    Ceritakan keinginan Anda, tim kami akan merancang perjalanan suci yang sesuai anggaran, jadwal, dan kebutuhan ibadah Anda.
+                    Setiap niat baik selalu punya jalan. Pintu konsultasi kami selalu terbuka hangat untuk menyambut rencana ibadah Anda. Konsultasikan dan persiapkan perjalanan suci Anda bersama tim konsultan Elnair yang siap melayani dengan sepenuh hati.
                 </p>
                 
                 <div class="cta-features">
-                    <div class="cta-feature-item" style="display: flex; align-items: center; gap: 0.75rem;">
-                        <i class="fas fa-check-circle" style="color: var(--brand-gold); flex-shrink:0;" aria-hidden="true"></i>
-                        <span style="font-size: 0.9rem;">Balas Chat dalam 5 Menit</span>
-                    </div>
                     <div class="cta-feature-item" style="display: flex; align-items: center; gap: 0.75rem;">
                         <i class="fas fa-check-circle" style="color: var(--brand-gold); flex-shrink:0;" aria-hidden="true"></i>
                         <span style="font-size: 0.9rem;">Konsultasi Gratis Tanpa Syarat</span>
