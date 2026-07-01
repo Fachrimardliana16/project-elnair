@@ -157,7 +157,7 @@
 </section>
 
 <!-- Info Data Legalitas -->
-<section class="info-legalitas" style="background: var(--brand-dark); color: white; padding: 4rem 0;">
+<section id="legalitas" class="info-legalitas" style="background: var(--brand-dark); color: white; padding: 4rem 0;">
     <div class="container">
         <div style="text-align: center; margin-bottom: 3rem;">
             <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; color: white;">{{ $settings['company_legal_name'] ?? 'PT Elnair Sentra Wisata' }}</h2>

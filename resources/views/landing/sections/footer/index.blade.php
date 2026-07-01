@@ -18,7 +18,7 @@
                 <ul>
                     <li><a href="{{ url('/') }}">Beranda</a></li>
                     <li><a href="{{ route('about') }}">Tentang</a></li>
-                    <li><a href="#legal">Legal</a></li>
+                    <li><a href="{{ route('about') }}#legalitas">Legal</a></li>
                     <li><a href="{{ url('/') }}#paket">Informasi paket murah</a></li>
                     <li><a href="{{ route('artikel.index') }}">Artikel dan inspirasi</a></li>
                 </ul>

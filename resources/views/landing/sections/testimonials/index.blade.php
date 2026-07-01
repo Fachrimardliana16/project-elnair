@@ -57,12 +57,12 @@
                                             title="Testimoni {{ $testi->name }}">
                                         </iframe>
                                     </div>
-                                    <p style="font-size: 0.9rem; color: var(--text-dark); line-height: 1.5; margin-top: 1rem;">{{ $testi->quote }}</p>
+                                    <p style="font-size: clamp(0.8rem, 2.5vw, 0.9rem); color: var(--text-dark); line-height: 1.6; margin-top: 1rem;">{{ $testi->quote }}</p>
                                 @else
                                     <div>
                                         <i class="fas fa-quote-left" style="font-size: 1.5rem; opacity: 0.25; color: var(--brand-gold);" aria-hidden="true"></i>
                                     </div>
-                                    <p style="font-family: 'Playfair Display', serif; font-size: 1.05rem; font-style: italic; color: var(--text-dark); line-height: 1.6; margin-top: 0.5rem;">{{ $testi->quote }}</p>
+                                    <p style="font-family: 'Playfair Display', serif; font-size: clamp(0.9rem, 3vw, 1.05rem); font-style: italic; color: var(--text-dark); line-height: 1.6; margin-top: 0.5rem;">{{ $testi->quote }}</p>
                                 @endif
                             </div>
                         </div>
@@ -107,6 +107,7 @@
     cursor: grab;
     user-select: none;
     -webkit-user-drag: none;
+    touch-action: pan-y;
 }
 
 .testi-slider-container:active {
@@ -268,15 +269,14 @@
             if (index > maxIndex) {
                 currentIndex = 0;
             } else if (index < 0) {
-                currentIndex = 0;
+                currentIndex = maxIndex > 0 ? maxIndex - 1 : 0;
             } else {
                 currentIndex = index;
             }
             
-            const percentStep = 100 / slidesPerView;
-            const offsetPercent = currentIndex * percentStep;
+            const offsetPx = currentIndex * cachedSlideWidth;
             
-            track.style.transform = `translateX(-${offsetPercent}%)`;
+            track.style.transform = `translateX(-${offsetPx}px)`;
             updateDots();
         }
         
