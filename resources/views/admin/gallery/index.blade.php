@@ -57,12 +57,12 @@
 
     <!-- Album Filter Tab Bar -->
     <div style="display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; overflow-x: auto; padding-bottom: 0.5rem;">
-        <a href="{{ route('admin.gallery.index') }}" class="album-btn {{ !$selectedCategory ? 'active' : '' }}">
+        <a href="{{ route('admin.gallery.index') }}" class="album-btn {{ !$selectedFolder ? 'active' : '' }}">
             Semua Album
         </a>
-        @foreach($categories as $category)
-            <a href="{{ route('admin.gallery.index', ['category' => $category]) }}" class="album-btn {{ $selectedCategory === $category ? 'active' : '' }}">
-                📁 {{ $category }}
+        @foreach($folders as $folder)
+            <a href="{{ route('admin.gallery.index', ['folder_id' => $folder->id]) }}" class="album-btn {{ $selectedFolder == $folder->id ? 'active' : '' }}">
+                📁 {{ $folder->name }} <span style="font-size:0.75rem;opacity:0.7;">({{ $folder->items_count }})</span>
             </a>
         @endforeach
     </div>
@@ -72,12 +72,12 @@
         @forelse($galleries as $item)
         <div style="background: white; border: 1px solid var(--brand-beige); border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
             
-            <!-- Album/Category Badge -->
+            <!-- Album Badge -->
             <span class="gallery-badge">
-                {{ $item->category ?? 'Lainnya' }}
+                {{ $item->folder->name ?? 'Lainnya' }}
             </span>
             
-            <img src="{{ asset($item->image) }}" style="width: 100%; height: 160px; object-fit: cover;">
+            <img src="{{ str_starts_with($item->image, 'http') ? $item->image : asset($item->image) }}" style="width: 100%; height: 160px; object-fit: cover;">
             
             <div style="padding: 1rem;">
                 <h5 style="margin: 0; font-size: 0.9rem; font-weight: 700; color: var(--brand-dark); min-height: 2.7rem; line-height: 1.3;">

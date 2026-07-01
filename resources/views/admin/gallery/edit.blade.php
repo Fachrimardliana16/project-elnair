@@ -26,11 +26,6 @@
         border-radius: 8px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     }
-    .preview-placeholder i {
-        font-size: 3rem;
-        color: var(--brand-beige);
-        margin-bottom: 0.5rem;
-    }
 </style>
 @endsection
 
@@ -58,46 +53,43 @@
             @enderror
         </div>
 
-        @php
-            $defaultCategories = ['Manasik', 'Keberangkatan', 'Ziarah', 'Hotel', 'Kegiatan'];
-            $allCategories = array_unique(array_merge($defaultCategories, $categories ?? []));
-        @endphp
-
         <div class="form-group">
-            <label for="category_select">Pilih Album / Kategori <span style="color: red;">*</span></label>
-            <select id="category_select" class="form-control" style="padding: 0.75rem 1rem; background: white;">
-                @foreach($allCategories as $cat)
-                    <option value="{{ $cat }}">{{ $cat }}</option>
+            <label for="folder_id">Pilih Album <span style="color: red;">*</span></label>
+            <select name="folder_id" id="folder_id" class="form-control @error('folder_id') is-invalid @enderror" style="padding: 0.75rem 1rem; background: white;">
+                <option value="">-- Pilih Album --</option>
+                @foreach($folders as $folder)
+                    <option value="{{ $folder->id }}" {{ (old('folder_id', $gallery->gallery_folder_id) == $folder->id) ? 'selected' : '' }}>
+                        {{ $folder->name }}
+                    </option>
                 @endforeach
-                <option value="Lainnya">-- Buat Album Baru (Kustom) --</option>
+                <option value="new">+ Buat Album Baru</option>
             </select>
-        </div>
-
-        <div class="form-group" id="custom_category_group" style="display: none;">
-            <label for="category_custom">Nama Album Baru <span style="color: red;">*</span></label>
-            <input type="text" id="category_custom" class="form-control @error('category') is-invalid @enderror" placeholder="Tulis nama album baru..." style="padding: 0.75rem 1rem;">
-            @error('category')
+            @error('folder_id')
                 <div class="invalid-feedback d-block">{{ $message }}</div>
             @enderror
         </div>
 
-        <!-- Hidden Input to Actually Submit the Category -->
-        <input type="hidden" name="category" id="category_hidden" value="{{ old('category', $gallery->category) }}">
+        <div class="form-group" id="new_folder_group" style="display: none;">
+            <label for="new_folder_name">Nama Album Baru <span style="color: red;">*</span></label>
+            <input type="text" name="new_folder_name" id="new_folder_name" class="form-control @error('new_folder_name') is-invalid @enderror" value="{{ old('new_folder_name') }}" placeholder="Tulis nama album baru..." style="padding: 0.75rem 1rem;">
+            @error('new_folder_name')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+        </div>
 
         <div class="form-group">
             <label>Gambar Galeri <span style="color: #888; font-weight: normal;">(Biarkan kosong jika tidak ingin mengubah)</span></label>
             <input type="file" name="image" id="image_file" class="form-control @error('image') is-invalid @enderror" style="display: none;" accept="image/*">
             
             <div class="gallery-preview-container" onclick="document.getElementById('image_file').click()">
-                <div class="preview-placeholder" id="upload_placeholder" style="display: none;">
-                    <i class="fas fa-cloud-upload-alt" style="color: var(--brand-gold);"></i>
-                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666; font-weight: 600;">Klik di sini untuk mengganti gambar</p>
-                    <p style="margin: 0.25rem 0 0 0; font-size: 0.75rem; color: #999;">Format: JPG, PNG, WEBP. Maksimal 2MB.</p>
-                </div>
                 @if($gallery->image)
-                    <img id="preview_img" class="gallery-preview-img" src="{{ asset($gallery->image) }}">
+                    <img id="preview_img" class="gallery-preview-img" src="{{ str_starts_with($gallery->image, 'http') ? $gallery->image : asset($gallery->image) }}">
                 @else
                     <img id="preview_img" class="gallery-preview-img" style="display: none;">
+                    <div id="upload_placeholder">
+                        <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--brand-gold);"></i>
+                        <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666; font-weight: 600;">Klik di sini untuk mengganti gambar</p>
+                    </div>
                 @endif
             </div>
             @error('image')
@@ -118,46 +110,25 @@
 @section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const select = document.getElementById('category_select');
-        const customGroup = document.getElementById('custom_category_group');
-        const customInput = document.getElementById('category_custom');
-        const hiddenInput = document.getElementById('category_hidden');
-        
-        function updateCategoryValue() {
-            if (select.value === 'Lainnya') {
-                customGroup.style.display = 'block';
-                customInput.required = true;
-                hiddenInput.value = customInput.value;
-            } else {
-                customGroup.style.display = 'none';
-                customInput.required = false;
-                hiddenInput.value = select.value;
-            }
-        }
-        
-        select.addEventListener('change', updateCategoryValue);
-        customInput.addEventListener('input', function() {
-            hiddenInput.value = this.value;
-        });
-        
-        // Initial setup based on old or existing value
-        const initialVal = "{{ old('category', $gallery->category) }}";
-        const defaultCats = @json($allCategories);
-        
-        if (initialVal) {
-            if (defaultCats.includes(initialVal)) {
-                select.value = initialVal;
-            } else {
-                select.value = 'Lainnya';
-                customInput.value = initialVal;
-            }
-        }
-        updateCategoryValue();
+        const folderSelect = document.getElementById('folder_id');
+        const newFolderGroup = document.getElementById('new_folder_group');
+        const newFolderInput = document.getElementById('new_folder_name');
 
-        // Image Preview Script
+        folderSelect.addEventListener('change', function() {
+            if (this.value === 'new') {
+                newFolderGroup.style.display = 'block';
+                newFolderInput.required = true;
+                this.name = '';
+            } else {
+                newFolderGroup.style.display = 'none';
+                newFolderInput.required = false;
+                this.name = 'folder_id';
+            }
+        });
+
+        // Image Preview
         const imageFile = document.getElementById('image_file');
         const previewImg = document.getElementById('preview_img');
-        const placeholder = document.getElementById('upload_placeholder');
 
         imageFile.addEventListener('change', function() {
             const file = this.files[0];
@@ -166,7 +137,8 @@
                 reader.onload = function(e) {
                     previewImg.src = e.target.result;
                     previewImg.style.display = 'inline-block';
-                    placeholder.style.display = 'none';
+                    const ph = document.getElementById('upload_placeholder');
+                    if (ph) ph.style.display = 'none';
                 }
                 reader.readAsDataURL(file);
             }
