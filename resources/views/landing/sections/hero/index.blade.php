@@ -15,19 +15,20 @@
         fetchpriority="high" + loading="eager" = browser prioritizes this above all else.
         Mobile gets a 40KB image; desktop gets 88KB — major LCP improvement on mobile.
     --}}
-    <picture class="hero-bg-picture" aria-hidden="true">
-        <source media="(max-width: 768px)" srcset="{{ ($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium-mobile.webp') }}">
-        <img
-            src="{{ ($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium.webp') }}"
-            alt=""
-            class="hero-bg-img"
-            fetchpriority="high"
-            loading="eager"
-            decoding="async"
-            width="1024"
-            height="1024"
-        >
-    </picture>
+    <div class="hero-slideshow">
+        <picture class="hero-bg-picture slide active" aria-hidden="true">
+            <source media="(max-width: 768px)" srcset="{{ ($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium-mobile.webp') }}">
+            <img src="{{ ($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium.webp') }}" alt="" class="hero-bg-img" fetchpriority="high" loading="eager" decoding="async" width="1024" height="1024">
+        </picture>
+        <picture class="hero-bg-picture slide" aria-hidden="true">
+            <source media="(max-width: 768px)" srcset="{{ ($hero && $hero->background_image_2) ? asset($hero->background_image_2) : (($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium-mobile.webp')) }}">
+            <img src="{{ ($hero && $hero->background_image_2) ? asset($hero->background_image_2) : (($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium.webp')) }}" alt="" class="hero-bg-img" loading="lazy" decoding="async" width="1024" height="1024">
+        </picture>
+        <picture class="hero-bg-picture slide" aria-hidden="true">
+            <source media="(max-width: 768px)" srcset="{{ ($hero && $hero->background_image_3) ? asset($hero->background_image_3) : (($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium-mobile.webp')) }}">
+            <img src="{{ ($hero && $hero->background_image_3) ? asset($hero->background_image_3) : (($hero && $hero->background_image) ? asset($hero->background_image) : asset('assets/img/hero-premium.webp')) }}" alt="" class="hero-bg-img" loading="lazy" decoding="async" width="1024" height="1024">
+        </picture>
+    </div>
     <div class="container">
         <div class="hero-content reveal active">
             <div class="hero-badge">
@@ -173,5 +174,44 @@
         font-size: 0.95rem;
     }
 }
+
+/* ── Hero Slideshow ─────────────────────────────────────── */
+.hero-slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+.hero-slideshow .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+.hero-slideshow .slide.active {
+    opacity: 1;
+}
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.hero-slideshow .slide');
+    if (slides.length <= 1) return;
+    
+    let currentSlide = 0;
+    
+    // Auto-advance slides every 5 seconds
+    setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+    }, 5000);
+});
+</script>
 

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class HeroSetting extends Model
 {
-    protected $fillable = ['tagline', 'title', 'subtitle', 'btn_primary_text', 'btn_primary_url', 'btn_secondary_text', 'btn_secondary_url', 'background_image'];
+    protected $fillable = ['tagline', 'title', 'subtitle', 'btn_primary_text', 'btn_primary_url', 'btn_secondary_text', 'btn_secondary_url', 'background_image', 'background_image_2', 'background_image_3'];
 }

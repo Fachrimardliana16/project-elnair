@@ -24,6 +24,12 @@ class HeroController extends Controller
         if ($request->hasFile('background_image')) {
             $data['background_image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('background_image'), 'assets/img');
         }
+        if ($request->hasFile('background_image_2')) {
+            $data['background_image_2'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('background_image_2'), 'assets/img');
+        }
+        if ($request->hasFile('background_image_3')) {
+            $data['background_image_3'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('background_image_3'), 'assets/img');
+        }
 
         $hero->fill($data);
         $hero->save();

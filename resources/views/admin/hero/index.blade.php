@@ -51,12 +51,34 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Background Image</label>
+                    <label>Background Image 1</label>
                     <input type="file" name="background_image" class="form-control @error('background_image') is-invalid @enderror" accept="image/*">
                     @error('background_image') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
                     @if(isset($hero->background_image))
                         <div style="margin-top: 1rem;">
                             <img src="{{ asset($hero->background_image) }}" style="width: 200px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd;">
+                            <p style="font-size:0.8rem; color:#888; margin-top:0.3rem;">Upload baru untuk mengganti.</p>
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label>Background Image 2</label>
+                    <input type="file" name="background_image_2" class="form-control @error('background_image_2') is-invalid @enderror" accept="image/*">
+                    @error('background_image_2') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                    @if(isset($hero->background_image_2))
+                        <div style="margin-top: 1rem;">
+                            <img src="{{ asset($hero->background_image_2) }}" style="width: 200px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd;">
+                            <p style="font-size:0.8rem; color:#888; margin-top:0.3rem;">Upload baru untuk mengganti.</p>
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label>Background Image 3</label>
+                    <input type="file" name="background_image_3" class="form-control @error('background_image_3') is-invalid @enderror" accept="image/*">
+                    @error('background_image_3') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                    @if(isset($hero->background_image_3))
+                        <div style="margin-top: 1rem;">
+                            <img src="{{ asset($hero->background_image_3) }}" style="width: 200px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd;">
                             <p style="font-size:0.8rem; color:#888; margin-top:0.3rem;">Upload baru untuk mengganti.</p>
                         </div>
                     @endif
