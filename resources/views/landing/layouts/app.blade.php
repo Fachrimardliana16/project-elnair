@@ -24,10 +24,12 @@
          Desktop (>768px): hero-premium.webp = 88 KiB
          imagesrcset+media mirrors the <picture><source media> so the preload scanner
          fetches EXACTLY the same image the browser will render — no wasted bandwidth. --}}
+    @if(Request::is('/'))
     <link rel="preload" as="image"
           imagesrcset="{{ asset('assets/img/hero-premium-mobile.webp') }} 768w, {{ asset('assets/img/hero-premium.webp') }} 1024w"
           imagesizes="(max-width: 768px) 100vw, 100vw"
           fetchpriority="high">
+    @endif
 
     {{-- Preload self-hosted fonts (same-origin = no cross-origin DNS penalty, no GDPR 3rd-party request)
          Playfair Display 700-900 latin — critical: used by h1 LCP element
@@ -118,6 +120,7 @@
     <script type="application/ld+json">
     {!! $orgSchema !!}
     </script>
+    @livewireStyles
 </head>
 <body class="{{ Request::is('/') ? 'homepage-root' : 'innerpage-root' }}">
 
@@ -128,7 +131,10 @@
 
     <main>
         @yield('content')
+        {{ $slot ?? '' }}
     </main>
+
+    <x-image-modal />
 
     @include('landing.sections.footer.index')
 
@@ -326,5 +332,6 @@
     <script src="{{ asset('assets/js/pixel-tracker.js') }}" defer></script>
     
     @stack('scripts')
+    @livewireScripts
 </body>
 </html>
