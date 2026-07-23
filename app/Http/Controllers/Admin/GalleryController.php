@@ -121,4 +121,17 @@ class GalleryController extends Controller
 
         return back()->with('success', 'Foto berhasil dihapus!');
     }
+
+    public function updateFolder(Request $request, $id)
+    {
+        $folder = GalleryFolder::findOrFail($id);
+        $request->validate([
+            'name' => 'required|string|max:100',
+        ]);
+        $folder->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+        ]);
+        return back()->with('success', 'Nama album berhasil diperbarui!');
+    }
 }

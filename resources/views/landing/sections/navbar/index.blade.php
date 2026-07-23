@@ -12,7 +12,8 @@
         <div class="nav-links">
             <a href="{{ route('home') }}">Beranda</a>
             <a href="{{ route('paket.index') }}?type=haji" wire:navigate>Haji</a>
-            <a href="{{ route('paket.index') }}?type=umroh" wire:navigate>Umroh</a>
+            <a href="{{ route('paket.index') }}?type=umroh" wire:navigate>Paket Umrah</a>
+            <a href="{{ route('jadwal.index') }}" wire:navigate>Jadwal</a>
         </div>
         <div class="nav-cta">
             <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">

@@ -44,10 +44,49 @@
             <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--brand-dark);"><i class="fas fa-images" style="color: var(--brand-gold);"></i> Album Galeri Foto</h3>
             <p style="color: #666; font-size: 0.9rem;">Kelola dokumentasi perjalanan, kegiatan manasik, hotel, dan testimoni visual jemaah.</p>
         </div>
-        <a href="{{ route('admin.gallery.create') }}" class="btn-admin">
-            <i class="fas fa-plus"></i> Tambah Foto Baru
-        </a>
+        <div style="display: flex; gap: 0.5rem;">
+            @if($selectedFolder)
+                @php $currentFolder = $folders->firstWhere('id', $selectedFolder); @endphp
+                @if($currentFolder)
+                    <button type="button" onclick="editAlbum({{ $currentFolder->id }}, '{{ addslashes($currentFolder->name) }}', '{{ route('admin.gallery.folder.update', $currentFolder->id) }}')" class="btn-admin" style="background: white; color: var(--brand-dark); border: 1px solid var(--brand-beige);">
+                        <i class="fas fa-edit"></i> Edit Nama Album
+                    </button>
+                @endif
+            @endif
+            <a href="{{ route('admin.gallery.create') }}" class="btn-admin">
+                <i class="fas fa-plus"></i> Tambah Foto Baru
+            </a>
+        </div>
     </div>
+
+    <!-- Modal Edit Album -->
+    <div id="editAlbumModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 2rem; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+            <h4 style="margin-top: 0; color: var(--brand-dark); font-weight: 700; margin-bottom: 1.5rem;">Edit Nama Album</h4>
+            <form id="edit-album-form" action="" method="POST">
+                @csrf
+                @method('PUT')
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: #555; font-size: 0.9rem; font-weight: 600;">Nama Album Baru</label>
+                    <input type="text" name="name" id="edit-album-name-input" class="form-control" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box;" required>
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button type="button" onclick="closeEditAlbumModal()" style="padding: 0.75rem 1.5rem; border: 1px solid #ddd; background: white; color: #555; border-radius: 8px; cursor: pointer; font-weight: 600;">Batal</button>
+                    <button type="submit" style="padding: 0.75rem 1.5rem; border: none; background: var(--brand-dark); color: white; border-radius: 8px; cursor: pointer; font-weight: 600;">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function editAlbum(id, currentName, updateUrl) {
+            document.getElementById('edit-album-name-input').value = currentName;
+            document.getElementById('edit-album-form').action = updateUrl;
+            document.getElementById('editAlbumModal').style.display = 'flex';
+        }
+        function closeEditAlbumModal() {
+            document.getElementById('editAlbumModal').style.display = 'none';
+        }
+    </script>
 
     @if(session('success'))
         <div style="background: rgba(22, 163, 74, 0.1); color: #16a34a; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-weight: 600; font-size: 0.9rem;">

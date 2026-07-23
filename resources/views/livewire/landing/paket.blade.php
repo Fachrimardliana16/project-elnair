@@ -15,7 +15,7 @@
             <div class="filter-container">
                 <button wire:click="setType('')" class="filter-btn {{ $type === '' ? 'active' : '' }}">Semua Paket</button>
                 <button wire:click="setType('haji')" class="filter-btn {{ $type === 'haji' ? 'active' : '' }}">Haji</button>
-                <button wire:click="setType('umroh')" class="filter-btn {{ $type === 'umroh' ? 'active' : '' }}">Umroh</button>
+                <button wire:click="setType('umroh')" class="filter-btn {{ $type === 'umroh' ? 'active' : '' }}">Paket Umrah</button>
             </div>
 
             <div class="pkg-grid-responsive" style="display: grid; gap: 2rem; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">

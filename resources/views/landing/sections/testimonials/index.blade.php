@@ -82,7 +82,15 @@
             </div>
         </div>
 
-        <div class="testi-dots"></div>
+        <div class="testi-navigation" style="display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 2.5rem;">
+            <button type="button" class="testi-arrow testi-prev" aria-label="Previous Testimonial">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="testi-dots" style="margin-top: 0;"></div>
+            <button type="button" class="testi-arrow testi-next" aria-label="Next Testimonial">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
     </div>
 </section>
 
@@ -177,13 +185,32 @@
     border-color: rgba(102, 165, 173, 0.15);
 }
 
-/* ── Navigation Dots ──────────────────────────────────────────────────── */
+/* ── Navigation Dots & Arrows ─────────────────────────────────────────── */
 .testi-dots {
     display: flex;
     justify-content: center;
     gap: 0;
-    margin-top: 2.5rem;
     align-items: center;
+}
+
+.testi-arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: transparent;
+    border: 2px solid rgba(139, 94, 60, 0.3);
+    color: var(--brand-gold);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.testi-arrow:hover {
+    background: var(--brand-gold);
+    color: white;
+    border-color: var(--brand-gold);
 }
 
 /* Button is 44x44 (meets Google's 48dp touch target guideline).
@@ -325,7 +352,7 @@
                 dot.addEventListener('click', () => {
                     if (isTransitioning) return;
                     slideTo(i);
-                    resetAutoSlide();
+                    handleUserInteraction();
                 });
                 dotsContainer.appendChild(dot);
             }
@@ -345,18 +372,24 @@
             });
         }
         
+        let interactionTimeout = null;
+        
         function startAutoSlide() {
             const slidesPerView = getSlidesPerView();
             if (originalCount <= slidesPerView) return;
             
+            clearInterval(interval);
             interval = setInterval(() => {
                 slideTo(currentIndex + 1);
             }, 3000); // Dynamic slide shift every 3 seconds
         }
         
-        function resetAutoSlide() {
+        function handleUserInteraction() {
             clearInterval(interval);
-            startAutoSlide();
+            clearTimeout(interactionTimeout);
+            interactionTimeout = setTimeout(() => {
+                startAutoSlide();
+            }, 5000);
         }
         
         // ── 2. DRAGGABLE / SWIPEABLE IMPLEMENTATION ──
@@ -386,20 +419,24 @@
             isDragging = true;
             clearInterval(interval);
             
-            startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+            startX = e.clientX;
             diffX = 0;
             
             // Read layout BEFORE writing style — avoids forced synchronous layout
             trackTranslate = getTrackOffsetPx();
             track.style.transition = 'none';
             track.style.transform = `translateX(${trackTranslate}px)`;
+
+            // Capture the pointer to track movements outside the container
+            if (e.pointerId) {
+                container.setPointerCapture(e.pointerId);
+            }
         }
         
         function dragMove(e) {
             if (!isDragging) return;
             
-            const currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
-            diffX = currentX - startX;
+            diffX = e.clientX - startX;
             
             const newTranslate = trackTranslate + diffX;
             track.style.transform = `translateX(${newTranslate}px)`;
@@ -409,9 +446,13 @@
             }
         }
         
-        function dragEnd() {
+        function dragEnd(e) {
             if (!isDragging) return;
             isDragging = false;
+            
+            if (e && e.pointerId && container.hasPointerCapture(e.pointerId)) {
+                container.releasePointerCapture(e.pointerId);
+            }
             
             track.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
             isTransitioning = true;
@@ -427,20 +468,36 @@
                 slideTo(currentIndex);
             }
             
-            startAutoSlide();
+            handleUserInteraction();
         }
         
         const container = document.querySelector('.testi-slider-container');
         if (container) {
-            container.addEventListener('mousedown', dragStart);
-            window.addEventListener('mousemove', dragMove);
-            window.addEventListener('mouseup', dragEnd);
-            
-            container.addEventListener('touchstart', dragStart, { passive: true });
-            container.addEventListener('touchmove', dragMove, { passive: false });
-            container.addEventListener('touchend', dragEnd);
+            container.addEventListener('pointerdown', dragStart);
+            container.addEventListener('pointermove', dragMove, { passive: false });
+            container.addEventListener('pointerup', dragEnd);
+            container.addEventListener('pointercancel', dragEnd);
             
             container.addEventListener('dragstart', (e) => e.preventDefault());
+        }
+        
+        const btnPrev = document.querySelector('.testi-prev');
+        const btnNext = document.querySelector('.testi-next');
+        
+        if (btnPrev) {
+            btnPrev.addEventListener('click', () => {
+                if (isTransitioning) return;
+                slideTo(currentIndex - 1);
+                handleUserInteraction();
+            });
+        }
+        
+        if (btnNext) {
+            btnNext.addEventListener('click', () => {
+                if (isTransitioning) return;
+                slideTo(currentIndex + 1);
+                handleUserInteraction();
+            });
         }
         
         // Initial setup
@@ -451,7 +508,7 @@
         
         if (container) {
             container.addEventListener('mouseenter', () => clearInterval(interval));
-            container.addEventListener('mouseleave', startAutoSlide);
+            container.addEventListener('mouseleave', () => handleUserInteraction());
         }
         
         let resizeTimeout;
