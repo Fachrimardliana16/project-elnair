@@ -50,7 +50,7 @@
                     <div class="gallery-photo-grid">
                         @foreach($items as $item)
                             @php $imgUrl = str_starts_with($item->image, 'http') ? $item->image : asset($item->image); @endphp
-                            <div class="gallery-photo-card" onclick="openGalleryModal('{{ $imgUrl }}', '{{ addslashes($item->title ?? '') }}')">
+                            <div class="gallery-photo-card" data-url="{{ $imgUrl }}" data-caption="{{ addslashes($item->title ?? '') }}" onclick="openGalleryModal(this)">
                                 <div class="gallery-photo-img-box">
                                     <img src="{{ $imgUrl }}"
                                          alt="{{ $item->title ?? 'Foto Galeri' }}"
@@ -113,6 +113,28 @@
             z-index: 10000;
         " onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
             <i class="fas fa-times"></i>
+        </button>
+
+        <!-- Prev/Next buttons -->
+        <button onclick="prevGalleryItem(event)" style="
+            position: absolute; left: 1.25rem; top: 50%; transform: translateY(-50%);
+            width: 44px; height: 44px; border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
+            color: white; font-size: 1.2rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s; z-index: 10000;
+        " onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button onclick="nextGalleryItem(event)" style="
+            position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%);
+            width: 44px; height: 44px; border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);
+            color: white; font-size: 1.2rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s; z-index: 10000;
+        " onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+            <i class="fas fa-chevron-right"></i>
         </button>
 
         <!-- Image container (stop propagation so clicking image doesn't close) -->
@@ -217,25 +239,59 @@
     </style>
 
     <script>
-        function openGalleryModal(url, caption) {
-            var modal = document.getElementById('galleryModal');
-            var img = document.getElementById('galleryModalImg');
-            var cap = document.getElementById('galleryModalCaption');
-            img.src = url;
-            img.alt = caption || '';
-            cap.textContent = caption || '';
+        let currentGalleryIndex = 0;
+        let galleryCards = [];
+
+        function openGalleryModal(element) {
+            // Find all cards on the page
+            galleryCards = Array.from(document.querySelectorAll('.gallery-photo-card'));
+            // Find index of clicked element
+            currentGalleryIndex = galleryCards.indexOf(element);
+            if (currentGalleryIndex === -1) currentGalleryIndex = 0;
+            
+            showGalleryItem(currentGalleryIndex);
+            
+            const modal = document.getElementById('galleryModal');
             modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
+        
+        function showGalleryItem(index) {
+            if (galleryCards.length === 0) return;
+            if (index < 0) index = galleryCards.length - 1;
+            if (index >= galleryCards.length) index = 0;
+            
+            currentGalleryIndex = index;
+            const card = galleryCards[currentGalleryIndex];
+            
+            document.getElementById('galleryModalImg').src = card.getAttribute('data-url');
+            document.getElementById('galleryModalCaption').textContent = card.getAttribute('data-caption') || '';
+        }
+        
+        function nextGalleryItem(e) {
+            if (e) e.stopPropagation();
+            showGalleryItem(currentGalleryIndex + 1);
+        }
+
+        function prevGalleryItem(e) {
+            if (e) e.stopPropagation();
+            showGalleryItem(currentGalleryIndex - 1);
+        }
+
         function closeGalleryModal() {
-            var modal = document.getElementById('galleryModal');
+            const modal = document.getElementById('galleryModal');
             modal.style.display = 'none';
             document.getElementById('galleryModalImg').src = '';
             document.body.style.overflow = '';
         }
-        // Close on Escape key
+
+        // Close modal on ESC key and navigate with arrow keys
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') closeGalleryModal();
+            if (document.getElementById('galleryModal').style.display === 'flex') {
+                if (e.key === 'ArrowRight') nextGalleryItem();
+                if (e.key === 'ArrowLeft') prevGalleryItem();
+            }
         });
     </script>
 </div>
