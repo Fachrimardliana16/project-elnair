@@ -134,4 +134,21 @@ class GalleryController extends Controller
         ]);
         return back()->with('success', 'Nama album berhasil diperbarui!');
     }
+
+    public function destroyFolder($id)
+    {
+        $folder = GalleryFolder::with('items')->findOrFail($id);
+        
+        // Hapus file fisik gambar yang ada di dalam folder ini
+        foreach ($folder->items as $item) {
+            if ($item->image && !str_starts_with($item->image, 'http')) {
+                Storage::disk('public_root')->delete($item->image);
+            }
+        }
+        
+        // Hapus folder (item akan ikut terhapus karena cascade di database)
+        $folder->delete();
+        
+        return redirect()->route('admin.gallery.index')->with('success', 'Album beserta seluruh fotonya berhasil dihapus!');
+    }
 }

@@ -80,6 +80,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::resource('roles', RoleController::class)->names('roles');
         Route::resource('gallery', GalleryController::class)->names('gallery');
         Route::put('gallery-folder/{id}', [GalleryController::class, 'updateFolder'])->name('gallery.folder.update');
+        Route::delete('gallery-folder/{id}', [GalleryController::class, 'destroyFolder'])->name('gallery.folder.destroy');
         Route::resource('articles', ArticleController::class)->names('articles');
         Route::resource('ads', MarketingAdController::class)->names('ads');
         Route::resource('jamaahs', JamaahController::class)->names('jamaahs');

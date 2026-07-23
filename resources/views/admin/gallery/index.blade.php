@@ -51,6 +51,13 @@
                     <button type="button" onclick="editAlbum({{ $currentFolder->id }}, '{{ addslashes($currentFolder->name) }}', '{{ route('admin.gallery.folder.update', $currentFolder->id) }}')" class="btn-admin" style="background: white; color: var(--brand-dark); border: 1px solid var(--brand-beige);">
                         <i class="fas fa-edit"></i> Edit Nama Album
                     </button>
+                    <form action="{{ route('admin.gallery.folder.destroy', $currentFolder->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus album ini beserta seluruh fotonya? Tindakan ini tidak dapat dibatalkan.')" style="margin: 0;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn-admin" style="background: white; color: #dc2626; border: 1px solid #fca5a5;">
+                            <i class="fas fa-trash-alt"></i> Hapus Album
+                        </button>
+                    </form>
                 @endif
             @endif
             <a href="{{ route('admin.gallery.create') }}" class="btn-admin">
