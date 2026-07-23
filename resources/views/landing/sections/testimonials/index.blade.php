@@ -309,13 +309,6 @@
             const slidesPerView = getSlidesPerView();
             const maxIndex = originalCount;
             
-            if (!animated) {
-                track.style.transition = 'none';
-            } else {
-                track.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-                isTransitioning = true;
-            }
-            
             if (index > maxIndex) {
                 currentIndex = 0;
             } else if (index < 0) {
@@ -325,14 +318,42 @@
             }
             
             const offsetPx = currentIndex * cachedSlideWidth;
+            const newTransform = `translateX(-${offsetPx}px)`;
             
-            track.style.transform = `translateX(-${offsetPx}px)`;
+            if (!animated) {
+                track.style.transition = 'none';
+                track.style.transform = newTransform;
+            } else {
+                // If transform hasn't changed, transitionend won't fire
+                if (track.style.transform === newTransform) {
+                    isTransitioning = false;
+                    updateDots();
+                    return;
+                }
+                
+                track.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+                isTransitioning = true;
+                track.style.transform = newTransform;
+                
+                // Safety fallback timeout to prevent permanent lock
+                clearTimeout(track.dataset.transitionTimeout);
+                track.dataset.transitionTimeout = setTimeout(() => {
+                    isTransitioning = false;
+                    if (currentIndex >= originalCount) slideTo(0, false);
+                }, 650);
+            }
+            
             updateDots();
         }
         
         // Seamless loop snap back handler
-        track.addEventListener('transitionend', () => {
+        track.addEventListener('transitionend', (e) => {
+            // Ensure we only catch the track's own transform transition
+            if (e.target !== track) return;
+            
             isTransitioning = false;
+            clearTimeout(track.dataset.transitionTimeout);
+            
             if (currentIndex >= originalCount) {
                 slideTo(0, false);
             }
