@@ -304,8 +304,6 @@
         
         // 100% Robust Percentage-based Sliding (immune to content-visibility: auto)
         function slideTo(index, animated = true) {
-            if (isTransitioning && animated) return;
-            
             const slidesPerView = getSlidesPerView();
             const maxIndex = originalCount;
             
@@ -320,9 +318,12 @@
             const offsetPx = currentIndex * cachedSlideWidth;
             const newTransform = `translateX(-${offsetPx}px)`;
             
+            clearTimeout(track._transitionTimeout);
+            
             if (!animated) {
                 track.style.transition = 'none';
                 track.style.transform = newTransform;
+                isTransitioning = false;
             } else {
                 // If transform hasn't changed, transitionend won't fire
                 if (track.style.transform === newTransform) {
@@ -336,8 +337,7 @@
                 track.style.transform = newTransform;
                 
                 // Safety fallback timeout to prevent permanent lock
-                clearTimeout(track.dataset.transitionTimeout);
-                track.dataset.transitionTimeout = setTimeout(() => {
+                track._transitionTimeout = setTimeout(() => {
                     isTransitioning = false;
                     if (currentIndex >= originalCount) slideTo(0, false);
                 }, 650);
@@ -352,7 +352,7 @@
             if (e.target !== track) return;
             
             isTransitioning = false;
-            clearTimeout(track.dataset.transitionTimeout);
+            clearTimeout(track._transitionTimeout);
             
             if (currentIndex >= originalCount) {
                 slideTo(0, false);
@@ -371,7 +371,6 @@
                 dot.className = 'testi-dot' + (i === currentIndex ? ' active' : '');
                 dot.setAttribute('aria-label', `Lihat testimoni ke-${i+1}`);
                 dot.addEventListener('click', () => {
-                    if (isTransitioning) return;
                     slideTo(i);
                     handleUserInteraction();
                 });
@@ -434,8 +433,11 @@
         }
         
         function dragStart(e) {
-            if (isTransitioning) return;
             if (e.target.tagName === 'IFRAME' || e.target.closest('a') || e.target.closest('button')) return;
+            
+            // Allow interrupting an ongoing transition
+            clearTimeout(track._transitionTimeout);
+            isTransitioning = false;
             
             isDragging = true;
             clearInterval(interval);
@@ -475,9 +477,6 @@
                 container.releasePointerCapture(e.pointerId);
             }
             
-            track.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-            isTransitioning = true;
-            
             // Use cached value — no layout read during event handler
             const threshold = cachedSlideWidth * 0.15;
             
@@ -507,7 +506,6 @@
         
         if (btnPrev) {
             btnPrev.addEventListener('click', () => {
-                if (isTransitioning) return;
                 slideTo(currentIndex - 1);
                 handleUserInteraction();
             });
@@ -515,7 +513,6 @@
         
         if (btnNext) {
             btnNext.addEventListener('click', () => {
-                if (isTransitioning) return;
                 slideTo(currentIndex + 1);
                 handleUserInteraction();
             });
