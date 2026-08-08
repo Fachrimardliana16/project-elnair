@@ -93,6 +93,36 @@
         padding: 1rem;
         backdrop-filter: blur(6px);
     ">
+        <!-- Zoom In -->
+        <button onclick="zoomGalleryImg(0.2, event)" style="
+            position: absolute; top: 1.25rem; right: 7.75rem;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white; font-size: 1.2rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s; z-index: 10000;
+        " onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'" title="Zoom In">
+            <i class="fas fa-search-plus"></i>
+        </button>
+
+        <!-- Zoom Out -->
+        <button onclick="zoomGalleryImg(-0.2, event)" style="
+            position: absolute; top: 1.25rem; right: 4.5rem;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white; font-size: 1.2rem;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s; z-index: 10000;
+        " onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'" title="Zoom Out">
+            <i class="fas fa-search-minus"></i>
+        </button>
+
         <!-- Close button -->
         <button onclick="closeGalleryModal()" style="
             position: absolute;
@@ -111,7 +141,7 @@
             justify-content: center;
             transition: background 0.2s;
             z-index: 10000;
-        " onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+        " onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'" title="Tutup">
             <i class="fas fa-times"></i>
         </button>
 
@@ -152,6 +182,7 @@
                 object-fit: contain;
                 border-radius: 8px;
                 box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+                transition: transform 0.2s ease;
             ">
             <p id="galleryModalCaption" style="color: rgba(255,255,255,0.75); font-size: 0.9rem; text-align: center; margin: 0;"></p>
         </div>
@@ -241,6 +272,15 @@
     <script>
         let currentGalleryIndex = 0;
         let galleryCards = [];
+        let currentZoom = 1;
+
+        function zoomGalleryImg(step, e) {
+            if (e) e.stopPropagation();
+            currentZoom += step;
+            if (currentZoom < 0.5) currentZoom = 0.5;
+            if (currentZoom > 4) currentZoom = 4;
+            document.getElementById('galleryModalImg').style.transform = `scale(${currentZoom})`;
+        }
 
         function openGalleryModal(element) {
             // Find all cards on the page
@@ -264,6 +304,8 @@
             currentGalleryIndex = index;
             const card = galleryCards[currentGalleryIndex];
             
+            currentZoom = 1;
+            document.getElementById('galleryModalImg').style.transform = `scale(1)`;
             document.getElementById('galleryModalImg').src = card.getAttribute('data-url');
             document.getElementById('galleryModalCaption').textContent = card.getAttribute('data-caption') || '';
         }
@@ -282,6 +324,8 @@
             const modal = document.getElementById('galleryModal');
             modal.style.display = 'none';
             document.getElementById('galleryModalImg').src = '';
+            currentZoom = 1;
+            document.getElementById('galleryModalImg').style.transform = `scale(1)`;
             document.body.style.overflow = '';
         }
 
