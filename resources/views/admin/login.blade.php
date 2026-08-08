@@ -122,7 +122,10 @@
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                <div style="position: relative;">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required>
+                    <i class="fas fa-eye" id="togglePassword" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;"></i>
+                </div>
             </div>
             <button type="submit" class="btn-login">Sign In</button>
             <div style="margin-top: 1.5rem;">
@@ -151,6 +154,14 @@
                 modal.classList.remove('active');
             }
         }
+
+        // Toggle Password
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
 
         // Show Errors if any
         @if($errors->any())

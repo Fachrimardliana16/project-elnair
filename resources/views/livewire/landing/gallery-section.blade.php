@@ -1,4 +1,4 @@
-<section id="gallery" class="pattern-bg" style="padding: 5rem 0;">
+<section id="gallery" class="pattern-bg" style="height: auto !important; min-height: 100vh !important; padding: 6rem 0 !important; overflow: visible !important; display: flex; flex-direction: column; justify-content: center; position: relative;">
     <div class="container" style="max-width: 1300px; margin: 0 auto; padding: 0 2rem;">
 
         <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
