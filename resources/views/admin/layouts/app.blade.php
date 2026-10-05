@@ -449,7 +449,7 @@
             {{-- ══════════════════════════════════════════════════════════════════ --}}
             {{-- KLUSTER 1: PUSAT LAYANAN (Produk & Penawaran Jamaah)             --}}
             {{-- ══════════════════════════════════════════════════════════════════ --}}
-            @canany(['manage_hero', 'manage_features', 'manage_packages', 'manage_schedules', 'manage_guides', 'manage_testimonials', 'manage_faqs', 'manage_gallery', 'manage_articles'])
+            @canany(['manage_hero', 'manage_features', 'manage_packages', 'manage_promos', 'manage_workflows', 'manage_schedules', 'manage_guides', 'manage_testimonials', 'manage_faqs', 'manage_gallery', 'manage_articles'])
             <li class="menu-cluster-header" aria-label="Kluster Pusat Layanan">
                 Pusat Layanan
                 <i class="fas fa-chevron-down cluster-arrow" style="transition: transform 0.25s ease; font-size: 0.75rem; margin-left: auto; opacity: 0.6;"></i>
@@ -471,6 +471,18 @@
                     @can('manage_packages')
                     <li class="{{ Request::is('admin/packages*') ? 'active' : '' }}">
                         <a href="{{ route('admin.packages.index') }}"><i class="fas fa-kaaba"></i> Paket Umrah/Haji</a>
+                    </li>
+                    @endcan
+
+                    @can('manage_promos')
+                    <li class="{{ Request::is('admin/promos*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.promos.index') }}"><i class="fas fa-gift"></i> Promo & Offering</a>
+                    </li>
+                    @endcan
+
+                    @can('manage_workflows')
+                    <li class="{{ Request::is('admin/workflows*') ? 'active' : '' }}">
+                        <a href="{{ route('admin.workflows.index') }}"><i class="fas fa-tasks"></i> Alur Kerja (Workflow)</a>
                     </li>
                     @endcan
 

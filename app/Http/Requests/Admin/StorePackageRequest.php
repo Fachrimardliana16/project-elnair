@@ -19,6 +19,8 @@ class StorePackageRequest extends FormRequest
             'price_value'  => 'required|string|max:100',
             'description'  => 'required|string|max:5000',
             'image'        => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'itinerary_pdf'=> 'nullable|file|mimes:pdf|max:10240',
+            'flyer_pdf'    => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:10240',
             'itinerary'    => 'nullable|string|max:10000',
             'hotel_makkah' => 'nullable|string|max:255',
             'hotel_madinah'=> 'nullable|string|max:255',

@@ -8,7 +8,7 @@ class Package extends Model
 {
     protected $fillable = [
         'title', 'slug', 'price_label', 'price_value', 'description',
-        'image', 'is_active', 'itinerary', 'hotel_makkah',
+        'image', 'itinerary_pdf', 'flyer_pdf', 'is_active', 'itinerary', 'hotel_makkah',
         'hotel_madinah', 'maskapai', 'fasilitas',
     ];
 

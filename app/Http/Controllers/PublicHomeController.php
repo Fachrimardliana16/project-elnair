@@ -134,6 +134,26 @@ class PublicHomeController extends Controller
             $faqs = \App\Models\Faq::where('is_active', true)->orderBy('order', 'asc')->get();
         }
 
+        try {
+            $promos = Cache::remember('homepage_promos', 300, fn () => \App\Models\Promo::where('is_active', true)->orderBy('sort_order', 'asc')->get());
+            if (! ($promos instanceof Collection) || ($promos->isNotEmpty() && ! ($promos->first() instanceof \App\Models\Promo))) {
+                throw new \RuntimeException('Stale promos cache');
+            }
+        } catch (\Throwable $e) {
+            Cache::forget('homepage_promos');
+            $promos = \App\Models\Promo::where('is_active', true)->orderBy('sort_order', 'asc')->get();
+        }
+
+        try {
+            $workflows = Cache::remember('homepage_workflows', 300, fn () => \App\Models\Workflow::where('is_active', true)->orderBy('step_number', 'asc')->get());
+            if (! ($workflows instanceof Collection) || ($workflows->isNotEmpty() && ! ($workflows->first() instanceof \App\Models\Workflow))) {
+                throw new \RuntimeException('Stale workflows cache');
+            }
+        } catch (\Throwable $e) {
+            Cache::forget('homepage_workflows');
+            $workflows = \App\Models\Workflow::where('is_active', true)->orderBy('step_number', 'asc')->get();
+        }
+
         // Guard: if cache returned stale/corrupt data (hero has no try-catch above)
         if (! ($hero instanceof HeroSetting)) {
             Cache::forget('homepage_hero');
@@ -181,7 +201,8 @@ class PublicHomeController extends Controller
         return view('landing.index', compact(
             'hero', 'features', 'packages', 'schedules',
             'testimonials', 'articles', 'settings', 'packageSchema',
-            'registrationPackages', 'registrationSchedules', 'faqs'
+            'registrationPackages', 'registrationSchedules', 'faqs',
+            'promos', 'workflows'
         ));
     }
 }

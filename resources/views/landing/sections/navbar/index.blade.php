@@ -1,4 +1,4 @@
-<!-- Elite Navbar -->
+<!-- Navbar -->
 <nav id="navbar">
     <div class="container nav-content">
         <a href="{{ route('home') }}" class="logo" style="text-decoration: none;">

@@ -17,6 +17,8 @@
         @include('landing.sections.packages.index')
     @endif
 
+    @include('landing.sections.promo.index')
+
     @livewire('landing.gallery-section')
 
     @if(($settings['show_articles_section'] ?? '1') == '1')

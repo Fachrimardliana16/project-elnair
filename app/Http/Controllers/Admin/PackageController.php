@@ -35,6 +35,16 @@ class PackageController extends Controller
             $data['image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/packages');
         }
 
+        if ($request->hasFile('itinerary_pdf')) {
+            $path = $request->file('itinerary_pdf')->store('packages/pdf', 'public');
+            $data['itinerary_pdf'] = 'storage/' . $path;
+        }
+
+        if ($request->hasFile('flyer_pdf')) {
+            $path = $request->file('flyer_pdf')->store('packages/pdf', 'public');
+            $data['flyer_pdf'] = 'storage/' . $path;
+        }
+
         $data['is_active'] = $request->has('is_active');
 
         Package::create($data);
@@ -60,6 +70,16 @@ class PackageController extends Controller
                 Storage::disk('public_root')->delete($package->image);
             }
             $data['image'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('image'), 'assets/img/packages');
+        }
+
+        if ($request->hasFile('itinerary_pdf')) {
+            $path = $request->file('itinerary_pdf')->store('packages/pdf', 'public');
+            $data['itinerary_pdf'] = 'storage/' . $path;
+        }
+
+        if ($request->hasFile('flyer_pdf')) {
+            $path = $request->file('flyer_pdf')->store('packages/pdf', 'public');
+            $data['flyer_pdf'] = 'storage/' . $path;
         }
 
         $data['is_active'] = $request->has('is_active');

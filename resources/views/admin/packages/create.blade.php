@@ -58,9 +58,24 @@
             @error('fasilitas') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
         </div>
         <div class="form-group">
-            <label>Itinerary</label>
-            <textarea name="itinerary" class="form-control @error('itinerary') is-invalid @enderror" rows="8" placeholder="Hari 1: Keberangkatan...&#10;Hari 2: Tiba di Madinah...">{{ old('itinerary') }}</textarea>
+            <label>Itinerary Text</label>
+            <textarea name="itinerary" class="form-control @error('itinerary') is-invalid @enderror" rows="6" placeholder="Hari 1: Keberangkatan...&#10;Hari 2: Tiba di Madinah...">{{ old('itinerary') }}</textarea>
             @error('itinerary') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+        </div>
+
+        <div class="grid-2" style="gap: 1rem;">
+            <div class="form-group">
+                <label>Upload File Itinerary (PDF)</label>
+                <input type="file" name="itinerary_pdf" class="form-control @error('itinerary_pdf') is-invalid @enderror" accept=".pdf">
+                <small style="color:#888; font-size:0.8rem;">File PDF Itinerary lengkap untuk diunduh pengunjung website.</small>
+                @error('itinerary_pdf') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+            </div>
+            <div class="form-group">
+                <label>Upload File Flyer Paket (PDF / Gambar High-Res)</label>
+                <input type="file" name="flyer_pdf" class="form-control @error('flyer_pdf') is-invalid @enderror" accept=".pdf,image/*">
+                <small style="color:#888; font-size:0.8rem;">Flyer resmi paket yang dapat dilihat full page & diunduh pengunjung.</small>
+                @error('flyer_pdf') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+            </div>
         </div>
         <div class="form-group">
             <label>

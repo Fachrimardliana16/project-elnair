@@ -157,8 +157,6 @@
     </div>
     @endif
 
-    {{-- Sticky CTA Bar removed from mobile, leaving WA rotator --}}
-
     <style>
     /* ── Sticky CTA Bar ────────────────────────────────────────────────── */
     .sticky-cta-bar {
@@ -197,20 +195,6 @@
         background: #25D366;
         border-radius: 50%;
         flex-shrink: 0;
-        position: relative;
-    }
-    .sticky-online-dot::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-        background: #25D366;
-        animation: onlinePulse 1.8s ease-in-out infinite;
-        will-change: transform, opacity;
-    }
-    @keyframes onlinePulse {
-        0%, 100% { transform: scale(1); opacity: 0.8; }
-        50% { transform: scale(2.8); opacity: 0; }
     }
     .sticky-cta-text { display: flex; flex-direction: column; }
     .sticky-cta-text strong { font-size: 0.9rem; color: white; }
@@ -235,8 +219,6 @@
     .sticky-cta-close:hover { color: white; }
 
     @media (max-width: 480px) {
-        .floating-wa-label { display: none; }
-        .floating-wa-btn { padding: 14px; border-radius: 50%; bottom: 80px; }
         .sticky-cta-text small { display: none; }
     }
     </style>
@@ -286,14 +268,14 @@
                 window.addEventListener('resize', function() {
                     docHeight = document.body.scrollHeight - window.innerHeight;
                 }, { passive: true });
-                
+
                 let ticking = false;
                 window.addEventListener('scroll', function () {
                     if (!ticking) {
                         window.requestAnimationFrame(function() {
                             if (docHeight > 0) {
                                 const scrollPct = window.scrollY / docHeight;
-                                if (scrollPct > 0.30) {
+                                if (scrollPct > 0.20) {  // Turunkan dari 30% ke 20% agar lebih cepat muncul
                                     stickyBar.classList.add('visible');
                                 }
                             }

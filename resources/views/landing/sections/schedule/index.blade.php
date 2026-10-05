@@ -3,8 +3,8 @@
     <div class="container">
         <div class="section-header reveal">
             <span style="letter-spacing: 5px; color: var(--brand-gold); text-transform: uppercase; font-weight: 800; font-size: 0.7rem;">Jadwal Keberangkatan Resmi</span>
-            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.5rem); margin: 1rem 0; color: var(--brand-dark);">Pilihan Paket Umrah Terbaik untuk Kenyamanan Ibadah Anda</h2>
-            <p style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); max-width: 600px; margin: 0 auto; opacity: 0.8;">Temukan paket umrah yang dirancang khusus untuk memastikan kekhusyukan ibadah Anda dengan fasilitas terbaik.</p>
+            <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(2rem, 6vw, 3.5rem); margin: 1rem 0; color: var(--brand-dark);">Jadwal Keberangkatan Umrah</h2>
+            <p style="font-size: clamp(0.9rem, 2.5vw, 1.1rem); max-width: 600px; margin: 0 auto; opacity: 0.8;">Pilih jadwal yang sesuai dengan rencana ibadah Anda.</p>
         </div>
 
         <div class="schedule-grid" style="display: grid; gap: 1rem; margin-top: 3rem; max-width: 900px; margin-left: auto; margin-right: auto;">

@@ -39,7 +39,7 @@
 
                     <div class="pkg-content" style="padding: 1.5rem 1.5rem 1.25rem; background: var(--card-bg); flex: 1; display: flex; flex-direction: column;">
                         <h3 style="font-size: clamp(1.1rem, 2.5vw, 1.5rem); margin-bottom: 0.65rem; line-height: 1.3;">{{ $pkg->title }}</h3>
-                        <p style="font-size: 0.9rem; line-height: 1.6; opacity: 0.8; max-width: 42ch;">
+                        <p style="font-size: 0.9rem; line-height: 1.6; opacity: 0.8; max-width: 42ch; margin-bottom: 0;">
                             {{ \Illuminate\Support\Str::limit(strip_tags($pkg->description), 120) }}
                         </p>
 

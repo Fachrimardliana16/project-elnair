@@ -18,6 +18,8 @@ use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\MarketingAdController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\PromoController;
+use App\Http\Controllers\Admin\WorkflowController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -30,6 +32,7 @@ use App\Http\Controllers\PublicJamaahController;
 use App\Http\Controllers\PublicLandingPageController;
 use App\Http\Controllers\PublicPackageController;
 use App\Http\Controllers\PublicPageController;
+use App\Http\Controllers\PublicPromoController;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +49,8 @@ Route::get('/gallery', \App\Livewire\Landing\GalleryPage::class)->name('gallery.
 Route::get('/jadwal', [App\Http\Controllers\PublicScheduleController::class, 'index'])->name('jadwal.index');
 Route::get('/jadwal/{id}', [App\Http\Controllers\PublicScheduleController::class, 'show'])->name('jadwal.show');
 Route::get('/tentang-kami', [PublicPageController::class, 'about'])->name('about');
+Route::get('/promo', [PublicPromoController::class, 'index'])->name('landing.promo.index');
+Route::get('/promo/{slug}', [PublicPromoController::class, 'show'])->name('landing.promo.show');
 Route::get('/artikel', [PublicArticleController::class, 'index'])->name('artikel.index');
 Route::get('/artikel/{slug}', [PublicArticleController::class, 'show'])->name('artikel.show');
 Route::get('/pendaftaran', [PublicJamaahController::class, 'create'])->name('pendaftaran.create');
@@ -72,6 +77,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
         Route::resource('features', FeatureController::class)->names('features');
         Route::resource('packages', PackageController::class)->names('packages');
+        Route::resource('promos', PromoController::class)->names('promos');
+        Route::resource('workflows', WorkflowController::class)->names('workflows');
         Route::resource('schedules', DepartureScheduleController::class)->names('schedules');
         Route::resource('testimonials', TestimonialController::class)->names('testimonials');
         Route::resource('faqs', FaqController::class)->names('faqs');

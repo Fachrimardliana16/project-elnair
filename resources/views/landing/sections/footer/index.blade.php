@@ -7,10 +7,10 @@
                     <source srcset="{{ asset(str_replace('.png', '.webp', $settings['logo'] ?? 'assets/img/logo-full.webp')) }}" type="image/webp">
                     <img src="{{ asset($settings['logo'] ?? 'assets/img/logo-full.webp') }}" alt="Elnair Logo" class="footer-brand-logo" width="160" height="50" loading="lazy" decoding="async">
                 </picture>
-                <p>Mewujudkan perjalanan suci yang aman, nyaman, dan berkesan bagi setiap hamba Allah yang merindukan Baitullah.</p>
+                <p style="color: #666; line-height: 1.6; font-size: 0.92rem;">Mewujudkan perjalanan suci yang aman, nyaman, dan berkesan dengan perhatian khusus bagi jamaah wanita, keluarga, serta seluruh tamu Allah yang merindukan Baitullah.</p>
                 <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
-                    <a href="{{ $settings['instagram_url'] ?? '#' }}" style="color: white; font-size: 1.2rem;" aria-label="Ikuti kami di Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-                    <a href="{{ $settings['facebook_url'] ?? '#' }}" style="color: white; font-size: 1.2rem;" aria-label="Ikuti kami di Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+                    <a href="{{ $settings['instagram_url'] ?? '#' }}" style="color: #8B5E3C; font-size: 1.2rem;" aria-label="Ikuti kami di Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                    <a href="{{ $settings['facebook_url'] ?? '#' }}" style="color: #8B5E3C; font-size: 1.2rem;" aria-label="Ikuti kami di Facebook"><i class="fab fa-facebook" aria-hidden="true"></i></a>
                 </div>
             </div>
             <div>
@@ -38,7 +38,7 @@
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom" style="color: #d4d4d4 !important;">
+        <div class="footer-bottom" style="color: #888 !important;">
             &copy; {{ date('Y') }} {{ strtoupper($settings['site_name'] ?? 'ELNAIR TRAVEL') }} SERVICES. ALL RIGHTS RESERVED.
         </div>
     </div>

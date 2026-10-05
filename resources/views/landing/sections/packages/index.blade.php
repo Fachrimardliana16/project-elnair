@@ -7,16 +7,12 @@
     All images: aspect-ratio locked to prevent CLS. Overlay scrim for WCAG contrast.
 --}}
 
-<!-- Packages Elite -->
+<!-- Packages Section -->
 <section id="paket" class="pattern-bg" style="height: auto !important; min-height: 100vh !important; padding: 6rem 0 !important; overflow: visible !important; display: flex; flex-direction: column; justify-content: center; position: relative;">
     <div class="container">
         <div class="section-header reveal">
             <span style="letter-spacing: 8px;">Paket Haji &amp; Umroh</span>
             <h2 style="font-size: clamp(2rem, 6vw, 3.5rem);">Pilih Paket, Mulai Perjalanan Suci Anda</h2>
-            <div style="display:inline-flex; align-items:center; gap:0.5rem; background:rgba(231,76,60,0.1); border:1px solid rgba(231,76,60,0.3); border-radius:50px; padding:0.4rem 1rem; margin-top:0.75rem;">
-                <div style="width:8px;height:8px;background:#e74c3c;border-radius:50%;display:inline-block;flex-shrink:0;position:relative;"><div style="position:absolute;inset:0;border-radius:50%;background:#e74c3c;animation:onlinePulse 1.8s ease-in-out infinite;will-change:transform,opacity;"></div></div>
-                <div style="font-size:0.75rem;color:#e74c3c;font-weight:700;margin:0;letter-spacing:0;text-transform:uppercase;">KUOTA TERBATAS — HARGA BERUBAH SEWAKTU-WAKTU</div>
-            </div>
         </div>
 
         {{-- Responsive grid: 1 col mobile → 2 col tablet → 3 col desktop --}}
@@ -27,7 +23,10 @@
             @endphp
             <div class="pkg-card reveal {{ $isExtra ? 'pkg-card-extra' : '' }}" style="{{ $isExtra ? 'display: none; opacity: 0; transform: translateY(24px);' : '' }}">
                 {{-- Image box with locked 4:3 aspect ratio to prevent Cumulative Layout Shift --}}
-                <div class="pkg-img-box" style="position: relative; overflow: hidden; aspect-ratio: 4/3;">
+                @php
+                    $flyerImg = $pkg->flyer_pdf ? asset($pkg->flyer_pdf) : asset($pkg->image ?? '');
+                @endphp
+                <div class="pkg-img-box" style="position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer;" onclick="window.dispatchEvent(new CustomEvent('open-image-modal', { detail: { url: '{{ $flyerImg }}' } }))" title="Klik untuk melihat Flyer Full Page">
                     <div class="pkg-img" style="
                         background-image: url('{{ str_starts_with($pkg->image ?? '', 'http') ? $pkg->image : asset($pkg->image ?? '') }}');
                         background-size: cover;
@@ -36,6 +35,9 @@
                     "></div>
                     {{-- Gradient scrim for WCAG text contrast compliance --}}
                     <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%);pointer-events:none;"></div>
+                    <div style="position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                        <i class="fas fa-expand"></i> Flyer Full Page
+                    </div>
                     <div class="pkg-price-tag" style="
                         position: absolute; bottom: 1rem; left: 1rem;
                         background: var(--brand-dark); color: white;
@@ -168,6 +170,18 @@
 .pkg-card .btn-outline.pkg-btn {
     border-color: var(--brand-dark);
     color: var(--brand-dark);
+}
+
+[data-theme="dark"] .btn-download-pdf-pill.itinerary-pdf {
+    background: rgba(102, 165, 173, 0.15) !important;
+    color: var(--brand-teal) !important;
+    border-color: rgba(102, 165, 173, 0.3) !important;
+}
+
+[data-theme="dark"] .btn-download-pdf-pill.flyer-pdf {
+    background: rgba(192, 130, 97, 0.15) !important;
+    color: var(--brand-gold) !important;
+    border-color: rgba(192, 130, 97, 0.3) !important;
 }
 </style>
 
