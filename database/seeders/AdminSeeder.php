@@ -99,12 +99,12 @@ class AdminSeeder extends Seeder
 
         // Features (Why Choose Us)
         $features = [
-            ['icon' => 'fas fa-crown', 'title' => 'Layanan Premium', 'description' => 'Fasilitas hotel bintang 5 di pelataran Masjidil Haram dan Masjid Nabawi untuk akses tanpa batas.', 'order' => 1],
-            ['icon' => 'fas fa-kaaba', 'title' => 'Bimbingan Khusyuk', 'description' => 'Dibimbing langsung oleh asatidz ahli yang memastikan setiap rukun ibadah sesuai tuntunan sunnah.', 'order' => 2],
-            ['icon' => 'fas fa-shield-halved', 'title' => 'Keamanan Elite', 'description' => 'Legalitas resmi Kemenag dengan jaminan keberangkatan dan kepulangan yang terorganisir sempurna.', 'order' => 3],
+            ['icon' => 'fas fa-hotel', 'title' => 'Layanan Premium', 'description' => 'Fasilitas hotel bintang 5 di pelataran Masjidil Haram dan Masjid Nabawi untuk akses tanpa batas.', 'order' => 1],
+            ['icon' => 'fas fa-person-praying', 'title' => 'Bimbingan Khusyuk', 'description' => 'Dibimbing langsung oleh asatidz ahli yang memastikan setiap rukun ibadah sesuai tuntunan sunnah.', 'order' => 2],
+            ['icon' => 'fas fa-person-dress', 'title' => 'Keamanan Elite', 'description' => 'Legalitas resmi Kemenag dengan jaminan keberangkatan dan kepulangan yang terorganisir sempurna.', 'order' => 3],
             ['icon' => 'fas fa-hand-holding-heart', 'title' => 'Pelayanan Sepenuh Hati', 'description' => 'Tim support yang sigap mendampingi kebutuhan jamaah kapan pun dan di mana pun.', 'order' => 4],
-            ['icon' => 'fas fa-plane-departure', 'title' => 'Maskapai Terbaik', 'description' => 'Terbang dengan maskapai full-service untuk perjalanan yang lebih nyaman dan minim lelah.', 'order' => 5],
-            ['icon' => 'fas fa-file-signature', 'title' => 'Harga Jujur', 'description' => 'Transparansi biaya tanpa ada tambahan tersembunyi selama perjalanan berlangsung.', 'order' => 6],
+            ['icon' => 'fas fa-person-walking-luggage', 'title' => 'Maskapai Terbaik', 'description' => 'Terbang dengan maskapai full-service untuk perjalanan yang lebih nyaman dan minim lelah.', 'order' => 5],
+            ['icon' => 'fas fa-file-invoice-dollar', 'title' => 'Harga Jujur', 'description' => 'Transparansi biaya tanpa ada tambahan tersembunyi selama perjalanan berlangsung.', 'order' => 6],
         ];
 
         foreach ($features as $f) {

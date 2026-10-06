@@ -50,6 +50,47 @@
 </div>
 
 <style>
+#workflow {
+    --women-rose: #D98FA3;
+    --women-rose-deep: #8B3A50;
+    --women-rose-soft: rgba(217, 143, 163, 0.16);
+}
+
+#workflow .workflow-tagline-badge i {
+    width: 28px;
+    height: 28px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(217,143,163,0.24) 0%, rgba(220,208,192,0.55) 100%);
+    color: var(--women-rose-deep);
+}
+
+#workflow .workflow-icon-circle {
+    border-radius: 24px !important;
+    background: linear-gradient(135deg, #D98FA3 0%, #C08261 100%) !important;
+    box-shadow: 0 12px 28px rgba(217,143,163,0.24) !important;
+}
+
+#workflow .workflow-step-item:nth-child(4n+1) .workflow-icon-circle,
+#workflow .workflow-step-item:nth-child(4n+3) .workflow-icon-circle {
+    background: linear-gradient(135deg, #F1C4CE 0%, #DCD0C0 100%) !important;
+    color: var(--women-rose-deep) !important;
+}
+
+#workflow .workflow-icon-circle > div {
+    background: var(--brand-dark) !important;
+    border-color: rgba(241,196,206,0.7) !important;
+}
+
+[data-theme="dark"] #workflow .workflow-tagline-badge i,
+[data-theme="dark"] #workflow .workflow-icon-circle {
+    background: linear-gradient(135deg, rgba(217,143,163,0.24) 0%, rgba(102,165,173,0.16) 100%) !important;
+    border-color: rgba(217,143,163,0.3) !important;
+    color: #F1C4CE !important;
+}
+
 .workflow-step-item:hover .workflow-icon-circle {
     transform: scale(1.1);
     box-shadow: 0 8px 25px rgba(139,94,60,0.4) !important;

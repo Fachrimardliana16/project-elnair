@@ -35,3 +35,49 @@
         </div>
     </div>
 </section>
+
+<style>
+#why-us {
+    --women-rose: #D98FA3;
+    --women-rose-deep: #8B3A50;
+    --women-rose-soft: rgba(217, 143, 163, 0.14);
+}
+
+#why-us .card-icon-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, rgba(217,143,163,0.18) 0%, rgba(220,208,192,0.55) 100%);
+    border: 1px solid rgba(217,143,163,0.26);
+    box-shadow: 0 14px 32px rgba(217,143,163,0.14);
+}
+
+#why-us .card-icon {
+    font-size: 1.75rem;
+    background: linear-gradient(135deg, var(--women-rose-deep) 0%, var(--brand-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#why-us .card:hover .card-icon-box {
+    background: linear-gradient(135deg, rgba(217,143,163,0.28) 0%, rgba(255,255,255,0.14) 100%);
+    border-color: rgba(255,255,255,0.22);
+}
+
+#why-us .card:hover .card-icon {
+    background: linear-gradient(135deg, #F1C4CE 0%, #FFFFFF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+[data-theme="dark"] #why-us .card-icon-box {
+    background: linear-gradient(135deg, rgba(217,143,163,0.18) 0%, rgba(102,165,173,0.12) 100%);
+    border-color: rgba(217,143,163,0.24);
+}
+
+[data-theme="dark"] #why-us .card-icon {
+    background: linear-gradient(135deg, #F1C4CE 0%, var(--brand-teal) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+</style>

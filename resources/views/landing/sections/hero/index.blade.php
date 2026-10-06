@@ -32,7 +32,7 @@
     <div class="container">
         <div class="hero-content reveal active">
             <div class="hero-badge">
-                <i class="fas fa-star-and-crescent" aria-hidden="true"></i>
+                <i class="fas fa-person-praying" aria-hidden="true"></i>
                 <span>{{ $hero->tagline ?? 'Terpercaya · Resmi · Berizin Kemenag RI' }}</span>
             </div>
             <h1 style="font-size: clamp(1.8rem, 5vw, 4.5rem); line-height: 1.12;">
@@ -56,16 +56,6 @@
                     Lihat Paket
                 </a>
             </div>
-            <div class="hero-social-proof">
-                <div class="hero-proof-avatars">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#c8a96e"/><circle cx="16" cy="13" r="6" fill="#fff" opacity=".8"/><ellipse cx="16" cy="28" rx="10" ry="7" fill="#fff" opacity=".8"/></svg>
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#a0784a"/><circle cx="16" cy="13" r="6" fill="#fff" opacity=".8"/><ellipse cx="16" cy="28" rx="10" ry="7" fill="#fff" opacity=".8"/></svg>
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#d4b483"/><circle cx="16" cy="13" r="6" fill="#fff" opacity=".8"/><ellipse cx="16" cy="28" rx="10" ry="7" fill="#fff" opacity=".8"/></svg>
-                </div>
-                <span class="hero-proof-text">
-                    Jamaah telah mempercayakan perjalanan sucinya kepada kami
-                </span>
-            </div>
         </div>
     </div>
     <!-- Integrated Trust Ribbon -->
@@ -76,7 +66,7 @@
                     @if(isset($settings['ppiu_url']) && $settings['ppiu_url'] != '')
                     <a href="{{ $settings['ppiu_url'] }}" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; color: inherit; text-decoration: none;">
                     @endif
-                        <i class="fas fa-certificate" aria-hidden="true"></i>
+                        <i class="fas fa-file-circle-check" aria-hidden="true"></i>
                         <div class="trust-text">
                             <strong>Izin Resmi Kemenag</strong>
                             <p>{{ $settings['ppiu_number'] ?? 'Terdaftar di Kemenag RI' }} <i class="fas fa-external-link-alt" style="font-size: 0.6rem; margin-left: 3px;" aria-hidden="true"></i></p>
@@ -86,21 +76,21 @@
                     @endif
                 </div>
                 <div class="trust-item">
-                    <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                    <i class="fas fa-hand-holding-dollar" aria-hidden="true"></i>
                     <div class="trust-text">
                         <strong>Dana 100% Aman</strong>
                         <p>Rekening Terpisah</p>
                     </div>
                 </div>
                 <div class="trust-item">
-                    <i class="fas fa-user-tie" aria-hidden="true"></i>
+                    <i class="fas fa-person-dress" aria-hidden="true"></i>
                     <div class="trust-text">
-                        <strong>Muthawwif Bersertifikat</strong>
+                        <strong>Muthawwif dan Muthawwifah bersertifikat</strong>
                         <p>Bimbing Anda Sepenuh Hati</p>
                     </div>
                 </div>
                 <div class="trust-item">
-                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-spa" aria-hidden="true"></i>
                     <div class="trust-text">
                         <strong>Kenyamanan</strong>
                         <p>Fokus pada Kenyamanan Jamaah</p>
@@ -112,6 +102,35 @@
 </header>
 
 <style>
+/* ── Women-centred icon accents ───────────────────────────────────────── */
+.hero {
+    --women-rose: #D98FA3;
+    --women-rose-deep: #8B3A50;
+    --women-rose-soft: rgba(217, 143, 163, 0.18);
+}
+
+.hero .trust-item > i {
+    width: 46px !important;
+    height: 46px !important;
+    min-width: 46px !important;
+    border-radius: 16px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #fff !important;
+    background: linear-gradient(135deg, #D98FA3 0%, #C08261 100%) !important;
+    box-shadow: 0 10px 24px rgba(217,143,163,0.26) !important;
+    filter: none !important;
+    font-size: 1.15rem !important;
+}
+
+[data-theme="dark"] .hero .trust-item > i {
+    background: linear-gradient(135deg, rgba(217,143,163,0.24) 0%, rgba(102,165,173,0.16) 100%) !important;
+    border: 1px solid rgba(217,143,163,0.3) !important;
+    color: #F1C4CE !important;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.24) !important;
+}
+
 /* ── Hero Buttons — Mobile-first ─────────────────────────────────────── */
 .hero-btns-responsive {
     display: flex;
