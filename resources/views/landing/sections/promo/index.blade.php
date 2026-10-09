@@ -62,7 +62,7 @@
                         @endif
 
                         <a href="{{ route('landing.promo.show', $item->slug) }}" class="btn btn-gold" style="padding: 1rem 2.5rem; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px;">
-                            Lihat Detail Promo <i class="fas fa-arrow-right"></i>
+                            Lihat Detail Benefit <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>

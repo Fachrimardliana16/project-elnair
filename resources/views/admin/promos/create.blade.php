@@ -12,7 +12,7 @@
         @csrf
         
         <div class="form-group">
-            <label for="title">Judul Promo / Offering <span style="color:red;">*</span></label>
+            <label for="title">Judul Benefit / Offering <span style="color:red;">*</span></label>
             <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Contoh: Personal Kit Jamaah Wanita & Keluarga" required>
             @error('title')
                 <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -33,7 +33,7 @@
 
         <div class="grid-2">
             <div class="form-group">
-                <label for="image">Upload Foto Visual Promo (Gambar High Quality)</label>
+                <label for="image">Upload Foto Visual Benefit (Gambar High Quality)</label>
                 <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">
                 <small style="color: #888;">Format: JPG, PNG, WebP (Max 5MB).</small>
                 @error('image')
@@ -42,7 +42,7 @@
             </div>
 
             <div class="form-group">
-                <label for="pdf_file">Upload Dokumen PDF Promo / Brosur (Opsional)</label>
+                <label for="pdf_file">Upload Dokumen PDF Benefit / Brosur (Opsional)</label>
                 <input type="file" name="pdf_file" id="pdf_file" class="form-control @error('pdf_file') is-invalid @enderror" accept="application/pdf">
                 <small style="color: #888;">Format: File PDF (Max 10MB). Akan menjadi tombol download PDF untuk pengunjung.</small>
                 @error('pdf_file')
@@ -52,7 +52,7 @@
         </div>
 
         <div class="form-group">
-            <label for="description">Ringkasan Deskripsi Promo</label>
+            <label for="description">Ringkasan Deskripsi Benefit</label>
             <textarea name="description" id="description" rows="3" class="form-control" placeholder="Jelaskan secara singkat penawaran atau benefit yang didapatkan jamaah...">{{ old('description') }}</textarea>
         </div>
 
@@ -68,7 +68,7 @@ Mukena & Kain Ihram Silk Premium">{{ old('details') }}</textarea>
         <div class="form-group">
             <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
                 <input type="checkbox" name="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }}>
-                <span>Aktifkan Promo ini di Website</span>
+                <span>Aktifkan Benefit ini di Website</span>
             </label>
         </div>
 

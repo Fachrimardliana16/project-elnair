@@ -6,10 +6,10 @@
 <div class="admin-card">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
         <div>
-            <h3 style="margin: 0; color: var(--brand-dark);">Daftar Promo & Offering Benefit</h3>
-            <p style="margin: 0.2rem 0 0; color: #666; font-size: 0.85rem;">Kelola visual promo, fasilitas kit, dan offering woman-centered untuk pengunjung website.</p>
+            <h3 style="margin: 0; color: var(--brand-dark);">Daftar Benefit & Offering Benefit</h3>
+            <p style="margin: 0.2rem 0 0; color: #666; font-size: 0.85rem;">Kelola visual benefit, fasilitas kit, dan offering woman-centered untuk pengunjung website.</p>
         </div>
-        <a href="{{ route('admin.promos.create') }}" class="btn-admin"><i class="fas fa-plus"></i> Tambah Promo</a>
+        <a href="{{ route('admin.promos.create') }}" class="btn-admin"><i class="fas fa-plus"></i> Tambah Benefit</a>
     </div>
 
     <div class="table-responsive">
@@ -17,7 +17,7 @@
             <thead>
                 <tr>
                     <th style="width: 70px;">Gambar</th>
-                    <th>Judul Promo</th>
+                    <th>Judul Benefit</th>
                     <th>Badge / Category</th>
                     <th>Status</th>
                     <th>Urutan</th>
@@ -74,7 +74,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" style="text-align: center; color: #888; padding: 2rem;">Belum ada promo yang ditambahkan. Silakan klik tombol "Tambah Promo".</td>
+                        <td colspan="6" style="text-align: center; color: #888; padding: 2rem;">Belum ada benefit yang ditambahkan. Silakan klik tombol "Tambah Benefit".</td>
                     </tr>
                 @endforelse
             </tbody>

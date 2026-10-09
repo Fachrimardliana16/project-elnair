@@ -13,7 +13,7 @@
         @method('PUT')
         
         <div class="form-group">
-            <label for="title">Judul Promo / Offering <span style="color:red;">*</span></label>
+            <label for="title">Judul Benefit / Offering <span style="color:red;">*</span></label>
             <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $promo->title) }}" required>
             @error('title')
                 <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -49,7 +49,7 @@
             </div>
 
             <div class="form-group">
-                <label for="pdf_file">Upload Dokumen PDF Brosur Promo (Opsional)</label>
+                <label for="pdf_file">Upload Dokumen PDF Brosur Benefit (Opsional)</label>
                 @if($promo->pdf_file)
                     <div style="margin-bottom: 0.8rem;">
                         <a href="{{ asset($promo->pdf_file) }}" target="_blank" class="btn-admin-outline" style="font-size: 0.8rem; padding: 4px 10px; display: inline-flex; align-items: center; gap: 5px;">

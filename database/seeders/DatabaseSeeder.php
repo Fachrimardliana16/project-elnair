@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             RolePermissionSeeder::class,
             LandingPageSeeder::class,
+            PromoSeeder::class,
+            
         ]);
     }
 }

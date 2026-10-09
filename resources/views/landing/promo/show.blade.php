@@ -74,11 +74,11 @@
                 @endphp
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                     <a href="#" class="btn btn-gold btn-wa-rotator" data-wa-text="Halo Elnair Travel, saya tertarik dengan promo: {{ $promo->title }}. Mohon info selengkapnya." style="padding: 1.1rem 2.5rem; font-size: 0.9rem;">
-                        <i class="fab fa-whatsapp" style="font-size: 1.2rem; margin-right: 8px;"></i> Klaim Promo via WhatsApp
+                        <i class="fab fa-whatsapp" style="font-size: 1.2rem; margin-right: 8px;"></i> Klaim Benefit via WhatsApp
                     </a>
                     
                     <a href="{{ $promoPdfUrl }}" download target="_blank" class="btn btn-outline promo-btn-outline" style="color: var(--brand-dark); border-color: var(--brand-dark); padding: 1.1rem 2rem; display: inline-flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-file-pdf" style="color: #e74c3c; font-size: 1.1rem;"></i> Download PDF Brosur Promo
+                        <i class="fas fa-file-pdf" style="color: #e74c3c; font-size: 1.1rem;"></i> Download PDF Brosur Benefit
                     </a>
 
                     <a href="{{ url('/') }}#paket" class="btn btn-outline promo-btn-outline" style="color: var(--brand-dark); border-color: var(--brand-dark); padding: 1.1rem 2rem;">
@@ -91,7 +91,7 @@
         @if(isset($otherPromos) && $otherPromos->count() > 0)
             <div style="margin-top: 6rem; padding-top: 4rem; border-top: 1px solid rgba(0,0,0,0.08);" class="promo-other-divider">
                 <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--brand-dark); font-weight: 800; margin-bottom: 2rem; text-align: center;" class="promo-other-title">
-                    Promo & Benefit Lainnya
+                    Benefit Lainnya
                 </h3>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
                     @foreach($otherPromos as $item)
@@ -103,7 +103,7 @@
                                 {{ \Illuminate\Support\Str::limit($item->description, 100) }}
                             </p>
                             <a href="{{ route('landing.promo.show', $item->slug) }}" style="color: var(--brand-gold); font-weight: 700; text-decoration: none; font-size: 0.85rem; margin-top: auto; display: flex; align-items: center; gap: 0.4rem;">
-                                <span>Lihat Promo Ini</span> <i class="fas fa-arrow-right"></i>
+                                <span>Lihat Benefit Ini</span> <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
                     @endforeach
