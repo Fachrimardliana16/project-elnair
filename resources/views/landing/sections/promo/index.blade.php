@@ -4,7 +4,7 @@
         <!-- Section Header -->
         <div style="text-align: center; margin-bottom: 3rem;">
             <span style="color: var(--brand-gold); text-transform: uppercase; letter-spacing: 3px; font-weight: 800; font-size: 0.75rem; display: block; margin-bottom: 0.5rem;">
-                <i class="fas fa-gift" style="margin-right: 4px;"></i> Promo & Benefit
+                <i class="fas fa-gift" style="margin-right: 4px;"></i> Benefit
             </span>
             <h2 style="font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--brand-dark); font-weight: 800; margin: 0 0 1rem 0;" class="promo-header-title">
                 Penawaran Jamaah Wanita & Keluarga
@@ -109,7 +109,7 @@
                                 @endif
 
                                 <a href="{{ route('landing.promo.show', $item->slug) }}" style="color: var(--brand-gold); font-weight: 700; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-top: auto;">
-                                    <span>Lihat Detail Promo</span>
+                                    <span>Lihat Detail Benefit</span>
                                     <i class="fas fa-arrow-right" style="font-size: 0.8rem;"></i>
                                 </a>
                             </div>
@@ -160,7 +160,7 @@
 
                             <div style="margin-top: auto;">
                                 <a href="{{ route('landing.promo.show', $item->slug) }}" style="color: var(--brand-gold); font-weight: 700; font-size: 0.8rem; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
-                                    <span>Lihat Detail Promo</span>
+                                    <span>Lihat Detail Benefit</span>
                                     <i class="fas fa-arrow-right" style="font-size: 0.75rem;"></i>
                                 </a>
                             </div>
@@ -174,7 +174,7 @@
             @if($promos->count() > 0)
                 <div style="text-align: center; margin-top: 2rem;">
                     <a href="{{ route('landing.promo.index') }}" class="btn btn-gold" style="padding: 0.9rem 2rem; font-size: 0.9rem;">
-                        Lihat Semua Promo <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+                        Lihat Detail Benefit <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
                     </a>
                 </div>
             @endif

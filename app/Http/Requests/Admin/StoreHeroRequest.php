@@ -24,6 +24,13 @@ class StoreHeroRequest extends FormRequest
             'background_image'     => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'background_image_2'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'background_image_3'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+
+            'trust_items'                => 'nullable|array',
+            'trust_items.*.icon'        => 'nullable|string|max:100',
+            'trust_items.*.title'       => 'nullable|string|max:255',
+            'trust_items.*.description' => 'nullable|string|max:255',
+            'trust_items.*.url'         => 'nullable|string|max:500',
+            'trust_items.*.url_label'   => 'nullable|string|max:100',
         ];
     }
 

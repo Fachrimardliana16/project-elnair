@@ -31,6 +31,15 @@ class HeroController extends Controller
             $data['background_image_3'] = \App\Helpers\ImageHelper::uploadAndConvert($request->file('background_image_3'), 'assets/img');
         }
 
+        if (isset($data['trust_items']) && is_array($data['trust_items'])) {
+            $filteredTrustItems = array_filter($data['trust_items'], function ($item) {
+                return !empty(trim($item['title'] ?? '')) || !empty(trim($item['icon'] ?? ''));
+            });
+            $data['trust_items'] = array_values($filteredTrustItems);
+        } else {
+            $data['trust_items'] = [];
+        }
+
         $hero->fill($data);
         $hero->save();
 

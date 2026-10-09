@@ -87,7 +87,7 @@ class AdminSeeder extends Seeder
 
         // Hero Settings
         HeroSetting::create([
-            'tagline' => 'Welcome to Elnair',
+            'tagline' => 'Terpercaya · Resmi · Berizin Kemenag RI',
             'title' => 'Wujudkan Perjalanan Suci Impian Anda',
             'subtitle' => 'Menghadirkan harmoni antara ibadah yang khusyuk dan kenyamanan yang tak tertandingi di Tanah Suci.',
             'btn_primary_text' => 'Konsultasi Gratis',
@@ -95,6 +95,14 @@ class AdminSeeder extends Seeder
             'btn_secondary_text' => 'Eksplorasi Paket',
             'btn_secondary_url' => '#paket',
             'background_image' => 'assets/img/hero.png',
+            'trust_items' => [
+                ['icon' => 'fas fa-file-circle-check', 'title' => 'Izin Resmi Kemenag', 'description' => 'Terdaftar di Kemenag RI', 'url' => '', 'url_label' => ''],
+                ['icon' => 'fas fa-shield-heart', 'title' => 'Dana 100% Aman', 'description' => 'Rekening Terpisah & Transparan', 'url' => '', 'url_label' => ''],
+                ['icon' => 'fas fa-person-dress', 'title' => 'Muthawwif & Muthawwifah Bersertifikat', 'description' => 'Bimbingan Khusyuk Sepenuh Hati', 'url' => '', 'url_label' => ''],
+                ['icon' => 'fas fa-spa', 'title' => 'Kenyamanan Jamaah', 'description' => 'Fokus Kenyamanan & Khusyuk', 'url' => '', 'url_label' => ''],
+                ['icon' => 'fas fa-hotel', 'title' => 'Hotel Dekat Pintu Perempuan', 'description' => 'Akses Mudah ke Pelataran Wanita', 'url' => '', 'url_label' => ''],
+                ['icon' => 'fas fa-bag-shopping', 'title' => 'Woman Travel Kit (Perlengkapan Perempuan)', 'description' => 'Perlengkapan Lengkap Jamaah Wanita', 'url' => '', 'url_label' => ''],
+            ]
         ]);
 
         // Features (Why Choose Us)

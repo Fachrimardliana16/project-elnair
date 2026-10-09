@@ -80,11 +80,12 @@
     .btn-outline{border:2px solid #fff;color:#fff}
     .hero-btns{display:flex;gap:1.5rem;flex-wrap:wrap;margin-top:1rem}
     .trust-ribbon{background:rgba(13,76,84,.85);backdrop-filter:blur(30px);padding:1.5rem 0;border-top:1px solid rgba(255,255,255,.1);position:absolute;bottom:0;width:100%;z-index:10}
-    .trust-container{display:flex;justify-content:space-between;align-items:center;gap:2rem}
+    .trust-container{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2rem}
     .trust-item{display:flex;align-items:center;gap:1.2rem;color:#fff}
     .trust-text strong{font-size:.9rem;margin:0;font-weight:700;letter-spacing:.5px;display:block}
     .trust-text p{font-size:.75rem;margin:0;opacity:.7;font-weight:400}
     .trust-item i{min-width:1.25em;width:1.25em;height:1em;line-height:1;display:inline-block;text-align:center;flex-shrink:0;font-style:normal;font-variant:normal;text-rendering:auto}
+    .trust-item a{display:flex!important;align-items:center;color:inherit;text-decoration:none;gap:1.2rem}
     .fas,.far,.fab,.fa-solid,.fa-regular,.fa-brands{display:inline-block;font-style:normal;font-variant:normal;line-height:1;text-rendering:auto}
     </style>
 

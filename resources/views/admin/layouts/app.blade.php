@@ -193,7 +193,13 @@
             margin-bottom: 2rem;
         }
 
+        button, input, select, textarea {
+            font-family: 'Outfit', sans-serif;
+        }
+
         .btn-admin {
+            font-family: inherit;
+            font-size: 0.9rem;
             background: var(--brand-dark);
             color: white;
             padding: 0.8rem 1.5rem;
@@ -205,14 +211,19 @@
             transition: 0.3s;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
+            line-height: 1.2;
         }
 
         .btn-admin:hover {
             background: var(--brand-gold);
+            color: white;
         }
 
         .btn-admin-outline {
+            font-family: inherit;
+            font-size: 0.9rem;
             background: transparent;
             border: 1px solid var(--brand-dark);
             color: var(--brand-dark);
@@ -224,7 +235,9 @@
             transition: 0.3s;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
+            line-height: 1.2;
         }
 
         .btn-admin-outline:hover {

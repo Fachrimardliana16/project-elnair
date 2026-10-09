@@ -55,7 +55,7 @@
 
                     <div style="margin-top: auto;">
                         <a href="{{ route('landing.promo.show', $item->slug) }}" class="btn btn-gold" style="width: 100%; justify-content: center; padding: 0.9rem; font-size: 0.85rem;">
-                            Lihat Detail Promo <i class="fas fa-arrow-right" style="margin-left: 6px; font-size: 0.8rem;"></i>
+                            Lihat Detail Benefit <i class="fas fa-arrow-right" style="margin-left: 6px; font-size: 0.8rem;"></i>
                         </a>
                     </div>
                 </div>
