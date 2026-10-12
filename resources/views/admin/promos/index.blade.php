@@ -29,7 +29,7 @@
                     <tr>
                         <td>
                             @if($promo->image)
-                                <img src="{{ asset($promo->image) }}" alt="{{ $promo->title }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
+                                <img src="{{ $promo->image_url }}" alt="{{ $promo->title }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 8px;">
                             @else
                                 <div style="width: 50px; height: 50px; background: #eee; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #aaa;"><i class="fas fa-image"></i></div>
                             @endif
@@ -37,7 +37,7 @@
                         <td>
                             <strong>{{ $promo->title }}</strong>
                             @if($promo->pdf_file)
-                                <a href="{{ asset($promo->pdf_file) }}" target="_blank" style="margin-left: 6px; background: rgba(231,76,60,0.1); color: #e74c3c; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-decoration: none;" title="File PDF Tersedia">
+                                <a href="{{ $promo->pdf_url }}" target="_blank" style="margin-left: 6px; background: rgba(231,76,60,0.1); color: #e74c3c; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-decoration: none;" title="File PDF Tersedia">
                                     <i class="fas fa-file-pdf"></i> PDF
                                 </a>
                             @endif

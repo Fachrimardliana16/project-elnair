@@ -73,7 +73,7 @@
                         <div>
                             <h4 style="font-size: 0.95rem; font-weight: 700; margin: 0;">Kartu Tanda Penduduk (KTP)</h4>
                             @if($jamaah->ktp_file)
-                                <a href="{{ asset('storage/' . $jamaah->ktp_file) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600;"><i class="fas fa-external-link-alt"></i> Lihat Dokumen</a>
+                                <a href="{{ route('admin.jamaah-documents.show', [$jamaah->id, 'ktp_file']) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600;"><i class="fas fa-external-link-alt"></i> Lihat Dokumen</a>
                             @else
                                 <small style="color: #ca8a04; font-weight: 600;"><i class="fas fa-clock"></i> Belum Diunggah</small>
                             @endif
@@ -91,7 +91,7 @@
                         <div>
                             <h4 style="font-size: 0.95rem; font-weight: 700; margin: 0;">Kartu Keluarga (KK)</h4>
                             @if($jamaah->kk_file)
-                                <a href="{{ asset('storage/' . $jamaah->kk_file) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600;"><i class="fas fa-external-link-alt"></i> Lihat Dokumen</a>
+                                <a href="{{ route('admin.jamaah-documents.show', [$jamaah->id, 'kk_file']) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600;"><i class="fas fa-external-link-alt"></i> Lihat Dokumen</a>
                             @else
                                 <small style="color: #ca8a04; font-weight: 600;"><i class="fas fa-clock"></i> Belum Diunggah</small>
                             @endif
@@ -109,7 +109,7 @@
                         <div>
                             <h4 style="font-size: 0.95rem; font-weight: 700; margin: 0;">Halaman Pertama Paspor</h4>
                             @if($jamaah->passport_file)
-                                <a href="{{ asset('storage/' . $jamaah->passport_file) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600;"><i class="fas fa-external-link-alt"></i> Lihat Dokumen</a>
+                                <a href="{{ route('admin.jamaah-documents.show', [$jamaah->id, 'passport_file']) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600;"><i class="fas fa-external-link-alt"></i> Lihat Dokumen</a>
                             @else
                                 <small style="color: #ca8a04; font-weight: 600;"><i class="fas fa-clock"></i> Belum Diunggah</small>
                             @endif
@@ -127,7 +127,7 @@
                         <div>
                             <h4 style="font-size: 0.95rem; font-weight: 700; margin: 0;">Sertifikat Meningitis / Vaksin</h4>
                             @if($jamaah->vaccine_file)
-                                <a href="{{ asset('storage/' . $jamaah->vaccine_file) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600;"><i class="fas fa-external-link-alt"></i> Lihat Dokumen</a>
+                                <a href="{{ route('admin.jamaah-documents.show', [$jamaah->id, 'vaccine_file']) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600;"><i class="fas fa-external-link-alt"></i> Lihat Dokumen</a>
                             @else
                                 <small style="color: #ca8a04; font-weight: 600;"><i class="fas fa-clock"></i> Belum Diunggah</small>
                             @endif
@@ -145,7 +145,7 @@
                         <div>
                             <h4 style="font-size: 0.95rem; font-weight: 700; margin: 0;">Pas Foto Resmi 4x6</h4>
                             @if($jamaah->photo_file)
-                                <a href="{{ asset('storage/' . $jamaah->photo_file) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600;"><i class="fas fa-external-link-alt"></i> Lihat Dokumen</a>
+                                <a href="{{ route('admin.jamaah-documents.show', [$jamaah->id, 'photo_file']) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-size: 0.8rem; font-weight: 600;"><i class="fas fa-external-link-alt"></i> Lihat Dokumen</a>
                             @else
                                 <small style="color: #ca8a04; font-weight: 600;"><i class="fas fa-clock"></i> Belum Diunggah</small>
                             @endif

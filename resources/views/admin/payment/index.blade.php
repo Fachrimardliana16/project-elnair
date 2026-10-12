@@ -160,7 +160,7 @@
                         <td>{{ $payment->payment_date->format('d M Y') }}</td>
                         <td>
                             @if($payment->payment_proof)
-                                <a href="{{ asset('storage/' . $payment->payment_proof) }}" target="_blank" style="color: var(--brand-gold); font-weight: 600; text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 4px;">
+                                <a href="{{ route('admin.payments.proof', $payment->id) }}" target="_blank" style="color: var(--brand-gold); font-weight: 600; text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 4px;">
                                     <i class="fas fa-image"></i> Lihat Bukti
                                 </a>
                             @else

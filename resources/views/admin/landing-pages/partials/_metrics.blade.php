@@ -9,7 +9,7 @@
                 <span class="tooltip-text">
                     <strong>TOTAL SPEND</strong>
                     Total akumulasi biaya spent periklanan yang dihabiskan.<br>
-                    <em>Asal Data:</em> Sinkronisasi otomatis API Meta & TikTok harian + Pengeluaran spent manual.
+                    <em>Asal Data:</em> Laporan iklan tersimpan dari sinkronisasi akun aktif + pengeluaran manual.
                 </span>
             </span>
         </span>
@@ -26,7 +26,7 @@
                 <span class="tooltip-text">
                     <strong>IMPRESSIONS</strong>
                     Frekuensi berapa kali iklan ditayangkan di layar perangkat audiens.<br>
-                    <em>Asal Data:</em> Laporan performa real-time API Meta & TikTok Ads.
+                    <em>Asal Data:</em> Laporan performa akun iklan yang tersimpan.
                 </span>
             </span>
         </span>
@@ -64,7 +64,7 @@
                 </span>
             </span>
         </span>
-        <h2 style="font-size: 1.6rem; font-weight: 800; color: #0f172a; margin: 0;">{{ number_format($totalImpressions > 0 ? ($totalImpressions / max(1, intval($totalImpressions * 0.88))) : 1.09, 2) }}x</h2>
+        <h2 style="font-size: 1.6rem; font-weight: 800; color: #0f172a; margin: 0;">{{ number_format($totalImpressions > 0 ? ($totalImpressions / max(1, intval($totalImpressions * 0.88))) : 0, 2) }}x</h2>
         <span style="font-size: 0.72rem; color: #94a3b8; font-weight: 500;">tayangan / orang</span>
     </div>
 
@@ -128,7 +128,7 @@
                 <span class="tooltip-text">
                     <strong>LINK CLICKS</strong>
                     Total klik link luar pada postingan iklan yang menuju ke Landing Page.<br>
-                    <em>Asal Data:</em> Metrik klik link ditarik otomatis dari API Iklan.
+                    <em>Asal Data:</em> Metrik klik link dari laporan iklan tersimpan.
                 </span>
             </span>
         </span>

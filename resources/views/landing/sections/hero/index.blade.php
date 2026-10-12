@@ -42,11 +42,6 @@
                 {{ $hero->subtitle ?? 'Elnair Travel menghadirkan paket Haji & Umroh resmi dengan pendampingan penuh — agar setiap doa di Tanah Suci terasa lebih dekat dan bermakna.' }}
             </p>
             <div class="hero-btns-responsive">
-                @if(($settings['show_pendaftaran_feature'] ?? '1') == '1')
-                <a href="{{ route('pendaftaran.create') }}" class="btn btn-gold hero-btn-item" style="background: var(--brand-teal); border-color: var(--brand-teal); color: white;">
-                    <i class="fas fa-user-plus" aria-hidden="true" style="margin-right:8px;"></i> Daftar Jamaah
-                </a>
-                @endif
                 <a href="{{ $hero->btn_primary_url ?? '#cta' }}" class="btn btn-gold hero-btn-item btn-wa-rotator"
                    data-wa-text="Assalamu'alaikum Elnair, saya mau konsultasi paket Haji/Umroh">
                     {{ $hero->btn_primary_text ?? 'Konsultasi Gratis Sekarang' }}

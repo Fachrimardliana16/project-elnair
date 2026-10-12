@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jamaah;
 use App\Models\Payment;
 use App\Models\RoomMember;
+use App\Support\JamaahFileStorage;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -69,12 +70,7 @@ class JemaahDashboardController extends Controller
     {
         $jemaah = $request->get('jemaah');
 
-        $rawPrice = $jemaah->package ? $jemaah->package->price_value : '0';
-        $priceNumber = (float) preg_replace('/[^0-9]/', '', $rawPrice);
-        if (str_contains(strtolower($rawPrice), 'jt') || str_contains(strtolower($rawPrice), 'juta')) {
-            $priceNumber *= 1000000;
-        }
-        $price = $priceNumber;
+        $price = $jemaah->package ? $jemaah->package->price_numeric : 0;
 
         $totalPaid = (float) $jemaah->payments()->where('status', 'Approved')->sum('amount');
         $outstanding = max(0.0, $price - $totalPaid);
@@ -115,7 +111,7 @@ class JemaahDashboardController extends Controller
 
         $proofPath = null;
         if ($request->hasFile('payment_proof')) {
-            $proofPath = $request->file('payment_proof')->store('payment_proofs', 'public');
+            $proofPath = JamaahFileStorage::store($request->file('payment_proof'), 'payment_proofs');
         }
 
         Payment::create([
@@ -165,10 +161,9 @@ class JemaahDashboardController extends Controller
         $type = $request->document_type;
 
         if ($request->hasFile('file')) {
-            // Store file
-            $filePath = $request->file('file')->store('jamaah_docs', 'public');
+            JamaahFileStorage::delete($jemaah->{$type});
+            $filePath = JamaahFileStorage::store($request->file('file'), 'documents');
 
-            // Update Jamaah instance
             $jemaah->update([
                 $type => $filePath,
             ]);

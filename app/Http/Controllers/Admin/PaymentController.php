@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Jamaah;
 use App\Models\Payment;
+use App\Support\JamaahFileStorage;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -14,31 +15,27 @@ class PaymentController extends Controller
     {
         $payments = Payment::with('jamaah.package')->latest()->paginate(10);
 
-        // Calculate Outstanding Payments (Jemaahs who haven't fully paid their package)
-        $jamaahs = Jamaah::with(['package', 'payments'])->get();
-        $outstandingList = [];
+        $jamaahs = Jamaah::with(['package', 'departureSchedule'])
+            ->withSum(['payments as approved_payments_sum' => fn ($query) => $query->where('status', 'Approved')], 'amount')
+            ->whereNotNull('package_id')
+            ->latest()
+            ->paginate(25, ['*'], 'outstanding_page');
 
-        foreach ($jamaahs as $j) {
-            if (! $j->package) {
-                continue;
-            }
+        $outstandingList = $jamaahs->getCollection()
+            ->map(function (Jamaah $j) {
+                $packagePrice = $j->package ? $j->package->price_numeric : 0;
+                $totalPaid = (float) ($j->approved_payments_sum ?? 0);
+                $balance = max(0.0, $packagePrice - $totalPaid);
 
-            $packagePrice = $this->parsePrice($j->package->price_value);
-            $totalPaid = (float) $j->payments->where('status', 'Approved')->sum('amount');
-            $balance = max(0.0, $packagePrice - $totalPaid);
-
-            if ($balance > 0) {
-                // Determine a dummy due date (e.g. 30 days before departure schedule or 30 days after creation)
-                $dueDate = $j->created_at->addDays(30);
-                $outstandingList[] = [
+                return [
                     'jamaah' => $j,
                     'package_price' => $packagePrice,
                     'total_paid' => $totalPaid,
                     'balance' => $balance,
-                    'due_date' => $dueDate,
+                    'due_date' => $j->created_at->copy()->addDays(30),
                 ];
-            }
-        }
+            })
+            ->filter(fn ($item) => $item['balance'] > 0);
 
         return view('admin.payment.index', compact('payments', 'outstandingList'));
     }
@@ -69,7 +66,7 @@ class PaymentController extends Controller
         $data['status'] = 'Approved'; // Directly approve manual/admin payments
 
         if ($request->hasFile('payment_proof')) {
-            $path = $request->file('payment_proof')->store('payments', 'public');
+            $path = JamaahFileStorage::store($request->file('payment_proof'), 'payment_proofs');
             $data['payment_proof'] = $path;
         }
 
@@ -98,6 +95,7 @@ class PaymentController extends Controller
     public function destroy(Payment $payment)
     {
         $jamaahId = $payment->jamaah_id;
+        JamaahFileStorage::delete($payment->payment_proof);
         $payment->delete();
 
         $this->updateJamaahStatus($jamaahId);
@@ -113,7 +111,7 @@ class PaymentController extends Controller
             return;
         }
 
-        $packagePrice = $this->parsePrice($jamaah->package->price_value);
+        $packagePrice = $jamaah->package->price_numeric;
         $totalPaid = (float) $jamaah->payments->where('status', 'Approved')->sum('amount');
 
         if ($totalPaid >= $packagePrice) {
@@ -123,21 +121,6 @@ class PaymentController extends Controller
         } else {
             $jamaah->update(['status' => 'Prospek']);
         }
-    }
-
-    // Helper to parse price string containing formatting to float
-    private function parsePrice($rawPrice): float
-    {
-        if (! $rawPrice) {
-            return 0.0;
-        }
-
-        $priceNumber = (float) preg_replace('/[^0-9]/', '', $rawPrice);
-        if (str_contains(strtolower($rawPrice), 'jt') || str_contains(strtolower($rawPrice), 'juta')) {
-            $priceNumber *= 1000000;
-        }
-
-        return $priceNumber;
     }
 
     // Export Invoice PDF

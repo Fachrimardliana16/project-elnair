@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ImageHelper
@@ -9,13 +10,8 @@ class ImageHelper
     public static function uploadAndConvert($file, $folder = 'assets/img', $quality = 80)
     {
         $extension = strtolower($file->getClientOriginalExtension());
-        $fileName = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '_' . time() . '.webp';
-        $destinationPath = public_path($folder);
-        $fullPath = $destinationPath . '/' . $fileName;
-
-        if (!file_exists($destinationPath)) {
-            mkdir($destinationPath, 0755, true);
-        }
+        $relativePath = ltrim($folder, '/').'/'.Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)).'_'.time().'.webp';
+        $disk = Storage::disk('public_root');
 
         // Check if GD library is installed
         if (!extension_loaded('gd')) {
@@ -37,16 +33,19 @@ class ImageHelper
                 case 'gif':
                     $image = imagecreatefromgif($file);
                     break;
-                case 'webp':
-                    return $file->store($folder, 'public_root');
                 default:
                     return $file->store($folder, 'public_root');
             }
 
             if ($image) {
-                imagewebp($image, $fullPath, $quality);
+                ob_start();
+                imagewebp($image, null, $quality);
                 imagedestroy($image);
-                return $folder . '/' . $fileName;
+                $contents = ob_get_clean();
+
+                if ($contents !== false && $disk->put($relativePath, $contents)) {
+                    return $relativePath;
+                }
             }
         } catch (\Exception $e) {
             // Fallback to normal upload if something goes wrong

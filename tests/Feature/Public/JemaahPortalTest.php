@@ -5,6 +5,7 @@ namespace Tests\Feature\Public;
 use App\Models\Jamaah;
 use App\Models\Package;
 use App\Models\Payment;
+use App\Support\JamaahFileStorage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -192,7 +193,7 @@ class JemaahPortalTest extends TestCase
 
     public function test_approved_jemaah_can_post_payment_proof(): void
     {
-        Storage::fake('public');
+        Storage::fake(JamaahFileStorage::DISK);
 
         $jemaah = Jamaah::create([
             'package_id' => $this->package->id,
@@ -223,12 +224,13 @@ class JemaahPortalTest extends TestCase
         $this->assertEquals('Pending', $payment->status);
         $this->assertNotNull($payment->payment_proof);
 
-        Storage::disk('public')->assertExists($payment->payment_proof);
+        Storage::disk(JamaahFileStorage::DISK)->assertExists($payment->payment_proof);
+        Storage::disk('public')->assertMissing($payment->payment_proof);
     }
 
     public function test_jemaah_can_upload_and_update_documents(): void
     {
-        Storage::fake('public');
+        Storage::fake(JamaahFileStorage::DISK);
 
         $jemaah = Jamaah::create([
             'package_id' => $this->package->id,
@@ -251,7 +253,8 @@ class JemaahPortalTest extends TestCase
 
         $jemaah->refresh();
         $this->assertNotNull($jemaah->ktp_file);
-        Storage::disk('public')->assertExists($jemaah->ktp_file);
+        Storage::disk(JamaahFileStorage::DISK)->assertExists($jemaah->ktp_file);
+        Storage::disk('public')->assertMissing($jemaah->ktp_file);
     }
 
     public function test_authenticated_jemaah_can_logout(): void

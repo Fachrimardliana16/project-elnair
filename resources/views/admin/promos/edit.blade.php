@@ -37,7 +37,7 @@
                 <label for="image">Upload Foto Visual Baru (Opsional)</label>
                 @if($promo->image)
                     <div style="margin-bottom: 0.8rem;">
-                        <img src="{{ asset($promo->image) }}" alt="Foto Promo" style="max-height: 100px; border-radius: 8px; border: 1px solid #ddd;">
+                        <img src="{{ $promo->image_url }}" alt="Foto Promo" style="max-height: 100px; border-radius: 8px; border: 1px solid #ddd;">
                         <br><small style="color: #666;">Gambar saat ini</small>
                     </div>
                 @endif
@@ -52,7 +52,7 @@
                 <label for="pdf_file">Upload Dokumen PDF Brosur Benefit (Opsional)</label>
                 @if($promo->pdf_file)
                     <div style="margin-bottom: 0.8rem;">
-                        <a href="{{ asset($promo->pdf_file) }}" target="_blank" class="btn-admin-outline" style="font-size: 0.8rem; padding: 4px 10px; display: inline-flex; align-items: center; gap: 5px;">
+                        <a href="{{ $promo->pdf_url }}" target="_blank" class="btn-admin-outline" style="font-size: 0.8rem; padding: 4px 10px; display: inline-flex; align-items: center; gap: 5px;">
                             <i class="fas fa-file-pdf" style="color: #e74c3c;"></i> Lihat File PDF Saat Ini
                         </a>
                     </div>

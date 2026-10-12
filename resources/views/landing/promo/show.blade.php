@@ -24,7 +24,7 @@
             <div>
                 @if($promo->image)
                     <div style="border-radius: 30px; overflow: hidden; box-shadow: 0 25px 60px rgba(13,76,84,0.18); border: 2px solid rgba(139,94,60,0.15); position: relative;">
-                        <img src="{{ asset($promo->image) }}" alt="{{ $promo->title }}" style="width: 100%; height: auto; display: block; object-fit: cover;">
+                        <img src="{{ $promo->image_url }}" alt="{{ $promo->title }}" style="width: 100%; height: auto; display: block; object-fit: cover;">
                     </div>
                 @else
                     <div style="height: 400px; background: rgba(13,76,84,0.05); border-radius: 30px; display: flex; align-items: center; justify-content: center; color: var(--brand-dark); font-size: 3rem;">
@@ -70,7 +70,7 @@
 
                 <!-- CTA Buttons & PDF Download -->
                 @php
-                    $promoPdfUrl = $promo->pdf_file ? asset($promo->pdf_file) : asset('assets/docs/flyer-paket-elnair.pdf');
+                    $promoPdfUrl = $promo->pdf_url ?: asset('assets/docs/flyer-paket-elnair.pdf');
                 @endphp
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
                     <a href="#" class="btn btn-gold btn-wa-rotator" data-wa-text="Halo Elnair Travel, saya tertarik dengan promo: {{ $promo->title }}. Mohon info selengkapnya." style="padding: 1.1rem 2.5rem; font-size: 0.9rem;">

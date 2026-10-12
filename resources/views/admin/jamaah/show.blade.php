@@ -541,7 +541,7 @@
                             <i class="far fa-file-pdf" style="color: #e74c3c; font-size: 1.1rem;"></i> KTP (Kartu Tanda Penduduk)
                         </span>
                         @if($jamaah->ktp_file)
-                            <a href="{{ asset('storage/' . $jamaah->ktp_file) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
+                            <a href="{{ route('admin.jamaah-documents.show', [$jamaah->id, 'ktp_file']) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
                         @else
                             <span style="font-size: 0.75rem; color: #aaa; font-style: italic;">Belum Ada</span>
                         @endif
@@ -562,7 +562,7 @@
                             <i class="fas fa-passport" style="color: var(--brand-gold); font-size: 1.1rem;"></i> Paspor Jemaah
                         </span>
                         @if($jamaah->passport_file)
-                            <a href="{{ asset('storage/' . $jamaah->passport_file) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
+                            <a href="{{ route('admin.jamaah-documents.show', [$jamaah->id, 'passport_file']) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
                         @else
                             <span style="font-size: 0.75rem; color: #aaa; font-style: italic;">Belum Ada</span>
                         @endif
@@ -583,7 +583,7 @@
                             <i class="far fa-file-image" style="color: #3498db; font-size: 1.1rem;"></i> Kartu Keluarga (KK)
                         </span>
                         @if($jamaah->kk_file)
-                            <a href="{{ asset('storage/' . $jamaah->kk_file) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
+                            <a href="{{ route('admin.jamaah-documents.show', [$jamaah->id, 'kk_file']) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
                         @else
                             <span style="font-size: 0.75rem; color: #aaa; font-style: italic;">Belum Ada</span>
                         @endif
@@ -604,7 +604,7 @@
                             <i class="fas fa-syringe" style="color: var(--brand-teal); font-size: 1.1rem;"></i> Vaksin Meningitis
                         </span>
                         @if($jamaah->vaccine_file)
-                            <a href="{{ asset('storage/' . $jamaah->vaccine_file) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
+                            <a href="{{ route('admin.jamaah-documents.show', [$jamaah->id, 'vaccine_file']) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
                         @else
                             <span style="font-size: 0.75rem; color: #aaa; font-style: italic;">Belum Ada</span>
                         @endif
@@ -625,7 +625,7 @@
                             <i class="far fa-id-badge" style="color: #9b59b6; font-size: 1.1rem;"></i> Pas Foto (3x4 / 4x6)
                         </span>
                         @if($jamaah->photo_file)
-                            <a href="{{ asset('storage/' . $jamaah->photo_file) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
+                            <a href="{{ route('admin.jamaah-documents.show', [$jamaah->id, 'photo_file']) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
                         @else
                             <span style="font-size: 0.75rem; color: #aaa; font-style: italic;">Belum Ada</span>
                         @endif
@@ -645,7 +645,7 @@
                         <i class="fas fa-receipt" style="color: #2ecc71; font-size: 1.1rem;"></i> Bukti Bayar Terakhir
                     </span>
                     @if($jamaah->payment_proof_file)
-                        <a href="{{ asset('storage/' . $jamaah->payment_proof_file) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
+                        <a href="{{ route('admin.jamaah-documents.show', [$jamaah->id, 'payment_proof_file']) }}" target="_blank" class="btn-action btn-action-view" style="font-size: 0.72rem; padding: 0.35rem 0.75rem; border-radius: 6px; width: auto; height: auto;">Lihat</a>
                     @else
                         <span style="font-size: 0.75rem; color: #aaa; font-style: italic;">Belum Ada</span>
                     @endif

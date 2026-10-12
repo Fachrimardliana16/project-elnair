@@ -20,16 +20,18 @@ class TrustLoadBalancerProxies
 {
     public function handle(Request $request, Closure $next): Response
     {
-        // Trust all proxies — adjust to specific CIDR ranges if your infra is known
-        // e.g. ['10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16'] for private subnets
-        $request->setTrustedProxies(
-            ['REMOTE_ADDR'],    // Use the connecting IP as the trusted proxy address sentinel
-            Request::HEADER_X_FORWARDED_FOR |
-            Request::HEADER_X_FORWARDED_HOST |
-            Request::HEADER_X_FORWARDED_PORT |
-            Request::HEADER_X_FORWARDED_PROTO |
-            Request::HEADER_X_FORWARDED_PREFIX
-        );
+        $trustedProxies = array_filter(array_map('trim', explode(',', (string) env('TRUSTED_PROXIES', ''))));
+
+        if (! empty($trustedProxies)) {
+            $request->setTrustedProxies(
+                $trustedProxies,
+                Request::HEADER_X_FORWARDED_FOR |
+                Request::HEADER_X_FORWARDED_HOST |
+                Request::HEADER_X_FORWARDED_PORT |
+                Request::HEADER_X_FORWARDED_PROTO |
+                Request::HEADER_X_FORWARDED_PREFIX
+            );
+        }
 
         return $next($request);
     }

@@ -60,7 +60,7 @@
             @php
                 $filePath = $jemaah->{$doc['key']};
                 $isUploaded = !empty($filePath);
-                $fileUrl = $isUploaded ? asset('storage/' . $filePath) : null;
+                $fileUrl = $isUploaded ? route('jemaah.documents.show', $doc['key']) : null;
                 $ext = $isUploaded ? strtolower(pathinfo($filePath, PATHINFO_EXTENSION)) : '';
                 $isPdf = $ext === 'pdf';
             @endphp

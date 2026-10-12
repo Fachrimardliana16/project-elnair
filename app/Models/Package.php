@@ -17,12 +17,24 @@ class Package extends Model
      */
     public function getPriceNumericAttribute(): float
     {
-        $rawPrice = $this->price_value ?? '0';
-        $priceNumber = (float) preg_replace('/[^0-9]/', '', $rawPrice);
-        if (str_contains(strtolower($rawPrice), 'jt') || str_contains(strtolower($rawPrice), 'juta')) {
-            $priceNumber *= 1000000;
+        return self::parsePrice($this->price_value ?? '0');
+    }
+
+    public static function parsePrice(?string $rawPrice): float
+    {
+        if (! $rawPrice) {
+            return 0.0;
         }
 
-        return $priceNumber;
+        $normalized = strtolower(trim($rawPrice));
+        $usesMillionLabel = str_contains($normalized, 'jt') || str_contains($normalized, 'juta');
+
+        if ($usesMillionLabel && preg_match('/(\d+(?:[\.,]\d+)?)/', $normalized, $matches)) {
+            $millionValue = (float) str_replace(',', '.', $matches[1]);
+
+            return $millionValue * 1000000;
+        }
+
+        return (float) preg_replace('/[^0-9]/', '', $normalized);
     }
 }

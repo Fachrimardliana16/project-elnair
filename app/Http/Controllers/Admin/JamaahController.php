@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\DepartureSchedule;
 use App\Models\Jamaah;
 use App\Models\Package;
+use App\Support\JamaahFileStorage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class JamaahController extends Controller
 {
@@ -30,13 +31,19 @@ class JamaahController extends Controller
         if ($hasFilters) {
             $query = Jamaah::with(['package', 'departureSchedule']);
 
-            if ($request->filled('search')) {
-                $search = $request->input('search');
-                $query->where(function ($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%")
-                        ->orWhere('whatsapp', 'like', "%{$search}%")
-                        ->orWhere('nik', 'like', "%{$search}%");
-                });
+            $search = trim((string) $request->input('search', ''));
+            $searchNeedsDecryptedFilter = false;
+            if ($search !== '') {
+                $digits = preg_replace('/[^0-9]/', '', $search);
+                if ($digits !== '' && strlen($digits) >= 8) {
+                    $normalizedPhone = Jamaah::normalizePhone($search);
+                    $query->where(function ($q) use ($digits, $normalizedPhone) {
+                        $q->where('nik_hash', Jamaah::hashField($digits))
+                            ->orWhere('whatsapp_hash', Jamaah::hashField($normalizedPhone));
+                    });
+                } else {
+                    $searchNeedsDecryptedFilter = true;
+                }
             }
 
             if ($request->filled('package_id')) {
@@ -51,7 +58,27 @@ class JamaahController extends Controller
                 $query->where('status', $request->input('status'));
             }
 
-            $jamaahs = $query->latest()->paginate(10)->withQueryString();
+            if ($searchNeedsDecryptedFilter) {
+                $matches = $query->latest()->limit(500)->get()->filter(function (Jamaah $jamaah) use ($search) {
+                    $needle = mb_strtolower($search);
+
+                    return str_contains(mb_strtolower((string) $jamaah->name), $needle)
+                        || str_contains(mb_strtolower((string) $jamaah->whatsapp), $needle)
+                        || str_contains(mb_strtolower((string) $jamaah->nik), $needle);
+                })->values();
+
+                $page = max(1, (int) $request->input('page', 1));
+                $perPage = 10;
+                $jamaahs = new LengthAwarePaginator(
+                    $matches->forPage($page, $perPage),
+                    $matches->count(),
+                    $perPage,
+                    $page,
+                    ['path' => route('admin.jamaahs.index'), 'query' => $request->query()]
+                );
+            } else {
+                $jamaahs = $query->latest()->paginate(10)->withQueryString();
+            }
         }
 
         return view('admin.jamaah.index', compact('jamaahs', 'packages', 'schedules', 'hasFilters'));
@@ -121,11 +148,9 @@ class JamaahController extends Controller
      */
     public function destroy(Jamaah $jamaah)
     {
-        $files = ['ktp_file', 'passport_file', 'kk_file', 'payment_proof_file'];
+        $files = ['ktp_file', 'passport_file', 'kk_file', 'vaccine_file', 'photo_file', 'payment_proof_file'];
         foreach ($files as $file) {
-            if ($jamaah->$file) {
-                Storage::disk('public')->delete($jamaah->$file);
-            }
+            JamaahFileStorage::delete($jamaah->{$file});
         }
         $jamaah->delete();
 

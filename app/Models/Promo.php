@@ -9,6 +9,21 @@ class Promo extends Model
 {
     use HasFactory;
 
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->image ? asset($this->publicPath($this->image)) : null;
+    }
+
+    public function getPdfUrlAttribute(): ?string
+    {
+        return $this->pdf_file ? asset($this->publicPath($this->pdf_file)) : null;
+    }
+
+    private function publicPath(string $path): string
+    {
+        return str_starts_with($path, 'storage/') ? $path : 'storage/'.$path;
+    }
+
     protected $fillable = [
         'title',
         'slug',

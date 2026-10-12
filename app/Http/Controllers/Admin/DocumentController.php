@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jamaah;
+use App\Support\JamaahFileStorage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -60,8 +61,8 @@ class DocumentController extends Controller
 
         foreach ($files as $file) {
             if ($request->hasFile($file)) {
-                $path = $request->file($file)->store('documents', 'public');
-                $updatedData[$file] = $path;
+                JamaahFileStorage::delete($jamaah->{$file});
+                $updatedData[$file] = JamaahFileStorage::store($request->file($file), 'documents');
             }
         }
 

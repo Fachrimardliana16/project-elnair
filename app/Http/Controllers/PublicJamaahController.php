@@ -6,6 +6,7 @@ use App\Models\DepartureSchedule;
 use App\Models\Jamaah;
 use App\Models\Package;
 use App\Models\SiteSetting;
+use App\Support\JamaahFileStorage;
 use Illuminate\Http\Request;
 
 class PublicJamaahController extends Controller
@@ -60,7 +61,7 @@ class PublicJamaahController extends Controller
         $files = ['ktp_file', 'passport_file', 'kk_file', 'payment_proof_file'];
         foreach ($files as $file) {
             if ($request->hasFile($file)) {
-                $data[$file] = $request->file($file)->store('jamaah_docs', 'public');
+                $data[$file] = JamaahFileStorage::store($request->file($file), 'registration');
             }
         }
 
@@ -75,6 +76,7 @@ class PublicJamaahController extends Controller
         }
 
         // Auto-login the newly registered Jemaah
+        $request->session()->regenerate();
         session(['jemaah_id' => $jamaah->id]);
 
         return redirect()->route('jemaah.dashboard')->with('success', 'Pendaftaran berhasil disubmit! Selamat datang di portal jemaah Anda.');

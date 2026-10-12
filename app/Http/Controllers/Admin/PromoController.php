@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Promo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PromoController extends Controller
@@ -38,13 +39,11 @@ class PromoController extends Controller
         $validated['sort_order'] = $request->input('sort_order', 0);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('promos', 'public');
-            $validated['image'] = 'storage/' . $path;
+            $validated['image'] = $request->file('image')->store('promos', 'public');
         }
 
         if ($request->hasFile('pdf_file')) {
-            $path = $request->file('pdf_file')->store('promos/pdf', 'public');
-            $validated['pdf_file'] = 'storage/' . $path;
+            $validated['pdf_file'] = $request->file('pdf_file')->store('promos/pdf', 'public');
         }
 
         Promo::create($validated);
@@ -74,13 +73,13 @@ class PromoController extends Controller
         $validated['sort_order'] = $request->input('sort_order', 0);
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('promos', 'public');
-            $validated['image'] = 'storage/' . $path;
+            $this->deleteStoredFile($promo->image);
+            $validated['image'] = $request->file('image')->store('promos', 'public');
         }
 
         if ($request->hasFile('pdf_file')) {
-            $path = $request->file('pdf_file')->store('promos/pdf', 'public');
-            $validated['pdf_file'] = 'storage/' . $path;
+            $this->deleteStoredFile($promo->pdf_file);
+            $validated['pdf_file'] = $request->file('pdf_file')->store('promos/pdf', 'public');
         }
 
         $promo->update($validated);
@@ -90,7 +89,23 @@ class PromoController extends Controller
 
     public function destroy(Promo $promo)
     {
+        $this->deleteStoredFile($promo->image);
+        $this->deleteStoredFile($promo->pdf_file);
         $promo->delete();
         return redirect()->route('admin.promos.index')->with('success', 'Promo / Offering berhasil dihapus!');
+    }
+
+    private function deleteStoredFile(?string $path): void
+    {
+        if (! $path) {
+            return;
+        }
+
+        $path = ltrim($path, '/');
+        if (str_starts_with($path, 'storage/')) {
+            $path = substr($path, 8);
+        }
+
+        Storage::disk('public')->delete($path);
     }
 }

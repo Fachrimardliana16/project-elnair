@@ -172,7 +172,7 @@
                                 </td>
                                 <td style="padding: 1.25rem 0.5rem; text-align: right;">
                                     @if($pm->payment_proof)
-                                        <a href="{{ asset('storage/' . $pm->payment_proof) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-weight: 700; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 4px;">
+                                        <a href="{{ route('jemaah.payments.proof', $pm->id) }}" target="_blank" style="color: var(--brand-gold); text-decoration: none; font-weight: 700; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 4px;">
                                             <i class="fas fa-image"></i> Lihat File
                                         </a>
                                     @else

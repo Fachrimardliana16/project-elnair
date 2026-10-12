@@ -10,6 +10,7 @@ use App\Models\Room;
 use App\Models\RoomMember;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 use Tests\TestCase;
@@ -31,7 +32,8 @@ class GroupManagementTest extends TestCase
         parent::setUp();
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $role = Role::create(['name' => 'admin', 'guard_name' => 'web']);
+        $role = Role::create(['name' => 'operasional', 'guard_name' => 'web']);
+        $role->givePermissionTo(Permission::firstOrCreate(['name' => 'manage_groups']));
         $this->admin = User::factory()->create();
         $this->admin->assignRole($role);
 

@@ -17,36 +17,26 @@
             </div>
         </div>
 
-        <!-- API Connection Diagnostics Console (NEW!) -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
             <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                <span style="font-size: 0.72rem; color: #64748b; font-weight: bold; display: block; text-transform: uppercase;"><i class="fas fa-heartbeat" style="color: #10b981;"></i> Status Server API</span>
+                <span style="font-size: 0.72rem; color: #64748b; font-weight: bold; display: block; text-transform: uppercase;"><i class="fas fa-network-wired" style="color: #10b981;"></i> Akun Aktif</span>
                 <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
-                    <span style="height: 10px; width: 10px; border-radius: 50%; background-color: #10b981; display: inline-block;"></span>
-                    <strong style="font-size: 0.95rem; color: #0f172a;">CONNECTED (Healthy)</strong>
+                    <strong style="font-size: 0.95rem; color: #0f172a;">{{ $adAccounts->where('is_active', true)->count() }} akun siap sinkron</strong>
                 </div>
-                <small style="color: #64748b; font-size: 0.72rem; display: block; margin-top: 5px;">Latency Rata-rata: <span style="font-family: monospace; font-weight: bold; color: #0d4c54;">114ms</span></small>
+                <small style="color: #64748b; font-size: 0.72rem; display: block; margin-top: 5px;">Sinkronisasi memakai akun yang aktif dan terhubung ke landing page.</small>
             </div>
-            
+
             <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                <span style="font-size: 0.72rem; color: #64748b; font-weight: bold; display: block; text-transform: uppercase;"><i class="fas fa-key" style="color: #3b82f6;"></i> Scope Permissions</span>
-                <div style="display: flex; align-items: center; gap: 4px; margin-top: 8px; flex-wrap: wrap;">
-                    <span style="background-color: #dbeafe; color: #1e40af; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; font-family: monospace;">ads_read</span>
-                    <span style="background-color: #dbeafe; color: #1e40af; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold; font-family: monospace;">ads_management</span>
-                </div>
-                <small style="color: #10b981; font-size: 0.72rem; display: block; margin-top: 5px; font-weight: bold;"><i class="fas fa-check-circle"></i> VERIFIED BY PLATFORM</small>
+                <span style="font-size: 0.72rem; color: #64748b; font-weight: bold; display: block; text-transform: uppercase;"><i class="fas fa-key" style="color: #3b82f6;"></i> Status Token</span>
+                <small style="color: #64748b; font-size: 0.72rem; display: block; margin-top: 5px;">Token tersimpan per akun. Sistem tidak menampilkan status validasi platform palsu.</small>
             </div>
-            
+
             <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                 <span style="font-size: 0.72rem; color: #64748b; font-weight: bold; display: block; text-transform: uppercase;"><i class="fas fa-clock" style="color: #f59e0b;"></i> Auto-Sync Scheduler</span>
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 5px;">
-                    <strong style="font-size: 0.95rem; color: #0f172a;">DAILY NIGHTLY (02:00)</strong>
-                    <label style="position: relative; display: inline-block; width: 34px; height: 20px;">
-                        <input type="checkbox" checked style="width: 100%; height: 100%; opacity: 0; position: absolute; z-index: 2; cursor: pointer;">
-                        <span style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: #10b981; border-radius: 34px;"></span>
-                    </label>
+                    <strong style="font-size: 0.95rem; color: #0f172a;">DAILY 00:05</strong>
                 </div>
-                <small style="color: #64748b; font-size: 0.72rem; display: block; margin-top: 5px;">Last sync: <span style="font-weight: bold;">Hari Ini, {{ now()->format('H:i') }}</span></small>
+                <small style="color: #64748b; font-size: 0.72rem; display: block; margin-top: 5px;">Jadwal command <code>ads:sync-metrics</code>.</small>
             </div>
         </div>
 

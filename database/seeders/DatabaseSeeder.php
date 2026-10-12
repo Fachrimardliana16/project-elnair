@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
             RolePermissionSeeder::class,
             LandingPageSeeder::class,
             PromoSeeder::class,
-            
+            WorkflowSeeder::class,
+            FaqSeeder::class,
+
         ]);
     }
 }

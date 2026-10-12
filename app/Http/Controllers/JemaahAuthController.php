@@ -54,6 +54,8 @@ class JemaahAuthController extends Controller
                 ->with('error', 'Nomor WhatsApp atau NIK tidak terdaftar. Pastikan data yang Anda masukkan sesuai saat mendaftar.');
         }
 
+        $request->session()->regenerate();
+
         // Store jemaah_id in session
         session(['jemaah_id' => $jemaah->id]);
 
@@ -66,9 +68,11 @@ class JemaahAuthController extends Controller
      *
      * @return RedirectResponse
      */
-    public function logout()
+    public function logout(Request $request)
     {
         session()->forget('jemaah_id');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect()->route('jemaah.login')
             ->with('success', 'Anda telah berhasil keluar dari portal jemaah.');
