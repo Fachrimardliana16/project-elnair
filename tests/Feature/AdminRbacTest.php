@@ -19,13 +19,43 @@ class AdminRbacTest extends TestCase
 
         app(PermissionRegistrar::class)->forgetCachedPermissions();
 
-        foreach (['manage_landing_pages', 'manage_payments', 'manage_users', 'view_logs'] as $permission) {
+        foreach (['manage_landing_pages', 'manage_payments', 'manage_users', 'view_logs', 'manage_promos', 'manage_workflows'] as $permission) {
             Permission::firstOrCreate(['name' => $permission]);
         }
 
         Role::firstOrCreate(['name' => 'sales'])->syncPermissions(['manage_landing_pages']);
         Role::firstOrCreate(['name' => 'finance'])->syncPermissions(['manage_payments']);
+        Role::firstOrCreate(['name' => 'marketing'])->syncPermissions(['manage_promos']);
+        Role::firstOrCreate(['name' => 'operasional'])->syncPermissions(['manage_workflows']);
+        Role::firstOrCreate(['name' => 'admin'])->syncPermissions(['manage_promos', 'manage_workflows']);
         Role::firstOrCreate(['name' => 'superadmin'])->syncPermissions(Permission::all());
+    }
+
+    public function test_marketing_can_access_promos_but_not_workflows(): void
+    {
+        $marketing = User::factory()->create();
+        $marketing->assignRole('marketing');
+
+        $this->actingAs($marketing)->get(route('admin.promos.index'))->assertOk();
+        $this->actingAs($marketing)->get(route('admin.workflows.index'))->assertForbidden();
+    }
+
+    public function test_operasional_can_access_workflows_but_not_promos(): void
+    {
+        $operasional = User::factory()->create();
+        $operasional->assignRole('operasional');
+
+        $this->actingAs($operasional)->get(route('admin.workflows.index'))->assertOk();
+        $this->actingAs($operasional)->get(route('admin.promos.index'))->assertForbidden();
+    }
+
+    public function test_admin_can_access_both_promos_and_workflows(): void
+    {
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        $this->actingAs($admin)->get(route('admin.promos.index'))->assertOk();
+        $this->actingAs($admin)->get(route('admin.workflows.index'))->assertOk();
     }
 
     public function test_sales_cannot_access_users_payments_or_logs(): void

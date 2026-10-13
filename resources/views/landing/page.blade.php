@@ -102,9 +102,13 @@
     body { font-family: 'Outfit', 'Outfit Fallback', sans-serif !important; }
     </style>
 
-    {{-- Load styles asynchronously --}}
-    <link rel="preload" href="{{ asset('assets/css/style.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"></noscript>
+    {{-- Load styles asynchronously with filemtime cache-busting --}}
+    @php
+        $pageStyleCssPath = public_path('assets/css/style.css');
+        $pageStyleCssVersion = file_exists($pageStyleCssPath) ? '?v=' . filemtime($pageStyleCssPath) : '';
+    @endphp
+    <link rel="preload" href="{{ asset('assets/css/style.css') }}{{ $pageStyleCssVersion }}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('assets/css/style.css') }}{{ $pageStyleCssVersion }}"></noscript>
 
     {{-- Load local self-hosted Font Awesome bundle asynchronously --}}
     <link rel="preload" href="{{ asset('assets/css/fa/fa-bundle.min.css') }}" as="style" onload="this.onload=null;this.rel='stylesheet'">

@@ -21,6 +21,8 @@
                         'manage_hero' => 'Hero Section',
                         'manage_features' => 'Keunggulan',
                         'manage_packages' => 'Paket Umrah/Haji',
+                        'manage_promos' => 'Promo & Offering',
+                        'manage_workflows' => 'Alur Kerja (Workflow)',
                         'manage_schedules' => 'Jadwal Keberangkatan',
                         'manage_guides' => 'Pembimbing',
                         'manage_testimonials' => 'Testimoni',

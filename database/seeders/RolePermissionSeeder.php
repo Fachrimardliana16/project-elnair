@@ -56,7 +56,12 @@ class RolePermissionSeeder extends Seeder
             'manage_hero',
             'manage_features',
             'manage_packages',
+            'manage_promos',
+            'manage_workflows',
+            'manage_schedules',
+            'manage_guides',
             'manage_testimonials',
+            'manage_faqs',
             'manage_settings',
             'manage_gallery',
             'manage_articles',
@@ -68,6 +73,7 @@ class RolePermissionSeeder extends Seeder
 
         $marketing = Role::firstOrCreate(['name' => 'marketing']);
         $marketing->syncPermissions([
+            'manage_promos',
             'manage_gallery',
             'manage_articles',
             'manage_ads',
@@ -84,6 +90,8 @@ class RolePermissionSeeder extends Seeder
         $operasional = Role::firstOrCreate(['name' => 'operasional']);
         $operasional->syncPermissions([
             'manage_packages',
+            'manage_workflows',
+            'manage_schedules',
             'manage_jamaahs',
             'manage_groups',
             'manage_documents',

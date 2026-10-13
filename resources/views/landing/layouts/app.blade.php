@@ -89,11 +89,14 @@
     .fas,.far,.fab,.fa-solid,.fa-regular,.fa-brands{display:inline-block;font-style:normal;font-variant:normal;line-height:1;text-rendering:auto}
     </style>
 
-    {{-- Full stylesheet: async (non-blocking) — CLS is 0 since 100dvh→100vh is fixed in both
-         inline critical CSS and style.css, so async loading is safe. Saves ~680ms FCP. --}}
-    <link rel="preload" href="{{ asset('assets/css/style.css') }}" as="style"
+    {{-- Full stylesheet: async (non-blocking) with filemtime cache-busting --}}
+    @php
+        $styleCssPath = public_path('assets/css/style.css');
+        $styleCssVersion = file_exists($styleCssPath) ? '?v=' . filemtime($styleCssPath) : '';
+    @endphp
+    <link rel="preload" href="{{ asset('assets/css/style.css') }}{{ $styleCssVersion }}" as="style"
           onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"></noscript>
+    <noscript><link rel="stylesheet" href="{{ asset('assets/css/style.css') }}{{ $styleCssVersion }}"></noscript>
 
     {{-- Font Awesome: Full bundle for dynamic admin icons --}}
     <link rel="preload" as="style"
