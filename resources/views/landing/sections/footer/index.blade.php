@@ -43,3 +43,64 @@
         </div>
     </div>
 </footer>
+
+<style>
+footer {
+    background: linear-gradient(180deg,#F5EDE5 0%,#E8D5C4 100%) !important;
+    border-top: 3px solid #C08261 !important;
+    color: #4A4A4A !important;
+    padding: 120px 0 60px;
+}
+footer h3, footer h4 {
+    color: #0D4C54 !important;
+    font-family: 'Playfair Display','Playfair Display Fallback',serif;
+    font-size: 1.4rem;
+    margin-bottom: 2.5rem;
+}
+footer ul {
+    list-style: none;
+}
+footer ul li {
+    margin-bottom: 1rem;
+}
+footer ul li a {
+    color: #666 !important;
+    text-decoration: none;
+    transition: var(--transition-elite);
+}
+footer ul li a:hover {
+    color: var(--brand-gold) !important;
+    padding-left: 10px;
+}
+.footer-bottom {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(139,94,60,0.2) !important;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #888 !important;
+}
+[data-theme="dark"] footer {
+    background: linear-gradient(180deg,#0C1517 0%,#0A1214 100%) !important;
+    color: #E2E8E9 !important;
+}
+[data-theme="dark"] footer h3, [data-theme="dark"] footer h4 {
+    color: var(--brand-teal) !important;
+}
+[data-theme="dark"] footer ul li a {
+    color: #aaa !important;
+}
+[data-theme="dark"] footer ul li a:hover {
+    color: var(--brand-gold) !important;
+}
+[data-theme="dark"] .footer-bottom {
+    border-top-color: rgba(123,191,200,0.2) !important;
+    color: #aaa !important;
+}
+@media (max-width: 768px) {
+    footer {
+        padding: 40px 0 20px !important;
+        height: auto !important;
+    }
+}
+</style>

@@ -47,7 +47,8 @@ echo "Current dir: " . getcwd() . "\n\n";
 
 // ── Step 1: Git Pull ────────────────────────────────────────────────────
 echo "=== STEP 1: git pull ===\n";
-passthru("git pull origin main 2>&1", $gitExitCode);
+$currentBranch = trim(shell_exec("git rev-parse --abbrev-ref HEAD 2>/dev/null") ?: 'develop');
+passthru("git pull origin $currentBranch 2>&1", $gitExitCode);
 echo "git pull exit code: " . $gitExitCode . "\n\n";
 
 // ── Step 1b: Storage Link ──────────────────────────────────────────────────
@@ -55,6 +56,15 @@ echo "=== STEP 1b: storage:link ===\n";
 $php = PHP_BINARY;
 passthru("$php artisan storage:link --force 2>&1", $storageLinkExitCode);
 echo "storage:link exit code: " . $storageLinkExitCode . "\n\n";
+
+// ── Step 1c: Sync Public Assets (Jika public_html terpisah dari root elnair) ──
+echo "=== STEP 1c: sync public assets ===\n";
+$localPublicAssets = $projectPath . '/public/assets';
+$webRootAssets = __DIR__ . '/assets';
+if (is_dir($localPublicAssets) && realpath($localPublicAssets) !== realpath($webRootAssets)) {
+    passthru("cp -rf $localPublicAssets/* $webRootAssets/ 2>&1", $syncExitCode);
+    echo "sync public assets exit code: " . $syncExitCode . "\n\n";
+}
 
 if (!file_exists('.env')) {
     if (!file_exists('.env.example')) {

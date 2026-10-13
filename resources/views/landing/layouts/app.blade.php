@@ -19,16 +19,19 @@
           media="(max-width: 768px)"
           fetchpriority="high">
 
-    {{-- Preload hero LCP image — responsive:
-         Mobile (≤768px): hero-premium-mobile.webp = 40 KiB (55% smaller)
-         Desktop (>768px): hero-premium.webp = 88 KiB
-         imagesrcset+media mirrors the <picture><source media> so the preload scanner
-         fetches EXACTLY the same image the browser will render — no wasted bandwidth. --}}
+    {{-- Preload hero LCP image (dynamic if admin uploaded, fallback to responsive default) --}}
     @if(Request::is('/'))
+    @php
+        $heroPreloadImg = (isset($hero) && $hero && $hero->background_image) ? asset($hero->background_image) : null;
+    @endphp
+    @if($heroPreloadImg)
+    <link rel="preload" as="image" href="{{ $heroPreloadImg }}" fetchpriority="high">
+    @else
     <link rel="preload" as="image"
           imagesrcset="{{ asset('assets/img/hero-premium-mobile.webp') }} 768w, {{ asset('assets/img/hero-premium.webp') }} 1024w"
           imagesizes="(max-width: 768px) 100vw, 100vw"
           fetchpriority="high">
+    @endif
     @endif
 
     {{-- Preload self-hosted fonts (same-origin = no cross-origin DNS penalty, no GDPR 3rd-party request)
