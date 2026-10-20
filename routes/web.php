@@ -47,6 +47,7 @@ Route::get('/p/{slug}/whatsapp-redirect', [PublicLandingPageController::class, '
 Route::post('/p/{slug}/lead', [PublicLandingPageController::class, 'storeLead'])->middleware('throttle:5,1')->name('landing.store-lead');
 Route::get('/paket', \App\Livewire\Landing\Paket::class)->name('paket.index');
 Route::get('/paket/{slug}', [PublicPackageController::class, 'show'])->name('paket.show');
+Route::get('/paket/{slug}/download-flyer', [PublicPackageController::class, 'downloadFlyer'])->name('paket.download_flyer');
 Route::get('/gallery', \App\Livewire\Landing\GalleryPage::class)->name('gallery.index');
 Route::get('/jadwal', [App\Http\Controllers\PublicScheduleController::class, 'index'])->name('jadwal.index');
 Route::get('/jadwal/{id}', [App\Http\Controllers\PublicScheduleController::class, 'show'])->name('jadwal.show');
@@ -79,6 +80,7 @@ Route::name('admin.')->prefix('admin')->group(function () {
 
         Route::resource('guides', GuideController::class)->middleware('permission:manage_guides')->names('guides');
         Route::resource('features', FeatureController::class)->middleware('permission:manage_features')->names('features');
+        Route::delete('packages/{package}/file/{type}', [PackageController::class, 'deleteFile'])->middleware('permission:manage_packages')->name('packages.delete_file');
         Route::resource('packages', PackageController::class)->middleware('permission:manage_packages')->names('packages');
         Route::resource('promos', PromoController::class)->middleware('permission:manage_promos')->names('promos');
         Route::resource('workflows', WorkflowController::class)->middleware('permission:manage_workflows')->names('workflows');

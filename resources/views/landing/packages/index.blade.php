@@ -16,7 +16,11 @@
         <div class="pkg-grid-responsive" style="display: grid; gap: 2rem; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
             @forelse($packages as $pkg)
             <div class="pkg-card reveal" style="border-radius: 1.25rem; overflow: hidden; background: var(--card-bg, #fff); box-shadow: 0 8px 30px rgba(0,0,0,0.07); display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-                <div class="pkg-img-box" style="position: relative; overflow: hidden; aspect-ratio: 4/3;">
+                @php
+                    $flyerImg = $pkg->flyer_pdf ? asset($pkg->flyer_pdf) : asset($pkg->image ?? '');
+                    $downloadFlyerUrl = route('paket.download_flyer', $pkg->slug);
+                @endphp
+                <div class="pkg-img-box" style="position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer;" onclick="if(window.openImageModal){window.openImageModal('{{ $flyerImg }}', '{{ $downloadFlyerUrl }}');}else{window.dispatchEvent(new CustomEvent('open-image-modal', { detail: { url: '{{ $flyerImg }}', downloadUrl: '{{ $downloadFlyerUrl }}' } }));}" title="Klik untuk melihat Flyer Full Page">
                     <div class="pkg-img" style="
                         background-image: url('{{ str_starts_with($pkg->image ?? '', 'http') ? $pkg->image : asset($pkg->image ?? '') }}');
                         background-size: cover;
@@ -24,6 +28,9 @@
                         position: absolute; inset: 0;
                     "></div>
                     <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%);pointer-events:none;"></div>
+                    <div style="position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                        <i class="fas fa-expand"></i> Flyer Full Page
+                    </div>
                     <div class="pkg-price-tag" style="
                         position: absolute; bottom: 1rem; left: 1rem;
                         background: var(--brand-dark); color: white;

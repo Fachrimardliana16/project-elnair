@@ -83,14 +83,17 @@
                     @php
                         $flyerUrl = $package->flyer_pdf ? asset($package->flyer_pdf) : asset($package->image);
                         $isFlyerPdf = str_ends_with(strtolower($package->flyer_pdf ?? ''), '.pdf');
+                        $downloadFlyerUrl = route('paket.download_flyer', $package->slug);
                     @endphp
                     <div style="margin-bottom: 1.5rem; background: rgba(255,255,255,0.08); padding: 1.2rem; border-radius: 15px; border: 1px dashed rgba(255,255,255,0.2); text-align: center;">
                         <h4 style="font-size: 0.95rem; color: var(--brand-gold); margin-bottom: 0.8rem;"><i class="fas fa-file-image"></i> Flyer Resmi Paket</h4>
                         @if(!$isFlyerPdf)
-                            <div onclick="window.dispatchEvent(new CustomEvent('open-image-modal', { detail: { url: '{{ $flyerUrl }}' } }))" style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden; max-height: 200px;">
-                                <img src="{{ $flyerUrl }}" alt="Flyer {{ $package->title }}" style="width: 100%; height: auto; object-fit: cover;">
-                                <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.85rem; opacity: 0; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
-                                    <i class="fas fa-search-plus" style="margin-right: 6px;"></i> Klik Full Page
+                            <div class="flyer-preview-card" onclick="if(window.openImageModal){window.openImageModal('{{ $flyerUrl }}', '{{ $downloadFlyerUrl }}');}else{window.dispatchEvent(new CustomEvent('open-image-modal', { detail: { url: '{{ $flyerUrl }}', downloadUrl: '{{ $downloadFlyerUrl }}' } }));}" style="cursor: pointer; position: relative; border-radius: 10px; overflow: hidden; max-height: 220px; box-shadow: 0 6px 20px rgba(0,0,0,0.15);" title="Klik untuk melihat Flyer Full Page">
+                                <img src="{{ $flyerUrl }}" alt="Flyer {{ $package->title }}" style="width: 100%; height: auto; object-fit: cover; display: block;">
+                                <div class="flyer-hover-overlay" style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.9rem; transition: opacity 0.25s; backdrop-filter: blur(2px);">
+                                    <span style="background: rgba(13, 76, 84, 0.85); color: #fff; padding: 8px 18px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.5); display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                                        <i class="fas fa-search-plus"></i> Klik Full Page
+                                    </span>
                                 </div>
                             </div>
                         @else
@@ -101,15 +104,14 @@
                     {{-- Download Buttons --}}
                     @php
                         $itineraryPdfUrl = $package->itinerary_pdf ? asset($package->itinerary_pdf) : asset('assets/docs/itinerary-haji-umrah.pdf');
-                        $flyerPdfUrl = $package->flyer_pdf ? asset($package->flyer_pdf) : asset('assets/docs/flyer-paket-elnair.pdf');
                     @endphp
                     <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
                         <a href="{{ $itineraryPdfUrl }}" download target="_blank" class="btn btn-outline" style="width: 100%; justify-content: center; padding: 0.85rem; font-size: 0.84rem; border-color: rgba(255,255,255,0.4); font-weight: 700;">
                             <i class="fas fa-file-pdf" style="margin-right: 8px; color: #e74c3c;"></i> Download Itinerary (PDF)
                         </a>
 
-                        <a href="{{ $flyerPdfUrl }}" download target="_blank" class="btn btn-outline" style="width: 100%; justify-content: center; padding: 0.85rem; font-size: 0.84rem; border-color: rgba(255,255,255,0.4); font-weight: 700;">
-                            <i class="fas fa-file-download" style="margin-right: 8px; color: var(--brand-gold);"></i> Download Flyer Paket (PDF)
+                        <a href="{{ $downloadFlyerUrl }}" class="btn btn-outline" style="width: 100%; justify-content: center; padding: 0.85rem; font-size: 0.84rem; border-color: rgba(255,255,255,0.4); font-weight: 700;">
+                            <i class="fas fa-file-download" style="margin-right: 8px; color: var(--brand-gold);"></i> Download Flyer Paket
                         </a>
                     </div>
 
@@ -136,6 +138,18 @@
 
     [data-theme="dark"] .package-detail-text {
         color: var(--text-dark) !important;
+    }
+
+    .flyer-hover-overlay {
+        opacity: 0;
+    }
+    .flyer-preview-card:hover .flyer-hover-overlay {
+        opacity: 1;
+    }
+    @media (hover: none) {
+        .flyer-hover-overlay {
+            opacity: 0.9 !important;
+        }
     }
 
     @media (max-width: 768px) {

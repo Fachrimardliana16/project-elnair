@@ -25,8 +25,9 @@
                 {{-- Image box with locked 4:3 aspect ratio to prevent Cumulative Layout Shift --}}
                 @php
                     $flyerImg = $pkg->flyer_pdf ? asset($pkg->flyer_pdf) : asset($pkg->image ?? '');
+                    $downloadFlyerUrl = route('paket.download_flyer', $pkg->slug);
                 @endphp
-                <div class="pkg-img-box" style="position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer;" onclick="window.dispatchEvent(new CustomEvent('open-image-modal', { detail: { url: '{{ $flyerImg }}' } }))" title="Klik untuk melihat Flyer Full Page">
+                <div class="pkg-img-box" style="position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer;" onclick="if(window.openImageModal){window.openImageModal('{{ $flyerImg }}', '{{ $downloadFlyerUrl }}');}else{window.dispatchEvent(new CustomEvent('open-image-modal', { detail: { url: '{{ $flyerImg }}', downloadUrl: '{{ $downloadFlyerUrl }}' } }));}" title="Klik untuk melihat Flyer Full Page">
                     <div class="pkg-img" style="
                         background-image: url('{{ str_starts_with($pkg->image ?? '', 'http') ? $pkg->image : asset($pkg->image ?? '') }}');
                         background-size: cover;

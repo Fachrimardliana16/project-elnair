@@ -28,8 +28,8 @@ class PromoController extends Controller
             'badge' => 'nullable|string|max:100',
             'description' => 'nullable|string',
             'details' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120',
-            'pdf_file' => 'nullable|file|mimes:pdf|max:10240',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif',
+            'pdf_file' => 'nullable|file|mimes:pdf',
             'sort_order' => 'nullable|integer',
             'is_active' => 'nullable|boolean',
         ]);
@@ -63,8 +63,8 @@ class PromoController extends Controller
             'badge' => 'nullable|string|max:100',
             'description' => 'nullable|string',
             'details' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:5120',
-            'pdf_file' => 'nullable|file|mimes:pdf|max:10240',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp,gif',
+            'pdf_file' => 'nullable|file|mimes:pdf',
             'sort_order' => 'nullable|integer',
             'is_active' => 'nullable|boolean',
         ]);

@@ -18,9 +18,11 @@ class UpdatePackageRequest extends FormRequest
             'price_label'  => 'required|string|max:50',
             'price_value'  => 'required|string|max:100',
             'description'  => 'required|string|max:5000',
-            'image'        => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'itinerary_pdf'=> 'nullable|file|mimes:pdf|max:10240',
-            'flyer_pdf'    => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:10240',
+            'image'        => 'nullable|image|mimes:jpg,jpeg,png,webp',
+            'itinerary_pdf'=> 'nullable|file|mimes:pdf',
+            'flyer_pdf'    => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'delete_itinerary_pdf' => 'nullable|boolean',
+            'delete_flyer_pdf'     => 'nullable|boolean',
             'itinerary'    => 'nullable|string|max:10000',
             'hotel_makkah' => 'nullable|string|max:255',
             'hotel_madinah'=> 'nullable|string|max:255',
@@ -38,9 +40,10 @@ class UpdatePackageRequest extends FormRequest
             'price_label.required' => 'Label harga wajib diisi.',
             'price_value.required' => 'Nilai harga wajib diisi.',
             'description.required' => 'Deskripsi paket wajib diisi.',
-            'image.image'          => 'File harus berupa gambar (JPG, PNG, atau WebP).',
-            'image.mimes'          => 'Format gambar hanya boleh JPG, JPEG, PNG, atau WebP.',
-            'image.max'            => 'Ukuran gambar maksimal 2MB.',
+            'image.image'          => 'File thumbnail harus berupa gambar (JPG, PNG, atau WebP).',
+            'image.mimes'          => 'Format gambar thumbnail hanya boleh JPG, JPEG, PNG, atau WebP.',
+            'itinerary_pdf.mimes'  => 'Format file Itinerary harus berupa PDF.',
+            'flyer_pdf.mimes'      => 'Format file Flyer harus berupa PDF, JPG, JPEG, PNG, atau WebP.',
         ];
     }
 }

@@ -31,4 +31,74 @@ class PublicPackageController extends Controller
 
         return view('landing.packages.show', compact('package', 'settings', 'page_title', 'meta_description'));
     }
+
+    public function downloadFlyer($slug)
+    {
+        $package = Package::where('slug', $slug)->firstOrFail();
+
+        $filePath = $package->flyer_pdf ?: $package->image;
+        if (!$filePath) {
+            abort(404, 'Flyer paket tidak ditemukan.');
+        }
+
+        $filePath = ltrim($filePath, '/');
+
+        if (str_starts_with($filePath, 'storage/')) {
+            $fullPath = storage_path('app/public/' . substr($filePath, 8));
+        } else {
+            $fullPath = public_path($filePath);
+        }
+
+        if (!file_exists($fullPath)) {
+            abort(404, 'File flyer tidak ditemukan di server.');
+        }
+
+        $cleanTitle = \Illuminate\Support\Str::slug($package->title);
+
+        // Jika dokumen PDF, unduh langsung sebagai file PDF
+        if (str_ends_with(strtolower($filePath), '.pdf')) {
+            return response()->download($fullPath, 'Flyer-' . $cleanTitle . '.pdf', [
+                'Content-Type' => 'application/pdf',
+            ]);
+        }
+
+        // Deteksi format asli: jika PNG maka konversi ke PNG, selain itu kembalikan ke JPG
+        $isPng = str_contains(strtolower($filePath), 'orig-png') || str_ends_with(strtolower($filePath), '.png');
+
+        if (str_ends_with(strtolower($filePath), '.webp') && function_exists('imagecreatefromwebp')) {
+            @ini_set('memory_limit', '512M');
+            $img = @imagecreatefromwebp($fullPath);
+            if ($img) {
+                if ($isPng) {
+                    imagepalettetotruecolor($img);
+                    imagealphablending($img, true);
+                    imagesavealpha($img, true);
+                    return response()->streamDownload(function () use ($img) {
+                        imagepng($img, null, 9);
+                        imagedestroy($img);
+                    }, 'Flyer-' . $cleanTitle . '.png', [
+                        'Content-Type' => 'image/png',
+                    ]);
+                } else {
+                    $w = imagesx($img);
+                    $h = imagesy($img);
+                    $canvas = imagecreatetruecolor($w, $h);
+                    $white = imagecolorallocate($canvas, 255, 255, 255);
+                    imagefill($canvas, 0, 0, $white);
+                    imagecopy($canvas, $img, 0, 0, 0, 0, $w, $h);
+                    imagedestroy($img);
+
+                    return response()->streamDownload(function () use ($canvas) {
+                        imagejpeg($canvas, null, 95);
+                        imagedestroy($canvas);
+                    }, 'Flyer-' . $cleanTitle . '.jpg', [
+                        'Content-Type' => 'image/jpeg',
+                    ]);
+                }
+            }
+        }
+
+        $ext = pathinfo($fullPath, PATHINFO_EXTENSION);
+        return response()->download($fullPath, 'Flyer-' . $cleanTitle . '.' . $ext);
+    }
 }

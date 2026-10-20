@@ -30,10 +30,13 @@
             @error('description') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
         </div>
         <div class="form-group">
-            <label>Package Image <span style="color:#dc3545;">*</span></label>
-            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/*" required>
+            <label>Package Image (Thumbnail) <span style="color:#dc3545;">*</span></label>
+            <input type="file" name="image" id="input_pkg_image" class="form-control @error('image') is-invalid @enderror" accept="image/*" required onchange="previewImage(this, 'preview_pkg_image')">
             @error('image') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
-            <small style="color:#888; font-size:0.8rem;">Format: JPG, PNG, WebP. Maks: 2MB</small>
+            <small style="color:#888; font-size:0.8rem;">Format: JPG, PNG, WebP. Ukuran file bebas (akan otomatis dikompres & dioptimasi di latar belakang).</small>
+            <div id="preview_pkg_image" style="margin-top: 0.6rem; display: none;">
+                <img src="" style="max-height: 120px; border-radius: 8px; border: 1px solid #ddd; object-fit: cover;">
+            </div>
         </div>
         <div class="grid-2" style="gap: 1rem;">
             <div class="form-group">
@@ -65,16 +68,18 @@
 
         <div class="grid-2" style="gap: 1rem;">
             <div class="form-group">
-                <label>Upload File Itinerary (PDF)</label>
-                <input type="file" name="itinerary_pdf" class="form-control @error('itinerary_pdf') is-invalid @enderror" accept=".pdf">
-                <small style="color:#888; font-size:0.8rem;">File PDF Itinerary lengkap untuk diunduh pengunjung website.</small>
+                <label>Upload File Itinerary (PDF) <span style="color:#dc3545;">*</span></label>
+                <input type="file" name="itinerary_pdf" id="input_itinerary" class="form-control @error('itinerary_pdf') is-invalid @enderror" accept=".pdf" required onchange="previewPdfFile(this, 'preview_itinerary_info')">
+                <small style="color:#888; font-size:0.8rem;">File PDF Itinerary lengkap untuk diunduh pengunjung website (Ukuran bebas).</small>
                 @error('itinerary_pdf') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                <div id="preview_itinerary_info" style="margin-top: 0.5rem; display: none; font-size: 0.82rem; color: #27ae60; font-weight: 500;"></div>
             </div>
             <div class="form-group">
-                <label>Upload File Flyer Paket (PDF / Gambar High-Res)</label>
-                <input type="file" name="flyer_pdf" class="form-control @error('flyer_pdf') is-invalid @enderror" accept=".pdf,image/*">
-                <small style="color:#888; font-size:0.8rem;">Flyer resmi paket yang dapat dilihat full page & diunduh pengunjung.</small>
+                <label>Upload File Flyer Paket (PDF / Gambar) <span style="color:#dc3545;">*</span></label>
+                <input type="file" name="flyer_pdf" id="input_flyer" class="form-control @error('flyer_pdf') is-invalid @enderror" accept=".pdf,image/*" required onchange="previewFlyerFile(this)">
+                <small style="color:#888; font-size:0.8rem;">Flyer resmi paket (PDF / Gambar, Ukuran bebas). Gambar akan otomatis dikompres di latar belakang.</small>
                 @error('flyer_pdf') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                <div id="preview_flyer_box" style="margin-top: 0.5rem; display: none;"></div>
             </div>
         </div>
         <div class="form-group">
@@ -89,4 +94,57 @@
         </div>
     </form>
 </div>
+
+<script>
+function previewImage(input, previewId) {
+    var container = document.getElementById(previewId);
+    if (!container) return;
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            container.querySelector('img').src = e.target.result;
+            container.style.display = 'block';
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        container.style.display = 'none';
+    }
+}
+
+function previewPdfFile(input, infoId) {
+    var info = document.getElementById(infoId);
+    if (!info) return;
+    if (input.files && input.files[0]) {
+        var file = input.files[0];
+        var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        info.innerHTML = '<i class="fas fa-file-pdf" style="color:#e74c3c;"></i> File dipilih: <strong>' + file.name + '</strong> (' + sizeMB + ' MB)';
+        info.style.display = 'block';
+    } else {
+        info.style.display = 'none';
+    }
+}
+
+function previewFlyerFile(input) {
+    var box = document.getElementById('preview_flyer_box');
+    if (!box) return;
+    if (input.files && input.files[0]) {
+        var file = input.files[0];
+        var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+        if (file.type.startsWith('image/')) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                box.innerHTML = '<div style="font-size:0.82rem; color:#27ae60; margin-bottom:4px;"><i class="fas fa-check-circle"></i> Gambar dipilih (' + sizeMB + ' MB - akan otomatis dikompres):</div>' +
+                                '<img src="' + e.target.result + '" style="max-height: 140px; border-radius: 6px; border: 1px solid #ddd; object-fit: contain; background: #fff; padding: 2px;">';
+                box.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            box.innerHTML = '<div style="font-size:0.82rem; color:#27ae60;"><i class="fas fa-file-pdf" style="color:#e74c3c;"></i> PDF dipilih: <strong>' + file.name + '</strong> (' + sizeMB + ' MB)</div>';
+            box.style.display = 'block';
+        }
+    } else {
+        box.style.display = 'none';
+    }
+}
+</script>
 @endsection
